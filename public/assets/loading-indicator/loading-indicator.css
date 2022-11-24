@@ -1,0 +1,32 @@
+.loading-indicator {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.loading-indicator[visible='true'] {
+    display: flex;
+    pointer-events: all;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: all 0.1s;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.loading-indicator > svg {
+    display: none;
+}
+.loading-indicator[visible='true'] > svg {
+    display: block;
+}
