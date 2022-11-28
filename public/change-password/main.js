@@ -5,7 +5,6 @@ window.addEventListener('load', () => {
     const loading = LoadingIndicator.init();
     const elements = {
         form: document.getElementById('page-form'),
-        loadingIndicator: document.getElementsByClassName('loading-indicator')[0],
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],
         formSuccessMessage: document.getElementsByClassName('form-success-message')[0],
         debug: document.getElementById('debug')
@@ -20,8 +19,7 @@ window.addEventListener('load', () => {
             elements.formSuccessMessage.hidden = true;
             elements.formErrorMessage.hidden = true;
             event.preventDefault();
-            loading.show();
-            await loading.wait(1000);
+            await loading.show();
 
             const { newPassword, oldPassword, repeatNewPassword } = formDataToJson(new FormData(elements.form));
 
@@ -35,8 +33,13 @@ window.addEventListener('load', () => {
             //     newPassword,
             //     oldPassword
             // });
-            const error = null;
-            const body = { message: 'Password reset successfully!' };
+
+            const { body, error } = {
+                body: {
+                    message: 'Password reset successfully.'
+                },
+                error: null
+            };
 
             if (error) {
                 elements.formSuccessMessage.hidden = true;

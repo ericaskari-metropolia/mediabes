@@ -16,12 +16,13 @@ export class LoadingIndicator {
         return new LoadingIndicator();
     };
 
-    show = () => {
+    show = async () => {
         const elements = document.getElementsByClassName('loading-indicator');
         if (elements.length > 0) {
             const el = elements[0];
             el.setAttribute('visible', 'true');
         }
+        await this.wait(1000);
     };
 
     hide = () => {

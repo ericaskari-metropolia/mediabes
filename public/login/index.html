@@ -9,11 +9,65 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <script type="module" src="main.js"></script>
         <link rel="stylesheet" href="style.css" />
-        <title>Document</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href="/styles/form.css" />
+        <link rel="stylesheet" href="/styles/utilities.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+        <title>Login</title>
     </head>
     <body>
-        LOGIN PAGE
-        <a href="/register/">GO TO REGISTER</a>
-        <a href="/">GO TO HOME</a>
+        <div>
+            <div class="flex justify-center logo-wrap">
+                <img src="/logo-512x512.png" alt="Logo" class="logo" />
+            </div>
+
+            <div class="flex justify-center">
+                <h3>Login</h3>
+            </div>
+
+            <form id="page-form">
+                <div>
+                    <label for="username">Email</label>
+                    <input
+                        id="username"
+                        autocomplete="username"
+                        name="username"
+                        required
+                        type="email"
+                        placeholder="Email"
+                        value="test@test.com"
+                    />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input
+                        id="password"
+                        autocomplete="current-password"
+                        required
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value="test123"
+                    />
+                </div>
+                <div class="form-messages">
+                    <p class="form-error-message" hidden>Message</p>
+                    <p class="form-success-message" hidden>Message</p>
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+                <div class="flex flex-column gap-2 justify-center">
+                    <span class="text-center">Not a member yet?</span>
+                    <a class="text-center" href="/register/">Register</a>
+                </div>
+            </form>
+            <div>
+                <code>
+                    <pre id="debug" hidden></pre>
+                </code>
+            </div>
+        </div>
     </body>
 </html>
