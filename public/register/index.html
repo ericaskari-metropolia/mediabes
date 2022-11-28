@@ -9,11 +9,96 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <script type="module" src="main.js"></script>
         <link rel="stylesheet" href="style.css" />
-        <title>Document</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href="/styles/form.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+        <title>Register</title>
     </head>
     <body>
-        REGISTER PAGE
-        <a href="/login/">GO TO LOGIN</a>
-        <a href="/">GO TO HOME</a>
+        <div>
+            <div class="flex justify-center logo-wrap">
+                <img src="/logo-512x512.png" alt="Logo" class="logo" />
+            </div>
+
+            <div class="flex justify-center">
+                <h3>Register</h3>
+            </div>
+
+            <form id="page-form">
+                <div>
+                    <label for="email">Name</label>
+                    <input
+                        id="name"
+                        autocomplete="name"
+                        name="name"
+                        required
+                        type="text"
+                        placeholder="Name"
+                        value="Joe Something"
+                    />
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input
+                        id="email"
+                        autocomplete="email"
+                        name="email"
+                        required
+                        type="email"
+                        placeholder="Email"
+                        value="test@test.com"
+                    />
+                </div>
+                <div>
+                    <label for="username">Username</label>
+                    <input
+                        id="username"
+                        autocomplete="username"
+                        name="username"
+                        required
+                        type="text"
+                        placeholder="Email"
+                        value="test123"
+                    />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input
+                        id="password"
+                        autocomplete="new-password"
+                        required
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value="test123"
+                    />
+                </div>
+                <div>
+                    <label for="password">Repeat Password</label>
+                    <input
+                        id="repeat-password"
+                        autocomplete="new-password"
+                        required
+                        name="repeatPassword"
+                        type="password"
+                        placeholder="Repeat Password"
+                        value="test123"
+                    />
+                </div>
+                <div class="form-messages">
+                    <p class="form-error-message" hidden>Message</p>
+                    <p class="form-success-message" hidden>Message</p>
+                </div>
+                <div>
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+            <div>
+                <code>
+                    <pre id="debug" hidden></pre>
+                </code>
+            </div>
+        </div>
     </body>
 </html>

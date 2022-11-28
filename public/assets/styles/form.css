@@ -1,0 +1,90 @@
+:root {
+    --input-border-color: #c7c7c7;
+    --input-border-color-hover: #919191;
+    --input-border-color-active: #797979;
+    --input-border-color-focus-visible: #757575;
+    --input-text-color: #c7c7c7;
+    --input-label-text-color: #7e7e7e;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+form > div > label:first-child {
+    font-size: 0.7rem;
+    color: var(--input-label-text-color);
+}
+form > div > input[type='text'],
+form > div > input[type='email'],
+form > div > input[type='password'],
+form > div > input[type='newpassword'] {
+    transition: all 0.3s;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    outline: none;
+
+    color: var(--input-label-text-color);
+    border: 2px solid var(--input-border-color);
+}
+
+form > div > input:hover[type='text'],
+form > div > input:hover[type='email'],
+form > div > input:hover[type='password'],
+form > div > input:hover[type='newpassword'] {
+    border: 2px solid var(--input-border-color-hover);
+}
+
+form > div > input:active[type='text'],
+form > div > input:active[type='email'],
+form > div > input:active[type='password'],
+form > div > input:active[type='newpassword'] {
+    border: 2px solid var(--input-border-color-active);
+}
+
+form > div > input:focus-visible[type='text'],
+form > div > input:focus-visible[type='email'],
+form > div > input:focus-visible[type='password'],
+form > div > input:focus-visible[type='newpassword'] {
+    border: 2px solid var(--input-border-color-focus-visible);
+}
+
+form > div > button {
+    transition: all 0.3s;
+    padding: 0.7rem 1.2rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #808080;
+    color: white;
+    cursor: pointer;
+}
+
+form > div > button:hover {
+    background-color: #999999;
+}
+
+.form-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-error-message {
+    margin: 0;
+
+    background: rgba(201, 0, 0, 0.6);
+    padding: 1rem;
+    color: white;
+    border-radius: 1rem;
+}
+
+.form-success-message {
+    margin: 0;
+
+    background: rgba(0, 138, 36, 0.6);
+    padding: 1rem;
+    color: white;
+    border-radius: 1rem;
+}
