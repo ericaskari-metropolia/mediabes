@@ -22,10 +22,3 @@ body > div {
     object-fit: contain;
     max-width: 200px;
 }
-
-.flex {
-    display: flex;
-}
-.justify-center {
-    justify-content: center;
-}
