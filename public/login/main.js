@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
                 body: {
                     accessToken: '123',
                     user: { id: 1, name: 'User' },
-                    expiresAt: Date.now() + 300 * 1000,
+                    expiresAt: Date.now() + 1000 * 1000,
                     message: 'Logged in successfully! You will be redirected to home page soon.'
                 },
                 error: null

@@ -1,5 +1,7 @@
 :root {
-    --bg-color: #f2f0f0;
+    --bg-color: #ffffff;
+    --text-color: #007dff;
+    --bg-primary-color: #00b7ff;
 }
 
 html,
@@ -53,4 +55,16 @@ body > div {
 }
 .bottom-header > div > span {
     font-size: 0.6rem;
+}
+
+.content {
+    max-width: var(--lg);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+#card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
