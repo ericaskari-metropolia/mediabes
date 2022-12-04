@@ -5,13 +5,10 @@ import { defineConfig, loadEnv } from 'vite';
 const publicDir = path.resolve(__dirname, 'public');
 const publicFileAndFolders = fs
     .readdirSync(publicDir, { withFileTypes: true })
-    .filter((x) => x.name !== 'assets' && x.name !== 'shared')
+    .filter((x) => x.name !== 'assets' && x.name !== 'shared' && x.name !== 'components')
     .filter((x) => x.isDirectory())
     .map((x) => [x.name, path.resolve(publicDir, x.name)])
-    .reduce(
-        (prev, [key, dirPath]) => ({ ...prev, [key]: `${dirPath}/index.html` }),
-        {}
-    );
+    .reduce((prev, [key, dirPath]) => ({ ...prev, [key]: `${dirPath}/index.html` }), {});
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig(({ command, mode }) => {

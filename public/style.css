@@ -63,73 +63,35 @@ body > div {
     padding: 1rem;
 }
 
-.card {
-    position: relative;
+#card-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 0.5rem 1rem;
+}
+.card-comment {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
-.card-image-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.card-image {
-    object-fit: contain;
-    max-height: 40vh;
-    height: 300px;
-    max-width: 100%;
-}
-
-.card-panel-text {
-    padding: 1rem 0;
-    align-self: center;
-    font-weight: lighter;
-    font-size: 0.9rem;
-}
-.card-panel {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    color: var(--text-color);
-}
-.card-panel-buy,
-.card-panel-likes {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 0 1rem;
-}
-.card-panel-buy > button {
-    color: var(--text-color);
-    border: 1px solid var(--text-color);
-    border-radius: 10rem;
-    padding: 0.5rem 1rem;
-}
-.card-profile {
+.card-comment-profile {
     padding: 0.5rem;
     border-radius: 1rem;
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
+    align-items: center;
 }
-.card-profile-image {
-    width: 4rem;
-    height: 4rem;
+
+.card-comment-profile-image {
+    width: 2rem;
+    height: 2rem;
     object-fit: cover;
     border-radius: 50%;
 }
-.card-profile-info-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.2rem;
-    padding: 0.2rem;
-}
-.card-profile-info-wrap > small:last-child {
-    color: rgba(0, 0, 0, 0.5);
+
+.card-comment-profile-info-wrap {
+    font-size: 0.7rem;
+    font-weight: bold;
 }
