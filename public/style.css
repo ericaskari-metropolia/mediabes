@@ -68,30 +68,3 @@ body > div {
     flex-direction: column;
     gap: 1rem;
 }
-.card-comment {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-.card-comment-profile {
-    padding: 0.5rem;
-    border-radius: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-}
-
-.card-comment-profile-image {
-    width: 2rem;
-    height: 2rem;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.card-comment-profile-info-wrap {
-    font-size: 0.7rem;
-    font-weight: bold;
-}

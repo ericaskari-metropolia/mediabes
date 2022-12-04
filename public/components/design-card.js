@@ -37,17 +37,28 @@ template.innerHTML = `
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
+    
     .card-image-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        position: relative;
+        justify-self: center;
+        align-self: center;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    
+    /*https://spin.atomicobject.com/2015/07/14/css-responsive-square/*/
+    .card-image-wrap:after {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
     }
     
     .card-image {
-        object-fit: contain;
-        max-height: 40vh;
-        height: 300px;
-        max-width: 100%;
+        object-fit: cover;
+        position: absolute;
+        width: 100%;
+        height: 100%;
     }
     
     .card-panel-text {
@@ -70,7 +81,8 @@ template.innerHTML = `
         gap: 1.5rem;
         padding: 0 1rem;
     }
-    .card-panel-likes > div {
+    .card-panel-likes > div, 
+    .card-panel-buy > div{
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -235,13 +247,16 @@ export class DesignCard extends HTMLElement {
     // noinspection JSUnusedGlobalSymbols
     connectedCallback() {
         this.elements.commentButton().addEventListener('click', () => {
-            window?.appClickListeners?.[this.appAttributes.onCommentClickListenerId.getValue()]();
+            window?.appClickListeners?.[this.appAttributes.onCommentClickListenerId.getValue()](this);
         });
         this.elements.heartButton().addEventListener('click', () => {
-            window?.appClickListeners?.[this.appAttributes.onHeartClickListenerId.getValue()]();
+            window?.appClickListeners?.[this.appAttributes.onHeartClickListenerId.getValue()](this);
         });
         this.elements.buyButton().addEventListener('click', () => {
-            window?.appClickListeners?.[this.appAttributes.onBuyClickListenerId.getValue()]();
+            window?.appClickListeners?.[this.appAttributes.onBuyClickListenerId.getValue()](this);
+        });
+        this.elements.imgSource().addEventListener('dblclick', () => {
+            window?.appClickListeners?.[this.appAttributes.onHeartClickListenerId.getValue()](this);
         });
 
         this.elements.price().innerText = this.appAttributes.price.getValue();
@@ -250,12 +265,7 @@ export class DesignCard extends HTMLElement {
         this.elements.imgSource().setAttribute('src', this.appAttributes.imgSource.getValue());
         this.elements.imgProfileSource().setAttribute('src', this.appAttributes.imgProfileSource.getValue());
 
-        this.elements
-            .likeHeartIconSvg()
-            .setAttribute(
-                'xlink:href',
-                this.appAttributes.isLiked.getValue() ? '/solid.svg#heart' : '/regular.svg#heart'
-            );
+        this.refreshHeartIconStatus();
         this.elements.likeHeartCount().innerText = this.appAttributes.likeCount.getValue();
     }
 
@@ -264,6 +274,12 @@ export class DesignCard extends HTMLElement {
         this.elements.commentButton().removeAllListeners();
         this.elements.heartButton().removeAllListeners();
         this.elements.buyButton().removeAllListeners();
+    }
+
+    refreshHeartIconStatus(attrValue = this.appAttributes.isLiked.getValue()) {
+        this.elements
+            .likeHeartIconSvg()
+            .setAttribute('xlink:href', attrValue ? '/solid.svg#heart' : '/regular.svg#heart');
     }
 
     static factory(
@@ -286,9 +302,9 @@ export class DesignCard extends HTMLElement {
             price: 0,
             likeCount: 0,
             isLiked: false,
-            onBuyClick: () => {},
-            onHeartClick: () => {},
-            onCommentClick: () => {}
+            onBuyClick: (designCard) => {},
+            onHeartClick: (designCard) => {},
+            onCommentClick: (designCard) => {}
         }
     ) {
         const el = document.createElement(`app-design-card`);
@@ -297,6 +313,7 @@ export class DesignCard extends HTMLElement {
         window.appClickListeners = window.appClickListeners ?? {};
 
         {
+            //  ID generator
             const [onBuyClickListenerId, onHeartClickListenerId, onCommentClickListenerId] = new Array(3)
                 .fill(Date.now())
                 .map((x, i) => `${x}-${i}`);
