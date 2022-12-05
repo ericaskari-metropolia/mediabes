@@ -43,7 +43,12 @@ const register = async (req, res) => {
     const result = await addUser(newUser, res);
     const user = await getUserByEmail(newUser.email);
     const { expiresAt, accessToken } = jwtService.createUserLoginToken(user.id);
-    res.status(201).json({ message: 'user created', user, expiresAt, accessToken });
+    res.status(201).json({
+        message: 'You have been successfully registered and logged in. Redirecting to homepage now.',
+        user,
+        expiresAt,
+        accessToken
+    });
 };
 
 const logout = (req, res) => {

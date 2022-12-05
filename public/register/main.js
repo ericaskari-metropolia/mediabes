@@ -68,7 +68,8 @@ window.addEventListener('load', () => {
                 const { accessToken, expiresAt, message, user } = body;
                 elements.formErrorMessage.hidden = true;
                 elements.formSuccessMessage.hidden = false;
-                elements.formSuccessMessage.innerText = message;
+                elements.formSuccessMessage.innerText =
+                    message ?? 'You registered successfully. Redirecting to homepage now.';
 
                 storage.setUser(user);
                 storage.setToken(accessToken);
