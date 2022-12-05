@@ -29,6 +29,6 @@ jobs:
               with:
                 azcliversion: 2.30.0
                 inlineScript: |
-                  az login -u ${{secrets.AZURE_USERNAME}} -p ${{secrets.AZURE_PASSWORD}} show
+                  az login -u ${{secrets.AZURE_USERNAME}} -p ${{secrets.AZURE_PASSWORD}}
                   az account show
                   az storage -h
