@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const AppJwtTokens = {
     USER_LOGIN_TOKEN: 'USER_LOGIN_TOKEN'
 };
-const JWT_LOGIN_TOKEN_EXPIRE_IN = 60;
+const JWT_LOGIN_TOKEN_EXPIRE_IN = 3600;
 
 const verifyToken = (token) => {
     try {
