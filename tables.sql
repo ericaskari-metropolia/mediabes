@@ -9,11 +9,12 @@ CREATE TABLE user
     PRIMARY KEY (id)
 );
 
-CREATE TABLE payment
+CREATE TABLE deposit
 (
     id          INT NOT NULL AUTO_INCREMENT,
-    card_number INT,
+    amount DECIMAL(15,2) NOT NULL,
     user_id     INT,
+    date DATETIME DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
@@ -32,7 +33,7 @@ CREATE TABLE designs
 (
     id          INT NOT NULL AUTO_INCREMENT,
     user_id     INT,
-    date        DATETIME,
+    created_at DATETIME DEFAULT NOW(),
     picture_src TEXT,
     price       FLOAT,
     description TEXT,
@@ -55,54 +56,48 @@ create table comments
     design_id   INT,
     user_id     INT,
     description VARCHAR(40),
-    date        DATETIME,
+    created_at DATETIME DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (design_id) REFERENCES designs (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
-CREATE TABLE transaction
+CREATE TABLE purchase
 (
     id        INT NOT NULL AUTO_INCREMENT,
     design_id INT,
     user_id   INT,
-    date      DATETIME,
+    created_at DATETIME DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (design_id) REFERENCES designs (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
-INSERT INTO user
-VALUES (1, 'test_user', 'This is test profile', 'qwerty', 'test@example.com', 'test');
-INSERT INTO user
-VALUES (2, 'test2_user', 'This is test2 profile', 'qwerty2', 'test2@example.com', 'test2');
+INSERT INTO user (username, description, password, email, name)
+VALUES
+    ('test_user1', 'This is test profile','qwerty1', 'test@example.com', 'test1'),
+    ('test_user2', 'This is test profile','qwerty2', 'test2@example.com', 'test2');
 
-INSERT INTO payment
-VALUES (1, 4920, 1);
-INSERT INTO payment
-VALUES (2, 4928, 2);
+INSERT INTO deposit (amount, user_id)
+VALUES (200, 1),
+       (300, 2);
 
-INSERT INTO user_follow
-VALUES (1, 1, 2);
-INSERT INTO user_follow
-VALUES (2, 2, 1);
+INSERT INTO user_follow (user_id, followed_user_id)
+VALUES (1,2),
+       (2,1);
 
-INSERT INTO designs
-VALUES (1, 1, '2022-11-21 10:12:11', 'URL', 34.5, 'This is my first design');
-INSERT INTO designs
-VALUES (2, 2, '2022-11-26 10:13:21', 'URL2', 45.0, 'This is my first design');
+INSERT INTO designs (user_id, picture_src, price, description)
+VALUES (1, 'URL1', 34.5, 'This is my first design'),
+       (2, 'URL2', 45.0, 'This is my first design');
 
-INSERT INTO likes
-VALUES (2, 1);
-INSERT INTO likes
-VALUES (1, 2);
+INSERT INTO likes (user_id, design_id)
+VALUES (2, 1),
+       (1, 2);
 
-INSERT INTO comments
-VALUES (1, 1, 2, 'Wow!', '2022-11-26 10:13:21');
-INSERT INTO comments
-VALUES (2, 2, 1, 'Amazing!', '2022-11-24 13:13:21');
+INSERT INTO comments (design_id, user_id, description)
+VALUES (1, 1, 'Wow!'),
+       (2, 1, 'Amazing!');
 
-INSERT INTO transaction
-VALUES (1, 1, 2, '2022-11-24 13:13:21');
-INSERT INTO transaction
-VALUES (2, 2, 1, '2022-10-22 16:16:23');
+INSERT INTO purchase (design_id, user_id)
+VALUES (1,2),
+       (2,1);
