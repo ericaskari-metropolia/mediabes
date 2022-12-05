@@ -1,49 +1,79 @@
-"use strict";
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const passportJWT = require("passport-jwt");
+'use strict';
+const passport = require('passport');
+const bcryptService = require('../services/bcrypt.service');
+const jwtService = require('../services/jwt.service');
+const LocalStrategy = require('passport-local').Strategy;
+const passportJWT = require('passport-jwt');
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
-const {getUserLogin} = require("../models/userModel");
-const dotenv = require('dotenv');
-dotenv.config;
+const { getUserByEmail, getUserById } = require('../models/userModel');
 
-passport.use(
-  new LocalStrategy(
-      {
-          usernameField: 'username',
-          passwordField: 'password',
-          session: false,
-          passReqToCallback: true
-      },
-      
-      async (request, username, password, done) => {
-        const params = [username];
-        const [user] = await getUserLogin(params);
+const initStrategies = () => {
+    passport.serializeUser(function (user, cb) {
+        process.nextTick(function () {
+            return cb(null, user);
+        });
+    });
 
-          if (!user) {
-              done(null, false);
-          }
+    passport.deserializeUser(function (user, cb) {
+        process.nextTick(function () {
+            return cb(null, user);
+        });
+    });
 
-          if (user.password === password) {
-              return done(null, user);
-          }
+    passport.use(
+        new LocalStrategy(
+            {
+                usernameField: 'username',
+                passwordField: 'password',
+                session: false,
+                passReqToCallback: true
+            },
 
-          done(null, false);
-      }
-  )
-);
+            async (request, username, password, done) => {
+                const user = await getUserByEmail(username);
 
-// JWT strategy for handling bearer token
-passport.use(
-    new JWTStrategy(
-    {
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.JWT_SECRET,
-    },
-    (jwtPayload, done) => {
-        return done(null, jwtPayload);
-    }
-));
+                if (!user) {
+                    return done(null, false);
+                }
 
-module.exports = passport;
+                if (bcryptService.compare(password, user.password)) {
+                    return done(null, user);
+                }
+
+                done(null, false);
+            }
+        )
+    );
+
+    // JWT strategy for handling bearer token
+    passport.use(
+        new JWTStrategy(
+            {
+                jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+                secretOrKey: process.env.JWT_SECRET
+            },
+            async (jwtPayload, done) => {
+                const { sub, type } = jwtPayload ?? {};
+
+                if (type !== jwtService.AppJwtTokens.USER_LOGIN_TOKEN) {
+                    return done(null, false);
+                }
+
+                const user = await getUserById(sub);
+
+                return done(null, user ?? false);
+            }
+        )
+    );
+};
+
+/** @type {import('../types/types').authenticateJWT} */
+const authenticateJWT = (req, res, next) => {
+    passport.authenticate('jwt', { session: false })(req, res, next);
+};
+
+module.exports = {
+    authenticateJWT: authenticateJWT,
+    initStrategies: initStrategies
+};

@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+    mediabes:
+        image: mariadb:10.10.2
+        restart: 'no'
+        container_name: mediabes
+        environment:
+            MYSQL_DATABASE: metropolia
+            MYSQL_USER: metropolia
+            MYSQL_PASSWORD: metropolia
+            MYSQL_ROOT_PASSWORD: metropolia
+        ports:
+            - '3306:3306'
