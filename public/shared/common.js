@@ -41,13 +41,16 @@ const url = 'http://localhost:3000';
  */
 export const endpoints = {
     resetPassword: async ({ oldPassword, newPassword }, token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${token}`);
+
         const response = await fetch(`${url}/auth/reset-password`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            }
+            headers
         });
+
         if (response.status === 200) {
             return {
                 body: await response.json(),
@@ -60,11 +63,16 @@ export const endpoints = {
         }
     },
     login: async ({ username, password }, token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+
         const response = await fetch(`${url}/auth/login`, {
-            'Content-Type': 'application/json',
             method: 'POST',
-            body: { username, password }
+            headers,
+            body: JSON.stringify({ username, password })
         });
+
         if (response.status === 200) {
             return {
                 body: await response.json(),
@@ -76,12 +84,50 @@ export const endpoints = {
             return { error, body: null, response };
         }
     },
-    register: async ({ name, email, username, password }, token = storage.getToken()) => {
+    register: async ({ name, email, username, password }) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+
         const response = await fetch(`${url}/auth/register`, {
-            'Content-Type': 'application/json',
             method: 'POST',
-            body: { name, email, username, password }
+            headers: headers,
+            body: JSON.stringify({ name, email, username, password })
         });
+
+        if (response.status === 200 || response.status === 201) {
+            return {
+                body: await response.json(),
+                error: null,
+                response
+            };
+        } else {
+            const error = await response.json();
+            return { error, body: null, response };
+        }
+    },
+    getUsers: async (token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${token}`);
+
+        const response = await fetch(`${url}/user`, {
+            method: 'GET',
+            headers
+        });
+
+        if (response.status === 401) {
+            const data = {
+                body: null,
+                error: null,
+                response
+            };
+
+            location.href = `/login/?message=${encodeURIComponent('Your session has expired. Please login again.')}`;
+            return data;
+        }
+
         if (response.status === 200) {
             return {
                 body: await response.json(),

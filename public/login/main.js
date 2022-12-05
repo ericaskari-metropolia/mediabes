@@ -23,20 +23,10 @@ window.addEventListener('load', () => {
 
             const { username, password } = formDataToJson(new FormData(elements.form));
 
-            // const { error, body, response } = await endpoints.login({
-            //     username,
-            //     password
-            // });
-
-            const { body, error } = {
-                body: {
-                    accessToken: '123',
-                    user: { id: 1, name: 'User' },
-                    expiresAt: Date.now() + 1000 * 1000,
-                    message: 'Logged in successfully! You will be redirected to home page soon.'
-                },
-                error: null
-            };
+            const { error, body, response } = await endpoints.login({
+                username,
+                password
+            });
 
             if (error) {
                 elements.formSuccessMessage.hidden = true;

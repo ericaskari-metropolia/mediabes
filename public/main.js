@@ -10,6 +10,10 @@ window.addEventListener('load', async () => {
         cardList: document.getElementById('card-list')
     };
 
+    //  Just to test the jwt
+    const users = await endpoints.getUsers();
+    console.log(users);
+
     if (!storage.hasValidSession()) {
         location.href = '/login/';
     }

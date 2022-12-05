@@ -6,12 +6,22 @@ window.addEventListener('load', () => {
     const elements = {
         form: document.getElementById('page-form'),
         nameFormControl: document.querySelector('input[name="name"]'),
+        emailFormControl: document.querySelector('input[name="email"]'),
         usernameFormControl: document.querySelector('input[name="username"]'),
+        passwordFormControl: document.querySelector('input[name="password"]'),
+        repeatPasswordFormControl: document.querySelector('input[name="repeatPassword"]'),
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],
         formSuccessMessage: document.getElementsByClassName('form-success-message')[0],
         debug: document.getElementById('debug')
     };
-    console.log(elements.username);
+
+    const now = Date.now().toString();
+    elements.nameFormControl.value = `user${now}`;
+    elements.emailFormControl.value = `user${now}@test.com`;
+    elements.usernameFormControl.value = `user${now}`;
+    elements.passwordFormControl.value = `user${now}`;
+    elements.repeatPasswordFormControl.value = `user${now}`;
+
     if (isDevelopment()) {
         enableFormDebug(elements.form, elements.debug);
     }
@@ -33,27 +43,27 @@ window.addEventListener('load', () => {
 
             const { username, password, name, email } = formDataToJson(new FormData(elements.form));
 
-            // const { error, body, response } = await endpoints.register({
-            //     name,
-            //     email,
-            //     username,
-            //     password
-            // });
-
-            const { body, error } = {
-                body: {
-                    accessToken: '123',
-                    user: { id: 1, name: 'User' },
-                    expiresAt: Date.now() + 300 * 1000,
-                    message: 'Registered successfully! You will be redirected to home page soon.'
-                },
-                error: null
-            };
+            const { error, body, response } = await endpoints.register({
+                name,
+                email,
+                username,
+                password
+            });
 
             if (error) {
                 elements.formSuccessMessage.hidden = true;
                 elements.formErrorMessage.hidden = false;
-                elements.formErrorMessage.innerText = error.message;
+                elements.formErrorMessage.innerText = [error.message];
+
+                const errors = Array.isArray(error.errors) ? error.errors : [];
+                const errorTexts = errors.map(
+                    ({ location, msg, param, value }) => `${param.charAt(0).toUpperCase() + param.slice(1)} - ${msg}`
+                );
+                for (let errorText of errorTexts) {
+                    const el = document.createElement('div');
+                    el.innerText = errorText;
+                    elements.formErrorMessage.appendChild(el);
+                }
             } else {
                 const { accessToken, expiresAt, message, user } = body;
                 elements.formErrorMessage.hidden = true;
