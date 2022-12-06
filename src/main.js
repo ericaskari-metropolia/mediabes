@@ -8,6 +8,7 @@ const authRouter = require('./routes/authRoute');
 const passport = require('passport');
 const passportService = require('./utils/passport');
 const { authenticateJWT } = require('./utils/passport');
+const { globalErrorHandler } = require('./services/error-handler.service');
 
 process.on('SIGINT', () => {
     console.info('Interrupted');
@@ -30,6 +31,7 @@ async function start() {
     app.get('/api/healthcheck', (req, res, next) => {
         res.status(200).send({ status: 'OK!' });
     });
+    app.use(globalErrorHandler());
 
     app.listen(port, () => {
         console.log(`Api Running on port ${port}!`);

@@ -36,7 +36,7 @@ services:
         ports:
             - '8000:8000'
     mediabes-database:
-        image: mariadb:10.10.2
+        image: mariadb:10.3.23
         restart: 'no'
         container_name: mediabes-database
         environment:
