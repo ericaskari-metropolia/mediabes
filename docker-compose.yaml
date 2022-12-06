@@ -6,7 +6,7 @@ services:
         container_name: mediabes-proxy
         restart: 'no'
         ports:
-            - '8000:8000'
+            - '80:80'
     mediabes-frontend:
         build:
             context: .
@@ -14,7 +14,7 @@ services:
         restart: 'no'
         container_name: mediabes-frontend
         ports:
-            - '8001:8000'
+            - '8080:8080'
     mediabes-backend:
         build:
             context: .
@@ -28,4 +28,4 @@ services:
             DB_NAME: mediabes
             JWT_SECRET: ${JWT_SECRET}
         ports:
-            - '8002:8000'
+            - '8000:8000'

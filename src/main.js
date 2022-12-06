@@ -9,6 +9,11 @@ const passport = require('passport');
 const passportService = require('./utils/passport');
 const { authenticateJWT } = require('./utils/passport');
 
+process.on('SIGINT', () => {
+    console.info('Interrupted');
+    process.exit(0);
+});
+
 async function start() {
     dotenv.config();
     const app = express();

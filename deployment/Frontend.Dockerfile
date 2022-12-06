@@ -11,4 +11,4 @@ COPY deployment/Frontend.conf.template /etc/nginx/templates/default.conf.templat
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
-EXPOSE 8000
+EXPOSE 8080

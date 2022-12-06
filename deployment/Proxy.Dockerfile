@@ -10,4 +10,4 @@ COPY deployment/Proxy.conf.template /etc/nginx/templates/default.conf.template
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
-EXPOSE 8000
+EXPOSE 80
