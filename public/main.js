@@ -22,7 +22,7 @@ window.addEventListener('load', async () => {
         {
             name: 'Eric Askari',
             username: 'ericaskari',
-            imgSource: '/assets/sample-images/horse.jpg',
+            imgSource: '/sample-images/horse.jpg',
             imgProfileSource: 'https://randomuser.me/api/portraits/men/1.jpg',
             price: 1000,
             likeCount: 20,
@@ -31,7 +31,7 @@ window.addEventListener('load', async () => {
         {
             name: 'Sara',
             username: 'sara',
-            imgSource: '/assets/sample-images/flowers.jpg',
+            imgSource: '/sample-images/flowers.jpg',
             imgProfileSource: 'https://randomuser.me/api/portraits/women/2.jpg',
             price: 120,
             likeCount: '2',
@@ -40,7 +40,7 @@ window.addEventListener('load', async () => {
         {
             name: 'Sara',
             username: 'sara',
-            imgSource: '/assets/sample-images/flowers.jpg',
+            imgSource: '/sample-images/flowers.jpg',
             imgProfileSource: 'https://randomuser.me/api/portraits/women/2.jpg',
             price: 120,
             likeCount: '2',
