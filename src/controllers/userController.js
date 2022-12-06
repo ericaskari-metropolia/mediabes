@@ -10,7 +10,7 @@ const getUsers = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-    const user = await userModel.getUserById(req.params.userId, res);
+    const user = await userModel.getUserById(req.params.userId);
     if (user) {
         res.json(user);
     } else {

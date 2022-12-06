@@ -1,0 +1,30 @@
+server {
+    listen                  80;
+    server_name             _;
+    root                    /usr/share/nginx/html;
+    underscores_in_headers  on;
+
+    location / {
+        proxy_pass                          http://${PROXY_PASS_HOSTNAME}:8080;
+        proxy_pass_request_headers          on;
+        proxy_set_header X-Real-IP          $remote_addr;
+        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto  https;
+        proxy_set_header Upgrade            $http_upgrade;
+        proxy_set_header Connection         $http_connection;
+        proxy_set_header Host               $host;
+        proxy_http_version                  1.1;
+    }
+
+    location /api/ {
+        proxy_pass                          http://${PROXY_PASS_HOSTNAME}:8000/api/;
+        proxy_pass_request_headers          on;
+        proxy_set_header X-Real-IP          $remote_addr;
+        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto  https;
+        proxy_set_header Upgrade            $http_upgrade;
+        proxy_set_header Connection         $http_connection;
+        proxy_set_header Host               $host;
+        proxy_http_version                  1.1;
+    }
+}

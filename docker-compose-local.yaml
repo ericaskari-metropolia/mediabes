@@ -1,0 +1,48 @@
+services:
+    mediabes-proxy:
+        build:
+            dockerfile: ./.github/deployment/Proxy.Dockerfile
+            context: .
+            args:
+                PROXY_PASS_HOSTNAME: 'host.docker.internal'
+        container_name: mediabes-proxy
+        restart: 'no'
+        ports:
+            - '80:80'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+    mediabes-frontend:
+        build:
+            context: .
+            dockerfile: ./.github/deployment/Frontend.Dockerfile
+        restart: 'no'
+        container_name: mediabes-frontend
+        ports:
+            - '8080:8080'
+    mediabes-backend:
+        build:
+            context: .
+            dockerfile: ./.github/deployment/Backend.Dockerfile
+        restart: 'no'
+        container_name: mediabes-backend
+        environment:
+            DB_HOST: host.docker.internal
+            DB_USER: metropolia
+            DB_PASSWORD: metropolia
+            DB_NAME: metropolia
+            JWT_SECRET: metropolia
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '8000:8000'
+    mediabes-database:
+        image: mariadb:10.3.23
+        restart: 'no'
+        container_name: mediabes-database
+        environment:
+            MYSQL_DATABASE: metropolia
+            MYSQL_USER: metropolia
+            MYSQL_PASSWORD: metropolia
+            MYSQL_ROOT_PASSWORD: metropolia
+        ports:
+            - '3306:3306'

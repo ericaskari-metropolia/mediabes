@@ -119,10 +119,10 @@ template.innerHTML = `
 </style>
 
 <div class="card">
-<script defer src="/assets/fontawesome-free-6.2.1-web/js/all.js"></script>
+<script defer src="/fontawesome-free-6.2.1-web/js/all.js"></script>
     <div class="card-profile">
         <div>
-            <img class="card-profile-image" id='img-profile-source' src="/assets/sample-images/horse.jpg" alt="Profile picture" />
+            <img class="card-profile-image" id='img-profile-source' src="/sample-images/horse.jpg" alt="Profile picture" />
         </div>
         <div class="card-profile-info-wrap">
             <b id='name'>SomeOne</b>
@@ -131,7 +131,7 @@ template.innerHTML = `
     </div>
 
     <div class="card-image-wrap">
-        <img class="card-image" id='img-source' src="/assets/sample-images/flowers.jpg" alt="Flowers" />
+        <img class="card-image" id='img-source' src="/sample-images/flowers.jpg" alt="Flowers" />
     </div>
 
     <div class="card-panel-text">
