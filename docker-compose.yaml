@@ -3,10 +3,14 @@ services:
         build:
             dockerfile: deployment/Proxy.Dockerfile
             context: .
+            args:
+                PROXY_PASS_HOSTNAME: 'host.docker.internal'
         container_name: mediabes-proxy
         restart: 'no'
         ports:
             - '80:80'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
     mediabes-frontend:
         build:
             context: .

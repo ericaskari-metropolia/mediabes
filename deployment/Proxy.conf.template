@@ -5,7 +5,7 @@ server {
     underscores_in_headers  on;
 
     location / {
-        proxy_pass                          http://mediabes-frontend:8080;
+        proxy_pass                          http://${PROXY_PASS_HOSTNAME}:8080;
         proxy_pass_request_headers          on;
         proxy_set_header X-Real-IP          $remote_addr;
         proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
@@ -17,7 +17,7 @@ server {
     }
 
     location /api/ {
-        proxy_pass                          http://mediabes-backend:8000/api/;
+        proxy_pass                          http://${PROXY_PASS_HOSTNAME}:8000/api/;
         proxy_pass_request_headers          on;
         proxy_set_header X-Real-IP          $remote_addr;
         proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
