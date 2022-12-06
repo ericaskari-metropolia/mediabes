@@ -58,7 +58,7 @@ body > div {
 }
 
 .content {
-    max-width: var(--md);
+    max-width: var(--sm);
     margin: 0 auto;
     padding: 1rem;
 }
