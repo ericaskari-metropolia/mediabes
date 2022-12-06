@@ -5,7 +5,7 @@ on:
         branches:
             - features/deployment
 jobs:
-    BuildAndPushContainer:
+    Build:
         runs-on: ubuntu-20.04
         name: BuildAndPushContainer
         steps:
@@ -23,6 +23,13 @@ jobs:
 
             - name: Build Project
               run: npm run build:ui
+
+            - name: Upload dist
+              uses: actions/upload-artifact@v3
+              with:
+                name: dist
+                path: |
+                  dist
 
             - name: Login to Docker Hub
               uses: docker/login-action@v2
@@ -46,7 +53,6 @@ jobs:
                 push: true
                 tags: ericaskari/metropolia-mediabes-backend
 
-
             - name: Build and push Proxy Image
               uses: docker/build-push-action@v3
               with:
@@ -55,3 +61,60 @@ jobs:
                 push: true
                 tags: ericaskari/metropolia-mediabes-proxy
 
+    BuildAndPushFrontendContainer:
+      name: Build And Push Frontend Container
+      needs: Build
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Download Builds
+          uses: actions/download-artifact@v3
+          with:
+            name: dist
+        - name: Login to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            username: ericaskari
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+        - name: Build and push Image
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: deployment/Frontend.Dockerfile
+            push: true
+            tags: ericaskari/metropolia-mediabes-frontend
+
+    BuildAndPushBackendContainer:
+      name: Build And Push Backend Container
+      needs: Build
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Login to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            username: ericaskari
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+        - name: Build and push Image
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: deployment/Backend.Dockerfile
+            push: true
+            tags: ericaskari/metropolia-mediabes-backend
+
+    BuildAndPushProxyContainer:
+      name: Build And Push Proxy Container
+      needs: Build
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Login to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            username: ericaskari
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+        - name: Build and push Image
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: deployment/Proxy.Dockerfile
+            push: true
+            tags: ericaskari/metropolia-mediabes-proxy
