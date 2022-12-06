@@ -1,0 +1,25 @@
+services:
+    mediabes-proxy:
+        image: ericaskari/metropolia-mediabes-proxy:latest
+        container_name: mediabes-proxy
+        restart: 'no'
+        ports:
+            - '8000:8000'
+    mediabes-frontend:
+        image: ericaskari/metropolia-mediabes-frontend:latest
+        restart: 'no'
+        container_name: mediabes-frontend
+        ports:
+            - '8001:8000'
+    mediabes-backend:
+        image: ericaskari/metropolia-mediabes-backend:latest
+        restart: 'no'
+        container_name: mediabes-backend
+        environment:
+            DB_HOST: mediabes.mariadb.database.azure.com
+            DB_USER: mediabes
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_NAME: mediabes
+            JWT_SECRET: ${JWT_SECRET}
+        ports:
+            - '8002:8000'

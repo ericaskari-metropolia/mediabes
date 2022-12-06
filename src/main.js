@@ -20,8 +20,8 @@ async function start() {
     passportService.initStrategies();
     app.use(passport.initialize());
 
-    app.use('/auth', authRouter);
-    app.use('/user', authenticateJWT, userRouter);
+    app.use('/api/auth', authRouter);
+    app.use('/api/user', authenticateJWT, userRouter);
 
     app.listen(port, () => {
         console.log(`Api Running on port ${port}!`);

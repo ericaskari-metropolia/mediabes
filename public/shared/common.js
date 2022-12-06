@@ -34,7 +34,7 @@ export const storage = (() => {
     };
 })();
 
-const url = isProduction() ? '/api' : 'http://localhost:3000';
+const url = isProduction() ? '' : 'http://localhost:3000';
 
 /**
  * All Application Endpoints
@@ -46,7 +46,7 @@ export const endpoints = {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `Bearer ${token}`);
 
-        const response = await fetch(`${url}/auth/reset-password`, {
+        const response = await fetch(`${url}/api/auth/reset-password`, {
             method: 'POST',
             headers
         });
@@ -67,7 +67,7 @@ export const endpoints = {
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
 
-        const response = await fetch(`${url}/auth/login`, {
+        const response = await fetch(`${url}/api/auth/login`, {
             method: 'POST',
             headers,
             body: JSON.stringify({ username, password })
@@ -89,7 +89,7 @@ export const endpoints = {
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
 
-        const response = await fetch(`${url}/auth/register`, {
+        const response = await fetch(`${url}/api/auth/register`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ name, email, username, password })
@@ -112,7 +112,7 @@ export const endpoints = {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `Bearer ${token}`);
 
-        const response = await fetch(`${url}/user`, {
+        const response = await fetch(`${url}/api/user`, {
             method: 'GET',
             headers
         });
