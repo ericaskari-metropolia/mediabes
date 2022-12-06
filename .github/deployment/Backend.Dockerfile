@@ -11,7 +11,7 @@ COPY package-lock.json .
 RUN npm install
 
 COPY src .
-COPY deployment/Backend.Dockerfile.entrypoint.sh /entrypoint.sh
+COPY ./.github/deployment/Backend.Dockerfile.entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 

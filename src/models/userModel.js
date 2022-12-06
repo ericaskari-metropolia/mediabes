@@ -28,8 +28,8 @@ const getUserLogin = async (user) => {
 };
 
 const addUser = async (user, res) => {
-    const sql = 'INSERT INTO user VALUES (?, ?, ?, ?, ?, ?)';
-    const values = [user.id, user.username, user.description, user.password, user.email, user.name];
+    const sql = 'INSERT INTO user (username,  password, email, name, description) VALUES  (?, ?, ?, ?, ?)';
+    const values = [user.username, user.password, user.email, user.name, user.description ?? null];
     const [result] = await promisePool.query(sql, values);
     return result.insertId;
 };

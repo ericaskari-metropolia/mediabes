@@ -1,7 +1,7 @@
 services:
     mediabes-proxy:
         build:
-            dockerfile: deployment/Proxy.Dockerfile
+            dockerfile: ./.github/deployment/Proxy.Dockerfile
             context: .
             args:
                 PROXY_PASS_HOSTNAME: 'host.docker.internal'
@@ -14,7 +14,7 @@ services:
     mediabes-frontend:
         build:
             context: .
-            dockerfile: deployment/Frontend.Dockerfile
+            dockerfile: ./.github/deployment/Frontend.Dockerfile
         restart: 'no'
         container_name: mediabes-frontend
         ports:
@@ -22,7 +22,7 @@ services:
     mediabes-backend:
         build:
             context: .
-            dockerfile: deployment/Backend.Dockerfile
+            dockerfile: ./.github/deployment/Backend.Dockerfile
         restart: 'no'
         container_name: mediabes-backend
         environment:
