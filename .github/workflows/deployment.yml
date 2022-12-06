@@ -38,6 +38,7 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
+
         - name: Download Builds
           uses: actions/download-artifact@v3
           with:
@@ -62,10 +63,6 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
-        - name: Login to Docker Hub
-          run: |
-            echo ${DOCKERHUB_TOKEN} | docker login --username ericaskari --password-stdin
-                  MeetNewFrontendImage="438380764554.dkr.ecr.eu-west-1.amazonaws.com/ericaskari-meet-frontend:${{needs.GenerateVersion.outputs.NEW_PROD_RELEASE}}"
 
         - name: Login to Docker Hub
           uses: docker/login-action@v2
@@ -87,6 +84,7 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
+
         - name: Login to Docker Hub
           uses: docker/login-action@v2
           with:
