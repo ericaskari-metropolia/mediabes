@@ -34,7 +34,7 @@ export const storage = (() => {
     };
 })();
 
-const url = 'http://localhost:3000';
+const url = isProduction() ? '/api' : 'http://localhost:3000';
 
 /**
  * All Application Endpoints

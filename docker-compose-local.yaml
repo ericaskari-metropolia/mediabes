@@ -1,0 +1,30 @@
+services:
+    mediabes-proxy:
+        extends:
+            file: docker-compose.yaml
+            service: mediabes-proxy
+    mediabes-frontend:
+        extends:
+            file: docker-compose.yaml
+            service: mediabes-frontend
+    mediabes-backend:
+        extends:
+            file: docker-compose.yaml
+            service: mediabes-backend
+        environment:
+            DB_HOST: mediabes-database
+            DB_USER: metropolia
+            DB_PASSWORD: metropolia
+            DB_NAME: metropolia
+            JWT_SECRET: metropolia
+    mediabes-database:
+        image: mariadb:10.10.2
+        restart: 'no'
+        container_name: mediabes-database
+        environment:
+            MYSQL_DATABASE: metropolia
+            MYSQL_USER: metropolia
+            MYSQL_PASSWORD: metropolia
+            MYSQL_ROOT_PASSWORD: metropolia
+        ports:
+            - '3306:3306'
