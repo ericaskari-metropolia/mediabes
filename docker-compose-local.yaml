@@ -1,22 +1,40 @@
 services:
     mediabes-proxy:
-        extends:
-            file: docker-compose.yaml
-            service: mediabes-proxy
+        build:
+            dockerfile: deployment/Proxy.Dockerfile
+            context: .
+            args:
+                PROXY_PASS_HOSTNAME: 'host.docker.internal'
+        container_name: mediabes-proxy
+        restart: 'no'
+        ports:
+            - '80:80'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
     mediabes-frontend:
-        extends:
-            file: docker-compose.yaml
-            service: mediabes-frontend
+        build:
+            context: .
+            dockerfile: deployment/Frontend.Dockerfile
+        restart: 'no'
+        container_name: mediabes-frontend
+        ports:
+            - '8080:8080'
     mediabes-backend:
-        extends:
-            file: docker-compose.yaml
-            service: mediabes-backend
+        build:
+            context: .
+            dockerfile: deployment/Backend.Dockerfile
+        restart: 'no'
+        container_name: mediabes-backend
         environment:
-            DB_HOST: mediabes-database
+            DB_HOST: host.docker.internal
             DB_USER: metropolia
             DB_PASSWORD: metropolia
             DB_NAME: metropolia
             JWT_SECRET: metropolia
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '8000:8000'
     mediabes-database:
         image: mariadb:10.10.2
         restart: 'no'

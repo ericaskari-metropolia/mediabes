@@ -1,35 +1,14 @@
+version: '3.1'
+
 services:
-    mediabes-proxy:
-        build:
-            dockerfile: deployment/Proxy.Dockerfile
-            context: .
-            args:
-                PROXY_PASS_HOSTNAME: 'host.docker.internal'
-        container_name: mediabes-proxy
+    mediabes:
+        image: mariadb:10.10.2
         restart: 'no'
-        ports:
-            - '80:80'
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-    mediabes-frontend:
-        build:
-            context: .
-            dockerfile: deployment/Frontend.Dockerfile
-        restart: 'no'
-        container_name: mediabes-frontend
-        ports:
-            - '8080:8080'
-    mediabes-backend:
-        build:
-            context: .
-            dockerfile: deployment/Backend.Dockerfile
-        restart: 'no'
-        container_name: mediabes-backend
+        container_name: mediabes
         environment:
-            DB_HOST: mediabes.mariadb.database.azure.com
-            DB_USER: mediabes
-            DB_PASSWORD: ${DB_PASSWORD}
-            DB_NAME: mediabes
-            JWT_SECRET: ${JWT_SECRET}
+            MYSQL_DATABASE: metropolia
+            MYSQL_USER: metropolia
+            MYSQL_PASSWORD: metropolia
+            MYSQL_ROOT_PASSWORD: metropolia
         ports:
-            - '8000:8000'
+            - '3306:3306'
