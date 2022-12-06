@@ -38,3 +38,20 @@ jobs:
                 push: true
                 tags: ericaskari/metropolia-mediabes-frontend
 
+            - name: Build and push Backend Image
+              uses: docker/build-push-action@v3
+              with:
+                context: .
+                file: deployment/Backend.Dockerfile
+                push: true
+                tags: ericaskari/metropolia-mediabes-backend
+
+
+            - name: Build and push Proxy Image
+              uses: docker/build-push-action@v3
+              with:
+                context: .
+                file: deployment/Proxy.Dockerfile
+                push: true
+                tags: ericaskari/metropolia-mediabes-proxy
+
