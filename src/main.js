@@ -22,6 +22,9 @@ async function start() {
 
     app.use('/api/auth', authRouter);
     app.use('/api/user', authenticateJWT, userRouter);
+    app.get('/api/healthcheck', (req, res, next) => {
+        res.status(200).send({ status: 'OK!' });
+    });
 
     app.listen(port, () => {
         console.log(`Api Running on port ${port}!`);
