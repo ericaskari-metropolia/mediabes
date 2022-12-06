@@ -49,7 +49,7 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: deployment/Frontend.Dockerfile
+            file: ./deployment/Frontend.Dockerfile
             push: true
             tags: ericaskari/metropolia-mediabes-frontend
 
@@ -67,7 +67,7 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: deployment/Backend.Dockerfile
+            file: ./deployment/Backend.Dockerfile
             push: true
             tags: ericaskari/metropolia-mediabes-backend
 
@@ -85,6 +85,6 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: deployment/Proxy.Dockerfile
+            file: ./deployment/Proxy.Dockerfile
             push: true
             tags: ericaskari/metropolia-mediabes-proxy
