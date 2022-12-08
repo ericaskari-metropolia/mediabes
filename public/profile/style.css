@@ -1,8 +1,11 @@
+@import '../shared/styles/variables.css';
+@import '../shared/styles/app-header.css';
+
 * {
     box-sizing: border-box;
 }
 
-.container{
+.container {
     background-color: aquamarine;
     width: 100%;
     height: 150vh;
@@ -11,7 +14,7 @@
     justify-content: center;
 }
 
-.profile-box{
+.profile-box {
     background-color: antiquewhite;
     text-align: center;
     padding: 30px 20px;
@@ -20,7 +23,7 @@
     width: 400px;
 }
 
-.profile-pic{
+.profile-pic {
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -28,23 +31,23 @@
     margin-top: 40px;
 }
 
-#menu-bar{
+#menu-bar {
     position: absolute;
     right: 20px;
     top: 40px;
 }
 
-.profile-name{
+.profile-name {
     font-size: 1.2em;
     font-weight: bold;
 }
 
-.profile-description{
+.profile-description {
     margin-top: 5px;
     margin-bottom: 15px;
 }
 
-.profile-followers{
+.profile-followers {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,8 +55,8 @@
     margin-bottom: 10px;
 }
 
-.profile-box button{
-    background-color: #736F71;
+.profile-box button {
+    background-color: #736f71;
     color: black;
     padding: 15px 60px;
     cursor: pointer;
@@ -66,33 +69,32 @@
     width: 90%;
 }
 
-.profile-box button:hover{
-    box-shadow: 0 5px 10px #008A82;
+.profile-box button:hover {
+    box-shadow: 0 5px 10px #008a82;
 }
 
-.my-designs{
+.my-designs {
     text-align: left;
     font-weight: bold;
     font-size: 16px;
 }
 
-.designs{
+.designs {
     background-color: rgb(188, 228, 253);
     margin-top: 10px;
     height: 100px;
 }
 
-#like{
+#like {
     display: flex;
     justify-content: flex-start;
     padding-top: 5px;
     padding-left: 5px;
 }
 
-#edit{
+#edit {
     display: flex;
     justify-content: flex-end;
     padding-top: 60px;
     padding-right: 5px;
 }
-
