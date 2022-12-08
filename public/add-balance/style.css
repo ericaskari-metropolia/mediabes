@@ -1,0 +1,86 @@
+@import '../shared/styles/variables.css';
+@import '../shared/styles/app-header.css';
+@import '../shared/styles/form.css';
+
+* {
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+body > div {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--white);
+}
+
+.content {
+    max-width: var(--sm);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.light-border {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.forms {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-wrapper {
+    width: 33%;
+}
+
+input,
+button,
+select {
+    display: inline-block;
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+p {
+    text-align: left;
+}
+
+#imgPlaceHolder {
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
+}
+
+/*.view-designs {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#view-designs-button {
+    position: absolute;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 25px;
+    border: none;
+    color: #77465a;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+} */

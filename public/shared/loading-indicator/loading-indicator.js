@@ -1,17 +1,12 @@
 export class LoadingIndicator {
-    static init = () => {
+    static init = (visible = false) => {
         const body = document.getElementsByTagName('body')[0];
         const head = document.getElementsByTagName('head')[0];
         const div = document.createElement('div');
         div.innerHTML = "<img src='/loading.svg' />";
         div.classList.add('loading-indicator');
-        div.setAttribute('visible', 'false');
+        div.setAttribute('visible', `${visible}`);
 
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = '/loading-indicator/loading-indicator.css';
-
-        head.appendChild(link);
         body.appendChild(div);
         return new LoadingIndicator();
     };

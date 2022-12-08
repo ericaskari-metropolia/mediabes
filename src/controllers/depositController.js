@@ -1,0 +1,18 @@
+'use strict';
+const model = require('../models/depositModel');
+const { validationResult } = require('express-validator');
+
+const saveDeposit = async (req, res) => {
+    const { id: userId } = req.user;
+    const { amount, cardNumber, cardHolderName } = req.body;
+    console.log(amount, cardNumber, cardHolderName);
+
+    // We imagine payment was successful :)
+    await model.saveDeposit(userId, amount);
+
+    res.status(200).send({ message: 'Balance successfully added to the account.' });
+};
+
+module.exports = {
+    saveDeposit: saveDeposit
+};

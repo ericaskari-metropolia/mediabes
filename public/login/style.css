@@ -18,6 +18,12 @@ body > div {
     box-sizing: border-box;
 }
 
+.content {
+    max-width: var(--sm);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
 .logo-wrap {
     max-height: 40vw;
     padding: 1rem;
