@@ -14,9 +14,12 @@ window.addEventListener('load', async () => {
     const users = await endpoints.getUsers();
     console.log(users);
 
+    // checking if user has a valid token, if user don't have it or expired, it will redirect to home page
     if (!storage.hasValidSession()) {
         location.href = '/login/';
     }
+
+    // examples, testing the UI
 
     const cards = [
         {
