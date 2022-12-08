@@ -1,6 +1,6 @@
 import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from './shared/common.js';
 import { LoadingIndicator } from './shared/loading-indicator/loading-indicator.js';
-import { DesignCard } from './components/design-card';
+import { HomeDesignCardBuilder } from './components/home-design-card.js';
 
 window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init();
@@ -14,12 +14,9 @@ window.addEventListener('load', async () => {
     const users = await endpoints.getUsers();
     console.log(users);
 
-    // checking if user has a valid token, if user don't have it or expired, it will redirect to home page
     if (!storage.hasValidSession()) {
         location.href = '/login/';
     }
-
-    // examples, testing the UI
 
     const cards = [
         {
@@ -52,18 +49,18 @@ window.addEventListener('load', async () => {
     ];
 
     for (let card of cards) {
-        const index = cards.indexOf(card);
-
-        elements.cardList.appendChild(
-            DesignCard.factory({
+        document.getElementById('card-list').appendChild(
+            HomeDesignCardBuilder({
                 ...card,
-                onBuyClick: () => console.log('onBuyClick'),
-                onHeartClick: (designCard) => {
-                    console.log('onHeartClick');
-                    cards[index].isLiked = !cards[index].isLiked;
-                    designCard.refreshHeartIconStatus(cards[index].isLiked);
+                onBuyClick: () => {
+                    console.log('onBuyClick');
                 },
-                onCommentClick: () => console.log('onCommentClick')
+                onHeartClick: () => {
+                    console.log('onHeartClick');
+                },
+                onCommentClick: () => {
+                    console.log('onCommentClick');
+                }
             })
         );
     }
