@@ -1,0 +1,121 @@
+.fa {
+    width: 1rem;
+    height: 1rem;
+    color: var(--text-color);
+}
+
+.design-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.design-card-icon-button {
+    transition: all 0.2s;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+}
+.design-card-icon-button:hover {
+    background-color: var(--text-color);
+    color: white;
+}
+
+.design-card-image-wrap {
+    position: relative;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/*https://spin.atomicobject.com/2015/07/14/css-responsive-square/*/
+.design-card-image-wrap:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+}
+
+.design-card-image {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.design-card-panel-text {
+    padding: 1rem 0;
+    align-self: center;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+.design-card-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    color: var(--text-color);
+}
+.design-card-panel-buy,
+.design-card-panel-likes {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+.design-card-panel-likes > div,
+.design-card-panel-buy > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.design-card-panel-buy > button {
+    transition: all 0.2s;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    outline: none;
+}
+
+.design-card-panel-buy > button:hover {
+    background-color: var(--text-color);
+    color: white;
+}
+
+.design-card-profile {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+.design-card-profile-image {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.design-card-profile-info-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.2rem;
+}
+.design-card-profile-info-wrap > small:last-child {
+    color: rgba(0, 0, 0, 0.5);
+}
