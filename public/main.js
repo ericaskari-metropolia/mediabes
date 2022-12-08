@@ -1,11 +1,19 @@
-import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from './shared/common.js';
+import { endpoints, storage } from './shared/common.js';
 import { LoadingIndicator } from './shared/loading-indicator/loading-indicator.js';
 import { HomeDesignCardBuilder } from './components/home-design-card.js';
 import { AppHeaderBuilder } from './components/app-header.js';
 
 window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init(true);
-    await loading.wait(1000);
+
+    const { body, response, error } = await endpoints.getMyUserProfile();
+    if (error || !body) {
+        console.log(error);
+        return;
+    }
+    const { user } = body;
+
+    AppHeaderBuilder(document.getElementById('app-header'), user.id);
 
     const elements = {
         loadingIndicator: document.getElementsByClassName('loading-indicator')[0],
@@ -51,8 +59,6 @@ window.addEventListener('load', async () => {
             isLiked: false
         }
     ];
-
-    AppHeaderBuilder(document.getElementById('app-header'));
 
     for (let card of cards) {
         document.getElementById('card-list').appendChild(

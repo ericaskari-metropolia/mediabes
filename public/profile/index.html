@@ -24,10 +24,15 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <img src="/sample-images/profilepic.png" class="profile-pic" alt="profilepic" />
-                <div class="profile-name">Natasha</div>
-                <div class="profile-description">UX Designer at Atlanta</div>
-                <div class="profile-followers"><i class="fa-solid fa-user"></i>123 followers</div>
-                <button type="button">Edit Profile</button>
+                <div class="profile-name var--profile-name">Natasha</div>
+                <div class="profile-description var--profile-description">UX Designer at Atlanta</div>
+                <div class="profile-followers">
+                    <span><i class="fa-solid fa-user"></i><span class="var--follower-count">14</span> followers</span>
+                    <span><i class="fa-solid fa-user"></i><span class="var--following-count">15</span> following</span>
+                </div>
+                <div class="var--show-balance" hidden><span class="var--account-balance">14</span>€ balance</div>
+                <a class="var--show-edit-profile" hidden type="button" href="/edit-profile/">Edit Profile</a>
+                <a class="var--show-add-balance" hidden type="button" href="/add-balance/">Add Balance</a>
                 <div class="design-content">
                     <div class="my-designs">Designs</div>
                     <div class="designs">

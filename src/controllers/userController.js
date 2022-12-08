@@ -1,5 +1,7 @@
 'use strict';
 const userModel = require('../models/userModel');
+const balanceModel = require('../models/balanceModel');
+const userFollowModel = require('../models/userFollowModel');
 const { validationResult } = require('express-validator');
 
 const getUsers = async (req, res) => {
@@ -12,7 +14,9 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     const user = await userModel.getUserById(req.params.userId);
     if (user) {
-        res.json(user);
+        const followerUsers = await userFollowModel.getFollowersByUserId(req.params.userId);
+        const followedUsers = await userFollowModel.getFollowedUserByUserId(req.params.userId);
+        res.json({ user, followerUsers, followedUsers });
     } else {
         res.sendStatus(404);
     }
@@ -62,8 +66,11 @@ const deleteUser = async (req, res) => {
     }
 };
 
-const checkToken = (req, res) => {
-    res.json({ user: req.user });
+const checkToken = async (req, res) => {
+    const balance = await balanceModel.getBalance(req.user.id);
+    const followerUsers = await userFollowModel.getFollowersByUserId(req.user.id);
+    const followedUsers = await userFollowModel.getFollowedUserByUserId(req.user.id);
+    res.json({ user: req.user, balance, followerUsers, followedUsers });
 };
 
 module.exports = {

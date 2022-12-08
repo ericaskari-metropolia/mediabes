@@ -3,8 +3,11 @@ import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator'
 import { enableFormDebug, endpoints, formDataToJson, isDevelopment, storage } from '../shared/common';
 
 window.addEventListener('load', async () => {
-    AppHeaderBuilder(document.getElementById('app-header'));
-    const loading = LoadingIndicator.init();
+    const loading = LoadingIndicator.init(true);
+
+    const { body, response, error } = await endpoints.getMyUserProfile();
+
+    AppHeaderBuilder(document.getElementById('app-header'), body.user.id);
 
     const elements = {
         form: document.getElementById('page-form'),
@@ -16,7 +19,7 @@ window.addEventListener('load', async () => {
         debug: document.getElementById('debug')
     };
 
-    elements.cardNumber.value = '1234 5678 9123 1234';
+    elements.cardNumber.value = '1234567891231234';
     elements.cardHolderName.value = 'John Doe';
     elements.amount.value = 30;
 
