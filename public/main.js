@@ -1,6 +1,7 @@
 import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from './shared/common.js';
 import { LoadingIndicator } from './shared/loading-indicator/loading-indicator.js';
 import { HomeDesignCardBuilder } from './components/home-design-card.js';
+import { AppHeaderBuilder } from './components/app-header.js';
 
 window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init();
@@ -47,6 +48,8 @@ window.addEventListener('load', async () => {
             isLiked: false
         }
     ];
+
+    AppHeaderBuilder(document.getElementById('app-header'));
 
     for (let card of cards) {
         document.getElementById('card-list').appendChild(

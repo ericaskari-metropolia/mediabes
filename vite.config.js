@@ -9,7 +9,7 @@ const publicFileAndFolders = fs
     .filter((x) => x.isDirectory())
     .map((x) => [x.name, path.resolve(publicDir, x.name)])
     .reduce((prev, [key, dirPath]) => ({ ...prev, [key]: `${dirPath}/index.html` }), {});
-
+console.log(publicFileAndFolders);
 /** @type {import('vite').UserConfig} */
 export default defineConfig(({ command, mode }) => {
     return {

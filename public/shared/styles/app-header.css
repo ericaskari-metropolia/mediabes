@@ -1,0 +1,33 @@
+@import 'variables.css';
+
+.app-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 100;
+    box-shadow: 0px -3px 20px -10px rgba(0, 0, 0, 0.73);
+}
+
+.app-header-content {
+    flex: 1;
+    display: flex;
+    padding: 0 1rem;
+    justify-content: center;
+    gap: clamp(1rem, 20vw, 10rem);
+}
+.app-header-icon {
+    font-size: 1.5rem;
+    scale: 0.8;
+    transition: all 0.1s;
+    color: var(--blue);
+    cursor: pointer;
+}
+
+.app-header-icon:hover {
+    scale: 1;
+}
