@@ -87,7 +87,7 @@ const deleteDesignById = async (userId, res) => {
 };
 
 const addComment = async (userId, res) => {};
-const addComment = async (userId, res) => {};
+// const addComment = async (userId, res) => {};
 
 const isLikedByUser = async (
 );
