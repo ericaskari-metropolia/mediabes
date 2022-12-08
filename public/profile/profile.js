@@ -1,5 +1,50 @@
 import { AppHeaderBuilder } from '../components/app-header.js';
+import { endpoints, getQueryParam } from '../shared/common';
 
 window.addEventListener('load', async () => {
-    AppHeaderBuilder(document.getElementById('app-header'));
+    const elements = {
+        name: document.querySelector('.var--profile-name'),
+        description: document.querySelector('.var--profile-description'),
+        followerCount: document.querySelector('.var--follower-count'),
+        followingCount: document.querySelector('.var--following-count'),
+        accountBalance: document.querySelector('.var--account-balance'),
+        showBalance: document.querySelector('.var--show-balance'),
+        showEditProfile: document.querySelector('.var--show-edit-profile'),
+        showAddBalance: document.querySelector('.var--show-add-balance')
+    };
+
+    const myUserProfile = await endpoints.getMyUserProfile();
+
+    const queryParamUserId = getQueryParam('id');
+
+    const parsedUserId = Number.isNaN(parseInt(queryParamUserId)) ? null : parseInt(queryParamUserId);
+
+    const queryParamUserProfile =
+        queryParamUserId === null || parsedUserId === myUserProfile?.body?.user?.id
+            ? myUserProfile
+            : await endpoints.getUserProfile(queryParamUserId);
+
+    const { user, balance, followerUsers, followedUsers } = myUserProfile.body;
+
+    AppHeaderBuilder(document.getElementById('app-header'), user.id);
+
+    const {
+        user: paramUser,
+        followerUsers: paramUserFollowerUsers,
+        followedUsers: paramUserFollowedUsers
+    } = queryParamUserProfile.body;
+
+    const isMyProfile = parsedUserId === null || user.id === parsedUserId;
+
+    if (isMyProfile) {
+        elements.showBalance.removeAttribute('hidden');
+        elements.showEditProfile.removeAttribute('hidden');
+        elements.showAddBalance.removeAttribute('hidden');
+        elements.accountBalance.innerText = balance;
+    }
+
+    elements.name.innerText = paramUser.name;
+    elements.description.innerText = paramUser.description ?? paramUser.username;
+    elements.followerCount.innerText = paramUserFollowerUsers.length;
+    elements.followingCount.innerText = paramUserFollowedUsers.length;
 });

@@ -1,7 +1,8 @@
 import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from '../shared/common.js';
 import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator.js';
+import { faker } from 'https://cdn.skypack.dev/@faker-js/faker';
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init();
     const elements = {
         form: document.getElementById('page-form'),
@@ -15,12 +16,14 @@ window.addEventListener('load', () => {
         debug: document.getElementById('debug')
     };
 
-    const now = Date.now().toString();
-    elements.nameFormControl.value = `user${now}`;
-    elements.emailFormControl.value = `user${now}@test.com`;
-    elements.usernameFormControl.value = `user${now}`;
-    elements.passwordFormControl.value = `user${now}`;
-    elements.repeatPasswordFormControl.value = `user${now}`;
+    const randomEmail = faker.internet.email();
+    const randomUsername = faker.internet.userName();
+
+    elements.nameFormControl.value = faker.name.fullName();
+    elements.emailFormControl.value = randomEmail;
+    elements.usernameFormControl.value = randomUsername;
+    elements.passwordFormControl.value = randomUsername;
+    elements.repeatPasswordFormControl.value = randomUsername;
 
     if (isDevelopment()) {
         enableFormDebug(elements.form, elements.debug);
@@ -71,7 +74,6 @@ window.addEventListener('load', () => {
                 elements.formSuccessMessage.innerText =
                     message ?? 'You registered successfully. Redirecting to homepage now.';
 
-                storage.setUser(user);
                 storage.setToken(accessToken);
                 storage.setExpiresAt(expiresAt);
 

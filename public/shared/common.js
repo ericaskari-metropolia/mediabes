@@ -7,9 +7,6 @@ export const isDevelopment = () => VITE_APP_ENV() === 'development';
  * Used self invoked function to reuse methods. otherwise it's the same as object.
  */
 export const storage = (() => {
-    const setUser = (user) => sessionStorage.setItem('user', JSON.stringify(user));
-    const getUser = () => JSON.parse(sessionStorage.getItem('user'));
-
     const setToken = (token) => sessionStorage.setItem('token', token);
     const getToken = () => sessionStorage.getItem('token');
 
@@ -20,14 +17,12 @@ export const storage = (() => {
     };
 
     const hasValidSession = () => {
-        return getExpiresAt() > Date.now() && getUser() && getToken();
+        return getExpiresAt() > Date.now() && getToken();
     };
 
     return {
-        setUser,
         setToken,
         setExpiresAt,
-        getUser,
         getToken,
         getExpiresAt,
         hasValidSession
@@ -113,6 +108,72 @@ export const endpoints = {
         headers.append('Authorization', `Bearer ${token}`);
 
         const response = await fetch(`${url}/api/user`, {
+            method: 'GET',
+            headers
+        });
+
+        if (response.status === 401) {
+            const data = {
+                body: null,
+                error: null,
+                response
+            };
+
+            location.href = `/login/?message=${encodeURIComponent('Your session has expired. Please login again.')}`;
+            return data;
+        }
+
+        if (response.status === 200) {
+            return {
+                body: await response.json(),
+                error: null,
+                response
+            };
+        } else {
+            const error = await response.json();
+            return { error, body: null, response };
+        }
+    },
+    getUserProfile: async (userId, token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${token}`);
+
+        const response = await fetch(`${url}/api/user/${userId}`, {
+            method: 'GET',
+            headers
+        });
+
+        if (response.status === 401) {
+            const data = {
+                body: null,
+                error: null,
+                response
+            };
+
+            location.href = `/login/?message=${encodeURIComponent('Your session has expired. Please login again.')}`;
+            return data;
+        }
+
+        if (response.status === 200) {
+            return {
+                body: await response.json(),
+                error: null,
+                response
+            };
+        } else {
+            const error = await response.json();
+            return { error, body: null, response };
+        }
+    },
+    getMyUserProfile: async (token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${token}`);
+
+        const response = await fetch(`${url}/api/user/token`, {
             method: 'GET',
             headers
         });

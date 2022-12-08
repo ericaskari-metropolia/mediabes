@@ -2,14 +2,19 @@
 // userRoute
 const express = require('express');
 const router = express.Router();
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const userController = require('../controllers/userController');
-const { wrapControllerWithErrorHandler } = require('../services/error-handler.service');
+const { wrapControllerWithErrorHandler, validateExpectedFields } = require('../services/error-handler.service');
 
 router
     .get('/', wrapControllerWithErrorHandler(userController.getUsers))
     .get('/token', wrapControllerWithErrorHandler(userController.checkToken))
-    .get('/:userId', wrapControllerWithErrorHandler(userController.getUser))
+    .get(
+        '/:userId',
+        param('userId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('getUser'),
+        wrapControllerWithErrorHandler(userController.getUser)
+    )
     .post(
         '/',
         body('name').isLength({ min: 3 }).trim().escape(),

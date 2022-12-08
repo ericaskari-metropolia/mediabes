@@ -35,7 +35,7 @@ CREATE TABLE designs
     user_id     INT,
     created_at TIMESTAMP DEFAULT NOW(),
     picture_src TEXT,
-    price       FLOAT,
+    price       DECIMAL(15,2),
     description TEXT,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user (id)

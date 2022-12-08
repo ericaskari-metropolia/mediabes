@@ -37,9 +37,8 @@ window.addEventListener('load', () => {
                 elements.formErrorMessage.hidden = true;
                 elements.formSuccessMessage.hidden = false;
                 elements.formSuccessMessage.innerText =
-                    message ?? 'You have been successfully registered and logged in. Redirecting to homepage now.';
+                    message ?? 'You have been successfully logged in. Redirecting to homepage now.';
 
-                storage.setUser(user);
                 storage.setToken(accessToken);
                 storage.setExpiresAt(expiresAt);
 
