@@ -138,6 +138,40 @@ export const endpoints = {
             const error = await response.json();
             return { error, body: null, response };
         }
+    },
+    deposit: async ({ amount, cardNumber, cardHolderName }, token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${token}`);
+
+        const response = await fetch(`${url}/api/deposit`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ amount, cardNumber, cardHolderName })
+        });
+
+        if (response.status === 401) {
+            const data = {
+                body: null,
+                error: null,
+                response
+            };
+
+            location.href = `/login/?message=${encodeURIComponent('Your session has expired. Please login again.')}`;
+            return data;
+        }
+
+        if (response.status === 200) {
+            return {
+                body: await response.json(),
+                error: null,
+                response
+            };
+        } else {
+            const error = await response.json();
+            return { error, body: null, response };
+        }
     }
 };
 

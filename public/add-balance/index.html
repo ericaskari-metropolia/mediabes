@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script type="module" src="add-balance.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+        <script defer src="/fontawesome-free-6.2.1-web/js/all.js"></script>
+        <title>Add Balance</title>
+    </head>
+
+    <body>
+        <div class="content">
+            <header id="app-header"></header>
+            <h2>Add Balance</h2>
+            <form id="page-form" class="app-form">
+                <div>
+                    <label for="cardNumber">Card Number</label>
+                    <div>
+                        <input
+                            id="cardNumber"
+                            class="app-form-input"
+                            name="cardNumber"
+                            type="tel"
+                            pattern="\d*"
+                            maxlength="19"
+                            inputmode="numeric"
+                            autocomplete="cc-number"
+                            required
+                            placeholder="XXXX XXXX XXXX XXXX"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <label for="card-holder-name">Card holder name</label>
+                    <input id="card-holder-name" class="app-form-input" name="cardHolderName" required type="text" />
+                </div>
+                <div>
+                    <label for="amount">Amount (euro)</label>
+                    <input
+                        id="amount"
+                        class="app-form-input"
+                        autocomplete="amount"
+                        name="amount"
+                        step="0.5"
+                        required
+                        type="number"
+                        placeholder="Amount"
+                    />
+                </div>
+
+                <div class="form-messages">
+                    <p class="form-error-message" hidden>Message</p>
+                    <p class="form-success-message" hidden>Message</p>
+                </div>
+                <div>
+                    <button type="submit">Pay</button>
+                </div>
+            </form>
+            <div>
+                <code>
+                    <pre id="debug" hidden></pre>
+                </code>
+            </div>
+        </div>
+    </body>
+</html>

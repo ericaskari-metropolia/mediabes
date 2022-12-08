@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const globalErrorHandler = () => {
     return (error, request, response, next) => {
         // Error handling middleware functionality
@@ -21,7 +22,22 @@ const wrapControllerWithErrorHandler = (handler = async (req, res) => {}) => {
     };
 };
 
+const validateExpectedFields = (routeName) => {
+    return (req, res, next) => {
+        const errors = validationResult(req);
+        console.log(`${routeName} validation errors:`, errors.array());
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            });
+        } else {
+            next();
+        }
+    };
+};
+
 module.exports = {
     globalErrorHandler: globalErrorHandler,
+    validateExpectedFields: validateExpectedFields,
     wrapControllerWithErrorHandler: wrapControllerWithErrorHandler
 };

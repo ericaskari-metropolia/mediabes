@@ -4,7 +4,9 @@ import { HomeDesignCardBuilder } from './components/home-design-card.js';
 import { AppHeaderBuilder } from './components/app-header.js';
 
 window.addEventListener('load', async () => {
-    const loading = LoadingIndicator.init();
+    const loading = LoadingIndicator.init(true);
+    await loading.wait(1000);
+
     const elements = {
         loadingIndicator: document.getElementsByClassName('loading-indicator')[0],
         debug: document.getElementById('debug'),
@@ -14,6 +16,7 @@ window.addEventListener('load', async () => {
     //  Just to test the jwt
     const users = await endpoints.getUsers();
     console.log(users);
+    await loading.hide();
 
     if (!storage.hasValidSession()) {
         location.href = '/login/';

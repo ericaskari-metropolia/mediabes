@@ -17,7 +17,7 @@
         <title>Login</title>
     </head>
     <body>
-        <div>
+        <div class="content">
             <div class="flex justify-center logo-wrap">
                 <img src="/logo-512x512.png" alt="Logo" class="logo" />
             </div>
@@ -26,11 +26,12 @@
                 <h3>Login</h3>
             </div>
 
-            <form id="page-form">
+            <form id="page-form" class="app-form">
                 <div>
                     <label for="username">Email</label>
                     <input
                         id="username"
+                        class="app-form-input"
                         autocomplete="username"
                         name="username"
                         required
@@ -42,6 +43,7 @@
                     <label for="password">Password</label>
                     <input
                         id="password"
+                        class="app-form-input"
                         autocomplete="current-password"
                         required
                         name="password"

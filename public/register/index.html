@@ -17,7 +17,7 @@
         <title>Register</title>
     </head>
     <body>
-        <div>
+        <div class="content">
             <div class="flex justify-center logo-wrap">
                 <img src="/logo-512x512.png" alt="Logo" class="logo" />
             </div>
@@ -26,19 +26,36 @@
                 <h3>Register</h3>
             </div>
 
-            <form id="page-form">
+            <form id="page-form" class="app-form">
                 <div>
                     <label for="name">Name</label>
-                    <input id="name" autocomplete="name" name="name" required type="text" placeholder="Name" />
+                    <input
+                        id="name"
+                        class="app-form-input"
+                        autocomplete="name"
+                        name="name"
+                        required
+                        type="text"
+                        placeholder="Name"
+                    />
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input id="email" autocomplete="email" name="email" required type="email" placeholder="Email" />
+                    <input
+                        id="email"
+                        class="app-form-input"
+                        autocomplete="email"
+                        name="email"
+                        required
+                        type="email"
+                        placeholder="Email"
+                    />
                 </div>
                 <div>
                     <label for="username">Username</label>
                     <input
                         id="username"
+                        class="app-form-input"
                         autocomplete="username"
                         name="username"
                         required
@@ -50,6 +67,7 @@
                     <label for="password">Password</label>
                     <input
                         id="password"
+                        class="app-form-input"
                         autocomplete="new-password"
                         required
                         name="password"
@@ -61,6 +79,7 @@
                     <label for="password">Repeat Password</label>
                     <input
                         id="repeat-password"
+                        class="app-form-input"
                         autocomplete="new-password"
                         required
                         name="repeatPassword"
