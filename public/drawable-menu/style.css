@@ -14,7 +14,7 @@ body > div {
     background-color: var(--white);
 }
 
-.hero {
+.container {
     width: 100%;
     min-height: 100vh;
     background: #eceaff;
