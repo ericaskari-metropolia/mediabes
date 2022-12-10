@@ -47,16 +47,28 @@ select {
     margin: 0.5em 0;
 }
 
-p {
-    text-align: left;
+button {
+    cursor: pointer;
 }
 
-#imgPlaceHolder {
-    width: 100%;
-    height: 240px;
-    object-fit: contain;
+.upload-form {
+    /* background: plum;
+    border-radius: 5px; */
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
 }
 
+.upload-form i {
+    font-size: 50px;
+    cursor: pointer;
+}
+
+/* .upload-form p {
+    margin-top: 15px;
+} */
 /*.view-designs {
     display: flex;
     align-items: flex-end;

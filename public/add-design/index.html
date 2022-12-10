@@ -13,6 +13,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
         <script defer src="/fontawesome-free-6.2.1-web/js/all.js"></script>
+        <script src="https://kit.fontawesome.com/03c2f4eb63.js" crossorigin="anonymous"></script>
+
         <title>Add Design</title>
     </head>
 
@@ -21,11 +23,13 @@
             <header id="app-header"></header>
             <h2>Add Design</h2>
             <hr class="line" />
-            <form id="add-form">
+            <form action="#">
                 <div class="light-border">
-                    <p>Add attachment</p>
-                    <input type="file" placeholder="Add attachment" />
-                    <img id="imgPlaceHolder" src="/sample-images/addimage.jpg" />
+                    <div class="upload-form">
+                        <p>Browse file to upload</p>
+                        <input type="file" class="file-input" style="display: none" />
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
                 </div>
                 <div>
                     <input class="light-border" type="text" placeholder="Add a description for your design" />
@@ -38,5 +42,6 @@
                 </div>
             </form>
         </div>
+        <script src="add-design.js"></script>
     </body>
 </html>

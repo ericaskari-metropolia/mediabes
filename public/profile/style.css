@@ -50,10 +50,11 @@ body > div {
     place-self: center;
 }
 
-#menu-bar {
+.menu-bar {
     position: absolute;
     right: 20px;
     top: 40px;
+    cursor: pointer;
 }
 
 .profile-name {
@@ -124,11 +125,3 @@ body > div {
 .number-likes {
     padding-top: 1px;
 }
-
-/* #edit,
-#edit1 {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 60px;
-    padding-right: 5px;
-} */
