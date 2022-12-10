@@ -1,5 +1,6 @@
-import { AppHeaderBuilder } from '../components/app-header.js';
+import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
 import { endpoints, getQueryParam } from '../shared/common';
+import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
 
 window.addEventListener('load', async () => {
     const elements = {
@@ -26,7 +27,8 @@ window.addEventListener('load', async () => {
 
     const { user, balance, followerUsers, followedUsers } = myUserProfile.body;
 
-    AppHeaderBuilder(document.getElementById('app-header'), user.id);
+    AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
+    AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
 
     const {
         user: paramUser,

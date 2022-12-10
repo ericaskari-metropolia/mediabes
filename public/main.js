@@ -1,7 +1,8 @@
 import { endpoints, storage } from './shared/common.js';
 import { LoadingIndicator } from './shared/loading-indicator/loading-indicator.js';
-import { HomeDesignCardBuilder } from './components/home-design-card.js';
-import { AppHeaderBuilder } from './components/app-header.js';
+import { HomeDesignCardBuilder } from './shared/components/home-design-card.js';
+import { AppBottomHeaderBuilder } from './shared/components/app-bottom-header.js';
+import { AppTopHeaderBuilder } from './shared/components/app-top-header.js';
 
 window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init(true);
@@ -13,7 +14,8 @@ window.addEventListener('load', async () => {
     }
     const { user } = body;
 
-    AppHeaderBuilder(document.getElementById('app-header'), user.id);
+    AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
+    AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
 
     const elements = {
         loadingIndicator: document.getElementsByClassName('loading-indicator')[0],

@@ -1,15 +1,32 @@
-import path, { resolve } from 'path';
+import { resolve } from 'path';
 import fs from 'fs';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 
-const publicDir = path.resolve(__dirname, 'public');
-const publicFileAndFolders = fs
-    .readdirSync(publicDir, { withFileTypes: true })
-    .filter((x) => x.name !== 'assets' && x.name !== 'shared' && x.name !== 'components')
-    .filter((x) => x.isDirectory())
-    .map((x) => [x.name, path.resolve(publicDir, x.name)])
-    .reduce((prev, [key, dirPath]) => ({ ...prev, [key]: `${dirPath}/index.html` }), {});
-console.log(publicFileAndFolders);
+function getFiles(dir) {
+    const dirents = fs.readdirSync(dir, { withFileTypes: true });
+    const files = dirents.map((dirent) => {
+        const res = resolve(dir, dirent.name);
+        return dirent.isDirectory() ? getFiles(res) : res;
+    });
+    return Array.prototype.concat(...files);
+}
+
+const files = getFiles(resolve(__dirname, 'public'))
+    .filter((x) => x.endsWith('index.html'))
+    .map((x) => {
+        const key = (x ?? '')
+            .split(resolve(__dirname, 'public'))[1]
+            .split('/')
+            .join('-')
+            .replace('-', '')
+            .split('.')
+            .join('-');
+        return { [key]: x };
+    })
+    .reduce((prev, curr) => ({ ...prev, ...curr }), {});
+
+console.log(files);
+
 /** @type {import('vite').UserConfig} */
 export default defineConfig(({ command, mode }) => {
     return {
@@ -25,7 +42,7 @@ export default defineConfig(({ command, mode }) => {
             rollupOptions: {
                 input: {
                     main: resolve(__dirname, 'public/index.html'),
-                    ...publicFileAndFolders
+                    ...files
                 }
             }
         }
