@@ -1,13 +1,15 @@
-import { AppHeaderBuilder } from '../components/app-header.js';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator';
-import { enableFormDebug, endpoints, formDataToJson, isDevelopment, storage } from '../shared/common';
+import { AppBottomHeaderBuilder } from '../../shared/components/app-bottom-header.js';
+import { LoadingIndicator } from '../../shared/loading-indicator/loading-indicator.js';
+import { enableFormDebug, endpoints, formDataToJson, isDevelopment, storage } from '../../shared/common.js';
+import { AppTopHeaderBuilder } from '../../shared/components/app-top-header.js';
 
 window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init(true);
 
     const { body, response, error } = await endpoints.getMyUserProfile();
-
-    AppHeaderBuilder(document.getElementById('app-header'), body.user.id);
+    const { user } = body;
+    AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
+    AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
 
     const elements = {
         form: document.getElementById('page-form'),

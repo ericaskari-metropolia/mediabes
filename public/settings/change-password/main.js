@@ -1,8 +1,9 @@
-import { enableFormDebug, isDevelopment, endpoints, formDataToJson } from '../shared/common.js';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator.js';
+import { enableFormDebug, isDevelopment, endpoints, formDataToJson } from '../../shared/common.js';
+import { LoadingIndicator } from '../../shared/loading-indicator/loading-indicator.js';
 
 window.addEventListener('load', () => {
     const loading = LoadingIndicator.init();
+
     const elements = {
         form: document.getElementById('page-form'),
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],

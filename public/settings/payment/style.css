@@ -1,5 +1,5 @@
-@import '../shared/styles/variables.css';
-@import '../shared/styles/app-header.css';
+@import '../../shared/styles/variables.css';
+@import '../../shared/styles/app-bottom-header.css';
 
 * {
     box-sizing: border-box;

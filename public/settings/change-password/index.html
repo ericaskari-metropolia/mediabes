@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="style.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="stylesheet" href="/styles/form.css" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
         <title>Change Password</title>
     </head>
@@ -26,12 +25,13 @@
                 <h3>Change Password</h3>
             </div>
 
-            <form id="page-form">
+            <form id="page-form" class="app-form">
                 <div>
                     <label for="oldPassword">Old password</label>
                     <input
                         id="oldPassword"
                         name="oldPassword"
+                        class="app-form-input"
                         required
                         autocomplete="current-password"
                         type="text"
@@ -40,12 +40,20 @@
                 </div>
                 <div>
                     <label for="newPassword">New password</label>
-                    <input id="newPassword" required name="newPassword" type="password" placeholder="New password" />
+                    <input
+                        id="newPassword"
+                        class="app-form-input"
+                        required
+                        name="newPassword"
+                        type="password"
+                        placeholder="New password"
+                    />
                 </div>
                 <div>
                     <label for="repeatNewPassword">Repeat New password</label>
                     <input
                         id="repeatNewPassword"
+                        class="app-form-input"
                         name="repeatNewPassword"
                         required
                         type="password"

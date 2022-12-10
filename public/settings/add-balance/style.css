@@ -1,9 +1,17 @@
-@import '../shared/styles/variables.css';
-@import '../shared/styles/app-header.css';
-@import '../shared/styles/form.css';
+@import '../../shared/styles/variables.css';
+@import '../../shared/styles/app-bottom-header.css';
+@import '../../shared/styles/app-top-header.css';
+@import '../../shared/styles/form.css';
 
 * {
     box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
 }
 
 h2 {
