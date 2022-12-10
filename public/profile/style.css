@@ -21,7 +21,7 @@ body > div {
 }
 
 .container {
-    background-color: aquamarine;
+    background-color: whitesmoke;
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -30,10 +30,10 @@ body > div {
 }
 
 .profile-box {
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
     text-align: center;
     padding: 30px 20px;
-    position: relative;
+    /* position: relative; */
     border-radius: 20px;
     width: 400px;
     display: flex;
@@ -101,21 +101,34 @@ body > div {
 }
 
 .designs {
-    background-color: rgb(188, 228, 253);
-    margin-top: 10px;
-    height: 100px;
+    margin-top: 30px;
 }
 
-#like {
+#like,
+#like1 {
     display: flex;
     justify-content: flex-start;
-    padding-top: 5px;
-    padding-left: 5px;
+    padding-top: 3px;
+    cursor: pointer;
+}
+.likes {
+    display: flex;
+    justify-items: flex-start;
+    gap: 5px;
 }
 
-#edit {
+.likes:hover {
+    color: red;
+}
+
+.number-likes {
+    padding-top: 1px;
+}
+
+/* #edit,
+#edit1 {
     display: flex;
     justify-content: flex-end;
     padding-top: 60px;
     padding-right: 5px;
-}
+} */
