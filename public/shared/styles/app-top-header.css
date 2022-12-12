@@ -27,13 +27,6 @@
     border-radius: 50%;
 }
 
-.container {
-    width: 100%;
-    min-height: 100vh;
-    background: #eceaff;
-    color: #525252;
-}
-
 .app-top-header-toggle-button {
     width: 2rem;
     height: 2rem;
@@ -45,7 +38,7 @@
     cursor: pointer;
 }
 
-nav {
+.app-top-header-content {
     background: #bdd8ca;
     width: 100%;
     padding: 10px 10%;
@@ -55,23 +48,23 @@ nav {
     position: relative;
 }
 
-nav ul {
+.app-top-header-content ul {
     width: 100%;
     text-align: right;
 }
 
-nav ul li {
+.app-top-header-content ul li {
     display: inline-block;
     list-style: none;
     margin: 10px 20px;
 }
 
-nav ul li a {
+.app-top-header-content ul li a {
     color: #fff;
     text-decoration: none;
 }
 
-.sub-menu-wrap {
+.app-top-header-sub-menu-wrap {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 10%;
@@ -84,25 +77,25 @@ nav ul li a {
     background: white;
     border-radius: 10px;
 }
-.sub-menu-wrap.open-menu {
+.app-top-header-sub-menu-wrap.open-menu {
     max-height: 400px;
 }
 
-.sub-menu {
+.app-top-header-sub-menu {
     padding: 20px;
     margin: 10px;
 }
 
-.user-info {
+.app-top-header-user-info {
     display: flex;
     align-items: center;
 }
 
-.user-info h3 {
+.app-top-header-user-info h3 {
     font-weight: 500;
 }
 
-.user-info img {
+.app-top-header-user-info img {
     width: 60px;
     height: 60px;
     object-fit: cover;
@@ -110,7 +103,7 @@ nav ul li a {
     margin-right: 15px;
 }
 
-.sub-menu hr {
+.app-top-header-sub-menu hr {
     border: 0;
     height: 1px;
     width: 100%;
@@ -118,7 +111,7 @@ nav ul li a {
     margin: 15px 0 10px;
 }
 
-.sub-menu-link {
+.app-top-header-sub-menu-link {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -127,11 +120,11 @@ nav ul li a {
     margin: 12px 0;
 }
 
-.sub-menu-link p {
+.app-top-header-sub-menu-link p {
     width: 100%;
 }
 
-.sub-menu-link i {
+.app-top-header-sub-menu-link i {
     width: 40px;
     background: #e5e5e5;
     border-radius: 50%;
@@ -139,12 +132,12 @@ nav ul li a {
     margin-right: 15px;
 }
 
-.sub-menu-link span {
+.app-top-header-sub-menu-link span {
     font-size: 22px;
 }
-.sub-menu-link:hover span {
+.app-top-header-sub-menu-link:hover span {
     transform: translateX(5px);
 }
-.sub-menu-link:hover p {
+.app-top-header-sub-menu-link:hover p {
     font-weight: 600;
 }

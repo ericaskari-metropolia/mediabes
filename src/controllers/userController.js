@@ -2,6 +2,8 @@
 const userModel = require('../models/userModel');
 const balanceModel = require('../models/balanceModel');
 const userFollowModel = require('../models/userFollowModel');
+const userAvatarModel = require('../models/userAvatarModel');
+const uploadModel = require('../models/uploadModel');
 const { validationResult } = require('express-validator');
 
 const getUsers = async (req, res) => {
@@ -16,7 +18,8 @@ const getUser = async (req, res) => {
     if (user) {
         const followerUsers = await userFollowModel.getFollowersByUserId(req.params.userId);
         const followedUsers = await userFollowModel.getFollowedUserByUserId(req.params.userId);
-        res.json({ user, followerUsers, followedUsers });
+        const userAvatar = await userAvatarModel.getUserAvatar(req.params.userId);
+        res.json({ user, followerUsers, followedUsers, userAvatar });
     } else {
         res.sendStatus(404);
     }
@@ -70,7 +73,35 @@ const checkToken = async (req, res) => {
     const balance = await balanceModel.getBalance(req.user.id);
     const followerUsers = await userFollowModel.getFollowersByUserId(req.user.id);
     const followedUsers = await userFollowModel.getFollowedUserByUserId(req.user.id);
-    res.json({ user: req.user, balance, followerUsers, followedUsers });
+    const userAvatar = await userAvatarModel.getUserAvatar(req.user.id);
+    res.json({ user: req.user, balance, followerUsers, followedUsers, userAvatar });
+};
+
+const updateUserAvatar = async (req, res) => {
+    const {
+        url,
+        blobSize: blob_size,
+        blobName: blob_name,
+        encoding,
+        mimetype: mime_type,
+        originalname: original_name
+    } = req.file ?? {};
+
+    const { id } = await uploadModel.saveUpload({
+        url,
+        blob_size,
+        mime_type,
+        original_name,
+        encoding,
+        blob_name
+    });
+
+    await userAvatarModel.saveUserAvatar({
+        user_id: req.user.id,
+        upload_id: id
+    });
+
+    res.json({ url });
 };
 
 module.exports = {
@@ -79,5 +110,6 @@ module.exports = {
     createUser,
     modifyUser,
     deleteUser,
-    checkToken
+    checkToken,
+    updateUserAvatar: updateUserAvatar
 };

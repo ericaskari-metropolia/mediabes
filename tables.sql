@@ -9,6 +9,40 @@ CREATE TABLE user
     PRIMARY KEY (id)
 );
 
+
+CREATE TABLE upload
+(
+    id          INT NOT NULL AUTO_INCREMENT,
+    url         TEXT NOT NULL,
+    blob_name   TEXT NOT NULL,
+    blob_size   TEXT NOT NULL,
+    encoding    TEXT NOT NULL,
+    mime_type   TEXT NOT NULL,
+    original_name   TEXT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE user_avatar
+(
+    id          INT NOT NULL AUTO_INCREMENT,
+    user_id     INT NOT NULL,
+    upload_id   INT NOT NULL,
+    created_at  TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (upload_id) REFERENCES upload(id),
+    FOREIGN KEY (user_id)   REFERENCES user(id)
+);
+
+CREATE TABLE design_file
+(
+    design_id   INT NOT NULL,
+    upload_id   INT NOT NULL,
+    PRIMARY KEY (design_id),
+    FOREIGN KEY (design_id) REFERENCES designs(id),
+    FOREIGN KEY (upload_id) REFERENCES upload(id)
+);
+
+
 CREATE TABLE deposit
 (
     id          INT NOT NULL AUTO_INCREMENT,
