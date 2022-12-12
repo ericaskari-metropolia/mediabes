@@ -38,6 +38,11 @@ const saveDesign = async (req, res) => {
     res.status(200).send({ savedDesign, savedUpload, savedDesignFile });
 };
 
+const getAllDesigns = async (req, res) => {
+    return res.status(200).send({ items: await designModel.getAllDesigns() });
+};
+
 module.exports = {
-    saveDesign: saveDesign
+    saveDesign: saveDesign,
+    getAllDesigns: getAllDesigns
 };
