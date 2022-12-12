@@ -22,7 +22,7 @@ const saveDesign = async (req, res) => {
     });
 
     const savedUpload = await uploadModel.saveUpload({
-        url,
+        url: `https://mediabes.blob.core.windows.net/mediabes/${blob_name}`,
         blob_size,
         mime_type,
         original_name,
