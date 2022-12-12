@@ -27,9 +27,15 @@
             <form action="#">
                 <div class="light-border">
                     <div class="upload-form">
+                        <figure class="file-container">
+                            <img id="chosen-file" />
+                            <figcaption id="file-name"></figcaption>
+                        </figure>
                         <p>Browse file to upload</p>
-                        <input type="file" class="file-input" style="display: none" />
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <input type="file" class="file-input" style="display: none" id="upload-button" />
+                        <label for="upload-button">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </label>
                     </div>
                 </div>
                 <div>

@@ -3,6 +3,21 @@ import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
 import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator';
 import { endpoints } from '../shared/common';
 
+let uploadButton = document.getElementById('upload-button');
+
+let chosenFile = document.getElementById('chosen-file');
+let fileName = document.getElementById('file-name');
+
+uploadButton.onchange = () => {
+    let reader = new FileReader();
+    reader.readAsDataURL(uploadButton.files[0]);
+    //console.log(uploadButton.files[0]);
+    reader.onload = () => {
+        chosenFile.setAttribute('src', reader.result);
+    };
+    fileName.textContent = uploadButton.files[0].name;
+};
+
 window.addEventListener('load', async () => {
     const loading = LoadingIndicator.init(false);
 
