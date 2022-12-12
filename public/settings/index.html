@@ -11,14 +11,25 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+        <script type="module" src="main.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/03c2f4eb63.js" crossorigin="anonymous"></script>
         <title>Settings</title>
     </head>
     <body>
-        <div class="container">
+        <header id="app-top-header"></header>
+        <header id="app-bottom-header"></header>
+        <div class="page-container">
             <nav>
                 <div class="menu">
-                    <img src="/public/assets/sample-images/profilepic.png" class="user-pic" />
+                    <div class="settings-avatar-wrap">
+                        <img src="/profile.png" class="var-settings-avatar-img user-pic" />
+                        <button id="update-avatar">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <form id="update-avatar-form" enctype="multipart/form-data">
+                            <input hidden id="edit-avatar-file-input" type="file" name="singleImage" />
+                        </form>
+                    </div>
                     <h3>[username]</h3>
                     <ul>
                         <hr />
