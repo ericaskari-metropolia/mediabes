@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 const userRouter = require('./routes/userRoute');
 const authRouter = require('./routes/authRoute');
+const designRoute = require('./routes/designRoute');
 const depositRouter = require('./routes/depositRoute');
 const passport = require('passport');
 const passportService = require('./utils/passport');
@@ -29,6 +30,7 @@ async function start() {
 
     app.use('/api/auth', authRouter);
     app.use('/api/user', authenticateJWT, userRouter);
+    app.use('/api/design', authenticateJWT, designRoute);
     app.use('/api/deposit', authenticateJWT, depositRouter);
     app.get('/api/healthcheck', (req, res, next) => {
         res.status(200).send({ status: 'OK!' });

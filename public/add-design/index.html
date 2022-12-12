@@ -24,31 +24,54 @@
         <div class="content">
             <h2>Add Design</h2>
             <hr class="line" />
-            <form action="#">
-                <div class="light-border">
+            <form enctype="multipart/form-data">
+                <div class="light-border upload-click-area">
                     <div class="upload-form">
                         <figure class="file-container">
                             <img id="chosen-file" />
                             <figcaption id="file-name"></figcaption>
                         </figure>
                         <p>Browse file to upload</p>
-                        <input type="file" class="file-input" style="display: none" id="upload-button" />
+                        <input
+                            type="file"
+                            class="file-input"
+                            style="display: none"
+                            id="upload-button"
+                            name="singleImage"
+                        />
                         <label for="upload-button">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                         </label>
                     </div>
                 </div>
                 <div>
-                    <input class="light-border" type="text" placeholder="Add a description for your design" />
+                    <input
+                        name="description"
+                        class="light-border"
+                        type="text"
+                        placeholder="Add a description for your design"
+                    />
                 </div>
                 <div>
-                    <input class="light-border" type="text" placeholder="Add a price for your design" />
+                    <input
+                        name="price"
+                        step="0.5"
+                        required
+                        type="number"
+                        max="1000"
+                        min="0"
+                        class="light-border"
+                        placeholder="Add a price for your design"
+                    />
+                </div>
+                <div class="form-messages">
+                    <p class="form-error-message" hidden>Message</p>
+                    <p class="form-success-message" hidden>Message</p>
                 </div>
                 <div>
                     <button class="light-border" type="submit">Add to designs</button>
                 </div>
             </form>
         </div>
-        <script src="add-design.js"></script>
     </body>
 </html>
