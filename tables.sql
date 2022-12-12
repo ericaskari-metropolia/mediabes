@@ -22,26 +22,6 @@ CREATE TABLE upload
     PRIMARY KEY (id)
 );
 
-CREATE TABLE user_avatar
-(
-    id          INT NOT NULL AUTO_INCREMENT,
-    user_id     INT NOT NULL,
-    upload_id   INT NOT NULL,
-    created_at  TIMESTAMP DEFAULT NOW(),
-    PRIMARY KEY (id),
-    FOREIGN KEY (upload_id) REFERENCES upload(id),
-    FOREIGN KEY (user_id)   REFERENCES user(id)
-);
-
-CREATE TABLE design_file
-(
-    design_id   INT NOT NULL,
-    upload_id   INT NOT NULL,
-    PRIMARY KEY (design_id),
-    FOREIGN KEY (design_id) REFERENCES designs(id),
-    FOREIGN KEY (upload_id) REFERENCES upload(id)
-);
-
 
 CREATE TABLE deposit
 (
@@ -67,12 +47,34 @@ CREATE TABLE designs
 (
     id          INT NOT NULL AUTO_INCREMENT,
     user_id     INT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    picture_src TEXT,
+    created_at  TIMESTAMP DEFAULT NOW(),
     price       DECIMAL(15,2),
     description TEXT,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
+);
+
+
+CREATE TABLE user_avatar
+(
+    id          INT NOT NULL AUTO_INCREMENT,
+    user_id     INT NOT NULL,
+    upload_id   INT NOT NULL,
+    created_at  TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (upload_id) REFERENCES upload(id),
+    FOREIGN KEY (user_id)   REFERENCES user(id)
+);
+
+CREATE TABLE design_file
+(
+    id          INT NOT NULL AUTO_INCREMENT,
+    design_id   INT NOT NULL UNIQUE,
+    upload_id   INT NOT NULL,
+    created_at  TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (design_id) REFERENCES designs(id),
+    FOREIGN KEY (upload_id) REFERENCES upload(id)
 );
 
 CREATE TABLE likes
@@ -151,36 +153,36 @@ VALUES (2, 1),
        (1,5);
 
 -- to get all user designs with counted likes and comments
-SELECT designs.picture_src, user.name, likecount, commentcount, designs.description, designs.price FROM designs
+SELECT user.name, likecount, commentcount, designs.description, designs.price FROM designs
     LEFT JOIN (SELECT design_id, COUNT(*) AS likecount FROM likes GROUP BY design_id) AS liketable ON designs.id = liketable.design_id
     LEFT JOIN (SELECT design_id, COUNT(*) AS commentcount FROM comments GROUP BY design_id) AS commenttable ON designs.id = commenttable.design_id
     JOIN user ON designs.user_id = user.id AND user.id = '$userId'
 GROUP BY designs.id ORDER BY designs.created_at DESC;
 
 -- to get the lastest designs for Recomendation page
-SELECT designs.picture_src, user.name, likecount, commentcount, designs.description, designs.price FROM designs
+SELECT user.name, likecount, commentcount, designs.description, designs.price FROM designs
     LEFT JOIN (SELECT design_id, COUNT(*) AS likecount FROM likes GROUP BY design_id) AS liketable ON designs.id = liketable.design_id
     LEFT JOIN (SELECT design_id, COUNT(*) AS commentcount FROM comments GROUP BY design_id) AS commenttable ON designs.id = commenttable.design_id
     JOIN user ON designs.user_id = user.id
 ORDER BY designs.created_at DESC;
 
 -- to get designs for Feed page, where is showed all designs from followed users
-SELECT designs.description, designs.picture_src, user.name AS user_id, user.username, designs.price
+SELECT designs.description,  user.name AS user_id, user.username, designs.price
 FROM user_follow
          LEFT JOIN designs ON designs.user_id = '$userId' OR designs.user_id = user_follow.followed_user_id
          LEFT JOIN user ON designs.user_id = user.id
 WHERE (user_follow.user_id = '$userId' OR user_follow.user_id = NULL);
 
 -- to get One Design Card
-SELECT designs.id, designs.picture_src, user.name, likecount, commentcount, designs.description, designs.price FROM designs
+SELECT designs.id, user.name, likecount, commentcount, designs.description, designs.price FROM designs
     LEFT JOIN (SELECT design_id, COUNT(*) AS likecount FROM likes GROUP BY design_id) AS liketable ON designs.id = liketable.design_id
     LEFT JOIN (SELECT design_id, COUNT(*) AS commentcount FROM comments GROUP BY design_id) AS commenttable ON designs.id = commenttable.design_id
     JOIN user ON designs.user_id = user.id
 GROUP BY (SELECT id FROM designs WHERE id = '$design id');
 
 -- to save new design
-INSERT INTO designs (user_id, picture_src, price, description)
-    VALUES ('$user_id', '$picture_src', '$price', '$description');
+INSERT INTO designs (user_id, price, description)
+    VALUES ('$user_id', '$price', '$description');
 
 -- to update Design Description by design id
 UPDATE designs SET description = '$description' WHERE designs.id = '$designs.id';
