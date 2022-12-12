@@ -14,8 +14,8 @@ const template = `
     </div>
 
     <div class='design-card-panel-text'>
-        <b>SomeOne</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad corporis eligendi est
-        non quasi quos voluptatem. Dolor harum pariatur suscipit.
+        <span class='var-home-design-card-description'> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad corporis eligendi est
+        non quasi quos voluptatem. Dolor harum pariatur suscipit.</span>
     </div>
 
     <div class='design-card-panel'>
@@ -47,6 +47,7 @@ const template = `
 
 export const HomeDesignCardBuilder = ({
     name,
+    description,
     username,
     imgProfileSource,
     imgSource,
@@ -71,11 +72,13 @@ export const HomeDesignCardBuilder = ({
         imgSource: card.querySelector(`.var--home-design-card-img-source`),
         imgProfileSource: card.querySelector(`.var--home-design-card-img-profile-source`),
         likeHeartIconSvg: card.querySelector(`.var--like-heart-icon`),
-        likeHeartCount: card.querySelector(`.var--like-heart-count`)
+        likeHeartCount: card.querySelector(`.var--like-heart-count`),
+        description: card.querySelector(`.var-home-design-card-description`)
     };
 
     elements.price.innerText = price;
     elements.name.innerText = name;
+    elements.description.innerText = description;
     elements.username.innerText = username;
     elements.imgSource.setAttribute('src', imgSource);
     elements.imgProfileSource.setAttribute('src', imgProfileSource);

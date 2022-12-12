@@ -7,13 +7,15 @@ const controller = require('../controllers/designController');
 const { wrapControllerWithErrorHandler, validateExpectedFields } = require('../services/error-handler.service');
 const uploadService = require('../services/upload.service');
 
-router.post(
-    '/',
-    uploadService.imageUpload.single('singleImage'),
-    body('price').isNumeric({ no_symbols: true }).toFloat(),
-    body('description').isString(),
-    validateExpectedFields('saveDesign'),
-    wrapControllerWithErrorHandler(controller.saveDesign)
-);
+router
+    .post(
+        '/',
+        uploadService.imageUpload.single('singleImage'),
+        body('price').isNumeric({ no_symbols: true }).toFloat(),
+        body('description').isString(),
+        validateExpectedFields('saveDesign'),
+        wrapControllerWithErrorHandler(controller.saveDesign)
+    )
+    .get('/', wrapControllerWithErrorHandler(controller.getAllDesigns));
 
 module.exports = router;
