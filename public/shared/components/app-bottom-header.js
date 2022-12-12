@@ -6,7 +6,7 @@ const template = `
     </div>
 `;
 
-export const AppHeaderBuilder = (parent, id) => {
+export const AppBottomHeaderBuilder = (parent, id) => {
     parent.innerHTML = template;
     parent.classList.add('app-header');
 
