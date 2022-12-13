@@ -1,0 +1,240 @@
+.fa {
+    width: 1rem;
+    height: 1rem;
+    color: var(--blue);
+}
+
+.design-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.design-card-icon-button {
+    transition: all 0.2s;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: var(--blue);
+    position: relative;
+}
+.design-card-icon-button > span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: 0;
+    transform: translateY(-50%);
+}
+.design-card-icon-button > span > svg {
+    width: 1rem;
+    height: 1rem;
+    fill: var(--blue);
+}
+
+.design-card-image-wrap {
+    position: relative;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/*https://spin.atomicobject.com/2015/07/14/css-responsive-square/*/
+.design-card-image-wrap:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+}
+
+.design-card-image {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.design-card-panel-text {
+    padding: 1rem 0;
+    font-weight: lighter;
+    font-size: 0.9rem;
+}
+.design-card-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    color: var(--blue);
+}
+.design-card-panel-buy,
+.design-card-panel-likes {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+.design-card-panel-likes > div,
+.design-card-panel-buy > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.design-card-panel-buy > button {
+    transition: all 0.2s;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    outline: none;
+}
+
+.design-card-panel-buy > button:hover {
+    background-color: var(--blue);
+    color: white;
+}
+
+.design-card-profile {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+.design-card-profile-image {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.design-card-profile-info-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.2rem;
+}
+.design-card-profile-info-wrap > small:last-child {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.svg-icon {
+    width: 3em;
+    height: 3em;
+    margin-right: 5px;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #4691f6;
+}
+
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+.postTime {
+    margin-top: 8px;
+    font-weight: lighter;
+    color: rgb(163, 163, 163);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+.actionBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actionBtns svg {
+    cursor: pointer;
+}
+
+.actionBtns .left svg {
+    margin-right: 8px;
+}
+
+.likes {
+    font-weight: 500;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #4d4d4f;
+}
+
+.message {
+    font-weight: 400;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5em;
+}
+
+.message b {
+    color: #262626;
+}
+
+.message span {
+    cursor: pointer;
+    color: #1d92ff;
+}
+
+.comments {
+    margin-top: 10px;
+    font-weight: 400;
+    color: #999;
+}
+
+.addComments {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.addComments a {
+    color: #1d92ffcb;
+    font-weight: 500;
+}
+
+.addComments .reaction {
+    position: relative;
+    font-size: 1.3rem;
+    margin-right: 10px;
+    color: rgb(88, 88, 88);
+}
+
+input.text {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #262626;
+    background: none;
+}
+
+input.text::placeholder {
+    color: #777;
+}
