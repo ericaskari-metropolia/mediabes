@@ -53,5 +53,5 @@ document.addEventListener('click', (event) => {
     console.log('mouse clicked somewhere on the page', event);
 });
 
-// AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
-// AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
+AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
+AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);

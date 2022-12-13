@@ -12,7 +12,7 @@ const template = `
                 </div>
                 <hr />
 
-                <a href='#' class='app-top-header-sub-menu-link'>
+                <a href='/search/' class='app-top-header-sub-menu-link'>
                     <i class='fa-solid fa-magnifying-glass'></i>
                     <p>Search</p>
                     <span>></span>
