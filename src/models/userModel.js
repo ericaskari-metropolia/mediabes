@@ -16,6 +16,12 @@ const getUserById = async (id) => {
     return rows.length > 0 ? rows[0] : null;
 };
 
+const getUserByUsername = async (id) => {
+    const sql = 'SELECT name, username FROM user WHERE id = ?';
+    const [rows] = await promisePool.query(sql, [id]);
+    return rows.length > 0 ? rows[0] : null;
+};
+
 const getUserByEmail = async (email, res) => {
     const sql = 'SELECT id, username, description, password, email, name FROM user WHERE email = ?';
     const [rows] = await promisePool.query(sql, [email]);
@@ -51,6 +57,7 @@ const deleteUserById = async (userId, res) => {
 module.exports = {
     getAllUsers,
     getUserById: getUserById,
+    getUserByUsername,
     getUserByEmail: getUserByEmail,
     getUserLogin: getUserLogin,
     addUser: addUser,
