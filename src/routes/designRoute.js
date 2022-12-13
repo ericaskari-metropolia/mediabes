@@ -2,7 +2,7 @@
 // userRoute
 const express = require('express');
 const router = express.Router();
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const controller = require('../controllers/designController');
 const { wrapControllerWithErrorHandler, validateExpectedFields } = require('../services/error-handler.service');
 const uploadService = require('../services/upload.service');
@@ -16,9 +16,24 @@ router
         validateExpectedFields('saveDesign'),
         wrapControllerWithErrorHandler(controller.saveDesign)
     )
-    .post('/:designId/like', wrapControllerWithErrorHandler(controller.likeDesign))
+    .post(
+        '/:designId/like',
+        param('designId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('likeDesign'),
+        wrapControllerWithErrorHandler(controller.likeDesign)
+    )
     .get('/', wrapControllerWithErrorHandler(controller.getAllDesigns))
-    .get('/:designId', wrapControllerWithErrorHandler(controller.getDesignDetails))
-    .get('/:designId/like', wrapControllerWithErrorHandler(controller.getDesignLikeCount));
+    .get(
+        '/:designId',
+        param('designId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('getDesignDetails'),
+        wrapControllerWithErrorHandler(controller.getDesignDetails)
+    )
+    .get(
+        '/:designId/like',
+        param('designId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('getDesignLikeCount'),
+        wrapControllerWithErrorHandler(controller.getDesignLikeCount)
+    );
 
 module.exports = router;

@@ -41,7 +41,8 @@
     border: 2px solid var(--input-border-color-focus-visible);
 }
 
-.app-form > div > button {
+.app-form > div > button,
+.app-form-action-button {
     transition: all 0.3s;
     padding: 0.7rem 1.2rem;
     border-radius: 1rem;
@@ -49,6 +50,15 @@
     background-color: var(--blue-500);
     color: white;
     cursor: pointer;
+}
+.app-form-action-outline-button {
+    transition: all 0.3s;
+    padding: 0.7rem 1.2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 1px solid var(--blue-500);
+    background-color: transparent;
+    color: var(--blue-500);
 }
 
 .app-form > div > button:hover {

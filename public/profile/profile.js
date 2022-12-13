@@ -1,6 +1,6 @@
 import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
-import { endpoints, getQueryParam } from '../shared/common';
-import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
+import { endpoints, getQueryParam } from '../shared/common.js';
+import { AppTopHeaderBuilder } from '../shared/components/app-top-header.js';
 
 window.addEventListener('load', async () => {
     const elements = {

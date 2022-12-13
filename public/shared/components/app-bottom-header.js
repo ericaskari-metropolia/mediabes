@@ -1,5 +1,5 @@
 const template = `
-    <div class='app-header-content'>
+    <div class='app-bottom-header-content'>
         <a class='app-header-icon' href='/'><i class="fa-solid fa-home"></i></a>
         <a class='app-header-icon' href='/add-design/'><i class="fa-solid fa-add"></i></a>
         <a class='app-header-icon var--profile-link' href='/profile/'><i class="fa-solid fa-circle-user"></i></a>

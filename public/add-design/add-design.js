@@ -1,7 +1,7 @@
 import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
 import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator';
-import { endpoints, storage } from '../shared/common';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
+import { endpoints, storage } from '../shared/common.js';
 
 window.addEventListener('load', async () => {
     const elements = {
@@ -11,7 +11,7 @@ window.addEventListener('load', async () => {
         formErrorMessage: document.querySelector('.form-error-message'),
         formSuccessMessage: document.querySelector('.form-success-message')
     };
-    const loading = LoadingIndicator.init(false);
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
 
     const { body, response, error } = await endpoints.getMyUserProfile();
     if (error || !body) {

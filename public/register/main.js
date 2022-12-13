@@ -1,9 +1,10 @@
 import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from '../shared/common.js';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator.js';
 import { faker } from 'https://cdn.skypack.dev/@faker-js/faker';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
 
 window.addEventListener('load', async () => {
-    const loading = LoadingIndicator.init();
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
+
     const elements = {
         form: document.getElementById('page-form'),
         nameFormControl: document.querySelector('input[name="name"]'),
@@ -42,8 +43,7 @@ window.addEventListener('load', async () => {
             elements.formSuccessMessage.hidden = true;
             elements.formErrorMessage.hidden = true;
             event.preventDefault();
-            await loading.show();
-
+            showLoading();
             const { username, password, name, email } = formDataToJson(new FormData(elements.form));
 
             const { error, body, response } = await endpoints.register({
@@ -84,7 +84,7 @@ window.addEventListener('load', async () => {
         } catch (e) {
             console.log(e);
         } finally {
-            loading.hide();
+            hideLoading();
         }
     };
 });

@@ -3,22 +3,22 @@
 .app-header {
     height: 80px;
     display: flex;
-    align-items: center;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: white;
-    z-index: 100;
     box-shadow: 0px -3px 20px -10px rgba(0, 0, 0, 0.73);
+    z-index: 1;
 }
 
-.app-header-content {
+.app-bottom-header-content {
     flex: 1;
     display: flex;
+    align-items: center;
     padding: 0 1rem;
     justify-content: center;
     gap: clamp(1rem, 20vw, 10rem);
+    background-color: white;
 }
 .app-header-icon {
     font-size: 1.5rem;
