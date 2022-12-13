@@ -68,7 +68,7 @@ const initStrategies = () => {
     );
 };
 
-/** @type {import('../types/types').authenticateJWT} */
+/** @type {import('express').Handler} */
 const authenticateJWT = (req, res, next) => {
     passport.authenticate('jwt', { session: false })(req, res, next);
 };

@@ -42,7 +42,7 @@ router
     )
     .post(
         '/:userId/avatar',
-        uploadService.imageUpload.single('singleImage'),
+        uploadService.avatarImage.single('singleImage'),
         wrapControllerWithErrorHandler(userController.updateUserAvatar)
     )
     .delete('/:userId', wrapControllerWithErrorHandler(userController.deleteUser));

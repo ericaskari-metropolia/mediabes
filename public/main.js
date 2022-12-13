@@ -32,8 +32,9 @@ window.addEventListener('load', async () => {
         const { items = [] } = body ?? {};
 
         for (let card of items) {
-            const { avatarUrl, description, username, name, price, url } = card;
-            console.log(card);
+            const { id, avatarUrl, description, username, name, price, url } = card;
+            const { body } = await endpoints.getDesignLikeCount(id);
+            const { likeCount, isLiked } = body;
             document.getElementById('card-list').appendChild(
                 HomeDesignCardBuilder({
                     name,
@@ -42,13 +43,15 @@ window.addEventListener('load', async () => {
                     username,
                     price: price,
                     imgProfileSource: avatarUrl,
-                    isLiked: false,
-                    likeCount: 0,
+                    isLiked: isLiked,
+                    likeCount,
                     onBuyClick: () => {
                         console.log('onBuyClick');
                     },
-                    onHeartClick: () => {
-                        console.log('onHeartClick');
+                    onHeartClick: async () => {
+                        const { body } = await endpoints.likeDesign(id);
+                        const { isLiked, likeCount } = body;
+                        return { isLiked, likeCount };
                     },
                     onCommentClick: () => {
                         console.log('onCommentClick');
@@ -56,14 +59,7 @@ window.addEventListener('load', async () => {
                 })
             );
         }
-
-        console.log({ body, response, error });
-        if (body) {
-        }
     }
-    //  Just to test the jwt
-    const users = await endpoints.getUsers();
-    console.log(users);
     await loading.hide();
 
     if (!storage.hasValidSession()) {

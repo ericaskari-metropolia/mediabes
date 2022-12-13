@@ -2,6 +2,7 @@
 const model = require('../models/depositModel');
 const { validationResult } = require('express-validator');
 
+/** @type {import('express').Handler} */
 const saveDeposit = async (req, res) => {
     const { id: userId } = req.user;
     const { amount, cardNumber, cardHolderName } = req.body;
