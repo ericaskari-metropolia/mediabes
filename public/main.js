@@ -1,17 +1,20 @@
 import { endpoints, storage } from './shared/common.js';
-import { LoadingIndicator } from './shared/loading-indicator/loading-indicator.js';
+import { AppLoadingIndicatorBuilder } from './shared/components/app-loading-indicator.js';
 import { HomeDesignCardBuilder } from './shared/components/home-design-card.js';
 import { AppBottomHeaderBuilder } from './shared/components/app-bottom-header.js';
 import { AppTopHeaderBuilder } from './shared/components/app-top-header.js';
+import { ModalBuilder } from './shared/components/app-modal.js';
 
 window.addEventListener('load', async () => {
+    //  Page Html element references
     const elements = {
-        loadingIndicator: document.getElementsByClassName('loading-indicator')[0],
+        topHeaderPlaceHolder: document.getElementById('app-top-header'),
+        bottomHeaderPlaceHolder: document.getElementById('app-bottom-header'),
+        loadingIndicatorPlaceHolder: document.getElementById('app-loading-indicator'),
         debug: document.getElementById('debug'),
+        modalList: document.getElementById('app-modals'),
         cardList: document.getElementById('card-list')
     };
-
-    const loading = LoadingIndicator.init(true);
 
     const { body, response, error } = await endpoints.getMyUserProfile();
     if (error || !body) {
@@ -20,8 +23,18 @@ window.addEventListener('load', async () => {
     }
     const { user, userAvatar } = body;
 
-    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
-    AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
+    //  Modal Component
+    const { showPurchaseConfirmation } = ModalBuilder(document.getElementById('app-modals'));
+
+    //  Page Loading Indicator
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(elements.loadingIndicatorPlaceHolder);
+    showLoading();
+
+    //  Top Header Component
+    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(elements.topHeaderPlaceHolder, user.id);
+
+    //  Bottom Header Component
+    AppBottomHeaderBuilder(elements.bottomHeaderPlaceHolder, user.id);
 
     if (userAvatar) {
         updateTopHeaderAvatar(userAvatar.url);
@@ -31,12 +44,12 @@ window.addEventListener('load', async () => {
         const { body, response, error } = await endpoints.getAllDesigns();
         const { items = [] } = body ?? {};
 
-        for (let card of items) {
-            const { id, avatarUrl, description, username, name, price, url } = card;
-            const { body } = await endpoints.getDesignLikeCount(id);
-            const { likeCount, isLiked } = body;
-            document.getElementById('card-list').appendChild(
-                HomeDesignCardBuilder({
+        const cards = await Promise.all(
+            items.map(async (card) => {
+                const { id, avatarUrl, description, username, name, price, url, userId } = card;
+                const { body } = await endpoints.getDesignLikeCount(id);
+                const { likeCount, isLiked } = body;
+                return HomeDesignCardBuilder({
                     name,
                     description,
                     imgSource: url,
@@ -45,8 +58,11 @@ window.addEventListener('load', async () => {
                     imgProfileSource: avatarUrl,
                     isLiked: isLiked,
                     likeCount,
-                    onBuyClick: () => {
+                    showBuyButton: userId !== user.id,
+                    onBuyClick: async () => {
                         console.log('onBuyClick');
+                        const confirmation = await showPurchaseConfirmation(name, price);
+                        console.log(confirmation);
                     },
                     onHeartClick: async () => {
                         const { body } = await endpoints.likeDesign(id);
@@ -56,11 +72,16 @@ window.addEventListener('load', async () => {
                     onCommentClick: () => {
                         console.log('onCommentClick');
                     }
-                })
-            );
+                });
+            })
+        );
+
+        for (let card of cards) {
+            document.getElementById('card-list').appendChild(card);
         }
     }
-    await loading.hide();
+
+    hideLoading();
 
     if (!storage.hasValidSession()) {
         location.href = '/login/';

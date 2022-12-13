@@ -2,11 +2,11 @@
 @import 'shared/styles/app-bottom-header.css';
 @import 'shared/styles/home-design-card.css';
 @import 'shared/styles/loading-indicator.css';
+@import 'shared/styles/app-modal.css';
 @import 'shared/styles/variables.css';
 
 html,
-body,
-body > div {
+body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
@@ -60,7 +60,7 @@ body > div {
 .content {
     max-width: var(--sm);
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1rem 1rem 7rem 1rem;
 }
 
 #card-list {

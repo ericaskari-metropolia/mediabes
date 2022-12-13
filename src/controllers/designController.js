@@ -59,7 +59,7 @@ const getDesignLikeCount = async (req, res) => {
 
     const isLiked = await likeModel.getLike({ userId, designId });
 
-    return res.status(200).send({ likeCount: await likeModel.countLikesByDesignId(designId), isLiked });
+    return res.status(200).send({ likeCount: await likeModel.countLikesByDesignId(designId), isLiked: !!isLiked });
 };
 
 /** @type {import('express').Handler} */

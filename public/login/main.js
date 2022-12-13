@@ -1,8 +1,8 @@
 import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from '../shared/common.js';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator.js';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
 
 window.addEventListener('load', () => {
-    const loading = LoadingIndicator.init();
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
     const elements = {
         form: document.getElementById('page-form'),
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],
@@ -19,8 +19,7 @@ window.addEventListener('load', () => {
             elements.formSuccessMessage.hidden = true;
             elements.formErrorMessage.hidden = true;
             event.preventDefault();
-            await loading.show();
-
+            showLoading();
             const { username, password } = formDataToJson(new FormData(elements.form));
 
             const { error, body, response } = await endpoints.login({
@@ -49,7 +48,7 @@ window.addEventListener('load', () => {
         } catch (e) {
             console.log(e);
         } finally {
-            loading.hide();
+            hideLoading();
         }
     };
 });

@@ -1,7 +1,8 @@
-import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
-import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
+'use strict';
 
-('use strict');
+import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
+import { AppTopHeaderBuilder } from '../shared/components/app-top-header.js';
+
 const apiUrl = 'https://mediabes.nicerock-48a381ae.northeurope.azurecontainerapps.io/search/user/?username=';
 
 // get references to DOM elements

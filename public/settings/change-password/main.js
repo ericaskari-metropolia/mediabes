@@ -1,8 +1,8 @@
 import { enableFormDebug, isDevelopment, endpoints, formDataToJson } from '../../shared/common.js';
-import { LoadingIndicator } from '../../shared/loading-indicator/loading-indicator.js';
+import { AppLoadingIndicatorBuilder } from '../../shared/components/app-loading-indicator.js';
 
 window.addEventListener('load', () => {
-    const loading = LoadingIndicator.init();
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
 
     const elements = {
         form: document.getElementById('page-form'),
@@ -20,8 +20,7 @@ window.addEventListener('load', () => {
             elements.formSuccessMessage.hidden = true;
             elements.formErrorMessage.hidden = true;
             event.preventDefault();
-            await loading.show();
-
+            showLoading();
             const { newPassword, oldPassword, repeatNewPassword } = formDataToJson(new FormData(elements.form));
 
             if (oldPassword !== repeatNewPassword) {
@@ -55,6 +54,7 @@ window.addEventListener('load', () => {
             console.log(e);
         } finally {
             loading.hide();
+            hideLoading();
         }
     };
 });
