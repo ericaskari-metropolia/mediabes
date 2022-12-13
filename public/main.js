@@ -46,7 +46,7 @@ window.addEventListener('load', async () => {
 
         const cards = await Promise.all(
             items.map(async (card) => {
-                const { id, avatarUrl, description, username, name, price, url } = card;
+                const { id, avatarUrl, description, username, name, price, url, userId } = card;
                 const { body } = await endpoints.getDesignLikeCount(id);
                 const { likeCount, isLiked } = body;
                 return HomeDesignCardBuilder({
@@ -58,6 +58,7 @@ window.addEventListener('load', async () => {
                     imgProfileSource: avatarUrl,
                     isLiked: isLiked,
                     likeCount,
+                    showBuyButton: userId !== user.id,
                     onBuyClick: async () => {
                         console.log('onBuyClick');
                         const confirmation = await showPurchaseConfirmation(name, price);
