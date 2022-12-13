@@ -5,6 +5,7 @@ const bcryptService = require('../services/bcrypt.service');
 const { validationResult } = require('express-validator');
 const { addUser, getUserByEmail } = require('../models/userModel');
 
+/** @type {import('express').Handler} */
 const login = (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err || !user) {
@@ -20,6 +21,7 @@ const login = (req, res) => {
     })(req, res);
 };
 
+/** @type {import('express').Handler} */
 const register = async (req, res) => {
     console.log('Creating a new user:', req.body);
     const newUser = req.body;
@@ -51,6 +53,7 @@ const register = async (req, res) => {
     });
 };
 
+/** @type {import('express').Handler} */
 const logout = (req, res) => {
     console.log('some user logged out');
     res.json({ message: 'logged out' });

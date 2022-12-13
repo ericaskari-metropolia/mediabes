@@ -16,6 +16,7 @@ router
         validateExpectedFields('saveDesign'),
         wrapControllerWithErrorHandler(controller.saveDesign)
     )
+    .post('/:designId/like', wrapControllerWithErrorHandler(controller.likeDesign))
     .get('/', wrapControllerWithErrorHandler(controller.getAllDesigns));
 
 module.exports = router;

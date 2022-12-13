@@ -6,6 +6,7 @@ const userAvatarModel = require('../models/userAvatarModel');
 const uploadModel = require('../models/uploadModel');
 const { validationResult } = require('express-validator');
 
+/** @type {import('express').Handler} */
 const getUsers = async (req, res) => {
     console.log('getUsers');
     console.log(req.user);
@@ -13,6 +14,7 @@ const getUsers = async (req, res) => {
     res.json(users);
 };
 
+/** @type {import('express').Handler} */
 const getUser = async (req, res) => {
     const user = await userModel.getUserById(req.params.userId);
     if (user) {
@@ -25,6 +27,7 @@ const getUser = async (req, res) => {
     }
 };
 
+/** @type {import('express').Handler} */
 const createUser = async (req, res) => {
     console.log('Creating a new user:', req.body);
     const newUser = req.body;
@@ -45,6 +48,7 @@ const createUser = async (req, res) => {
     }
 };
 
+/** @type {import('express').Handler} */
 const modifyUser = async (req, res) => {
     const user = req.body;
     if (req.params.userId) {
@@ -69,6 +73,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
+/** @type {import('express').Handler} */
 const checkToken = async (req, res) => {
     const balance = await balanceModel.getBalance(req.user.id);
     const followerUsers = await userFollowModel.getFollowersByUserId(req.user.id);
@@ -77,6 +82,7 @@ const checkToken = async (req, res) => {
     res.json({ user: req.user, balance, followerUsers, followedUsers, userAvatar });
 };
 
+/** @type {import('express').Handler} */
 const updateUserAvatar = async (req, res) => {
     const {
         url,

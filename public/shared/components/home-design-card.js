@@ -95,8 +95,17 @@ export const HomeDesignCardBuilder = ({
     elements.commentButton.addEventListener('click', () => {
         onCommentClick();
     });
-    elements.heartButton.addEventListener('click', () => {
-        onHeartClick();
+    elements.heartButton.addEventListener('click', async () => {
+        elements.heartButton.disabled = true;
+        const isLiked = await onHeartClick();
+        if (isLiked) {
+            elements.likeHeartIconSvg.classList.add('fa-solid');
+            elements.likeHeartIconSvg.classList.remove('fa-regular');
+        } else {
+            elements.likeHeartIconSvg.classList.remove('fa-solid');
+            elements.likeHeartIconSvg.classList.add('fa-regular');
+        }
+        elements.heartButton.disabled = false;
     });
     elements.buyButton.addEventListener('click', () => {
         onBuyClick();

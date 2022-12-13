@@ -3,51 +3,61 @@
 const pool = require('../database/database');
 const promisePool = pool.promise();
 
-const saveLike = async (user_id, design_id, res) => {
-    try {
-        const sql = 'INSERT INTO likes (user_id, design_id) VALUES (?, ?)';
-        const [rows] = await promisePool.query(sql, [user_id, design_id]);
-        return rows;
-    } catch (e) {
-        console.error('error', e.message);
-        res.status(500).send(e.message);
+const getLike = async ({ userId, designId }) => {
+    const [[query]] = await promisePool.query('SELECT * FROM likes WHERE user_id = ? AND design_id = ? LIMIT 1', [
+        userId,
+        designId
+    ]);
+    return query ?? null;
+};
+
+const saveLike = async ({ userId, designId }) => {
+    {
+        const query = await getLike({ userId, designId });
+        if (query) {
+            return query;
+        }
+    }
+    {
+        await promisePool.query('INSERT INTO likes (user_id, design_id)  VALUES (?, ?)', [userId, designId]);
+
+        const [[query]] = await promisePool.query('SELECT * FROM likes WHERE user_id = ? AND design_id = ? LIMIT 1', [
+            userId,
+            designId
+        ]);
+
+        return query;
     }
 };
 
-const deleteLike = async (user_id, design_id, res) => {
-    try {
-        const sql = 'DELETE FROM likes WHERE user_id = ? AND design_id = ?';
-        const [rows] = await promisePool.query(sql, [user_id, design_id]);
-        return rows;
-    } catch (e) {
-        console.error('error', e.message);
-        res.status(500).send(e.message);
+const deleteLike = async ({ userId, designId }) => {
+    {
+        const query = await getLike({ userId, designId });
+        if (!query) {
+            return query;
+        }
     }
+    await promisePool.query('DELETE FROM likes WHERE user_id = ? AND design_id = ?', [userId, designId]);
 };
 
-const countLikesByDesignId = async (design_id, res) => {
-    try {
-        const sql = 'SELECT COUNT(user_id) FROM likes WHERE design_id = ?';
-        const [rows] = await promisePool.query(sql, [design_id]);
-    } catch (e) {
-        console.error('error', e.message);
-        res.status(500).send(e.message);
-    }
+const countLikesByDesignId = async (designId) => {
+    const sql = 'SELECT COUNT(user_id) FROM likes WHERE design_id = ?';
+    const [rows] = await promisePool.query(sql, [designId]);
+    return rows;
 };
 
-const getUsersWhoLikedByDesignId = async (design_id, res) => {
-    try {
-        const [rows] = await promisePool.query('SELECT user.name FROM user, likes WHERE likes.design_id = ? AND user_id = user.id', [design_id]);
-        return rows;
-    } catch (e) {
-        console.error('error', e.message);
-        res.status(500).send(e.message);
-    }
+const getUsersWhoLikedByDesignId = async (designId) => {
+    const [rows] = await promisePool.query(
+        'SELECT user.name FROM user, likes WHERE likes.design_id = ? AND user_id = user.id',
+        [designId]
+    );
+    return rows;
 };
 
 module.exports = {
-    saveLike,
-    deleteLike,
-    countLikesByDesignId,
-    getUsersWhoLikedByDesignId
+    getLike: getLike,
+    saveLike: saveLike,
+    deleteLike: deleteLike,
+    countLikesByDesignId: countLikesByDesignId,
+    getUsersWhoLikedByDesignId: getUsersWhoLikedByDesignId
 };
