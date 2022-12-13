@@ -28,7 +28,8 @@ const template = `
             </div>
             <div>
                 <button class='var--heart-button design-card-icon-button'>
-                    <i class='var--like-heart-icon fa fa-solid fa-heart'></i>
+                    <span><svg ><use xlink:href="/solid.svg#heart"></use></svg></span>
+                    <span hidden><svg ><use xlink:href="/regular.svg#heart"></use></svg></span>
                 </button>
                 <small><b class='var--like-heart-count'>1000</b></small>
             </div>
@@ -83,13 +84,14 @@ export const HomeDesignCardBuilder = ({
     elements.imgSource.setAttribute('src', imgSource);
     elements.imgProfileSource.setAttribute('src', imgProfileSource);
 
-    if (isLiked) {
-        elements.likeHeartIconSvg.classList.add('fa-solid');
-        elements.likeHeartIconSvg.classList.remove('fa-regular');
-    } else {
-        elements.likeHeartIconSvg.classList.remove('fa-solid');
-        elements.likeHeartIconSvg.classList.add('fa-regular');
-    }
+    const updateLikeUI = (isLiked) => {
+        const heartButton = card.querySelector(`.var--heart-button`);
+        const [solid, regular] = heartButton.children;
+        solid.hidden = !isLiked;
+        regular.hidden = isLiked;
+    };
+
+    updateLikeUI(isLiked);
     elements.likeHeartCount.innerText = likeCount;
 
     elements.commentButton.addEventListener('click', () => {
@@ -97,14 +99,10 @@ export const HomeDesignCardBuilder = ({
     });
     elements.heartButton.addEventListener('click', async () => {
         elements.heartButton.disabled = true;
-        const isLiked = await onHeartClick();
-        if (isLiked) {
-            elements.likeHeartIconSvg.classList.add('fa-solid');
-            elements.likeHeartIconSvg.classList.remove('fa-regular');
-        } else {
-            elements.likeHeartIconSvg.classList.remove('fa-solid');
-            elements.likeHeartIconSvg.classList.add('fa-regular');
-        }
+        const { isLiked, likeCount } = await onHeartClick();
+        updateLikeUI(isLiked);
+        elements.likeHeartCount.innerText = likeCount;
+
         elements.heartButton.disabled = false;
     });
     elements.buyButton.addEventListener('click', () => {

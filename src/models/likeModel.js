@@ -41,9 +41,9 @@ const deleteLike = async ({ userId, designId }) => {
 };
 
 const countLikesByDesignId = async (designId) => {
-    const sql = 'SELECT COUNT(user_id) FROM likes WHERE design_id = ?';
-    const [rows] = await promisePool.query(sql, [designId]);
-    return rows;
+    const sql = 'SELECT COUNT(user_id) as count FROM likes WHERE design_id = ?';
+    const [[{ count }]] = await promisePool.query(sql, [designId]);
+    return count;
 };
 
 const getUsersWhoLikedByDesignId = async (designId) => {

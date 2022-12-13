@@ -1,8 +1,7 @@
-SELECT designs.id, user.name, likecount, commentcount, designs.description, designs.price
+SELECT designs.*, user.*, count(likes.user_id) as likeCount, count(comments.user_id) as commentCount
 FROM designs
-         LEFT JOIN (SELECT design_id, COUNT(*) AS likecount FROM likes GROUP BY design_id) AS liketable
-                   ON designs.id = liketable.design_id
-         LEFT JOIN (SELECT design_id, COUNT(*) AS commentcount FROM comments GROUP BY design_id) AS commenttable
-                   ON designs.id = commenttable.design_id
-         JOIN user ON designs.user_id = user.id
-GROUP BY (SELECT id FROM designs WHERE id = ?);
+         left join likes on designs.id = likes.design_id
+         left join comments on designs.id = comments.design_id
+         left join user on user.id = designs.user_id
+WHERE designs.id = ?
+group by designs.id;

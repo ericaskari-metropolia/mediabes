@@ -24,12 +24,22 @@
     height: 2rem;
     border-radius: 1rem;
     cursor: pointer;
-    border: 1px solid var(--blue);
+    border: 1px solid transparent;
     color: var(--blue);
+    position: relative;
 }
-.design-card-icon-button:hover {
-    background-color: var(--blue);
-    color: white;
+.design-card-icon-button > span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: 0;
+    transform: translateY(-50%);
+}
+.design-card-icon-button > span > svg {
+    width: 1rem;
+    height: 1rem;
+    fill: var(--blue);
 }
 
 .design-card-image-wrap {
