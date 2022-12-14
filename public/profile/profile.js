@@ -47,7 +47,7 @@ window.addEventListener('load', async () => {
     } = getMyUserProfileBody;
 
     if (myUserAvatar) {
-        updateTopHeaderAvatar(myUserAvatar.url);
+        updateTopHeaderAvatar(myUserAvatar?.url || '/profile.png');
     }
 
     //  Decide what profile we should show. Self invoked function to group some logic
@@ -114,7 +114,7 @@ window.addEventListener('load', async () => {
 
     const { user, followerUsers, followedUsers, userAvatar, balance, showBalance, isMyProfile } = userProfile;
 
-    elements.avatar.setAttribute('src', userAvatar.url);
+    elements.avatar.setAttribute('src', userAvatar?.url || '/profile.png');
 
     if (isMyProfile) {
         elements.showBalance.removeAttribute('hidden');

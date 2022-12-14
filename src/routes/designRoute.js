@@ -28,6 +28,13 @@ router
         validateExpectedFields('likeDesign'),
         wrapControllerWithErrorHandler(controller.buyDesign)
     )
+    .post(
+        '/:designId/comments',
+        param('designId').isNumeric({ no_symbols: true }),
+        body('description').isString().trim(),
+        // validateExpectedFields('commentDesign'),
+        wrapControllerWithErrorHandler(controller.commentDesign)
+    )
     .get('/', wrapControllerWithErrorHandler(controller.getAllDesigns))
     .get(
         '/:designId',
@@ -40,6 +47,12 @@ router
         param('designId').isNumeric({ no_symbols: true }),
         validateExpectedFields('getDesignLikeCount'),
         wrapControllerWithErrorHandler(controller.getDesignLikeCount)
+    )
+    .get(
+        '/:designId/comments',
+        param('designId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('getDesignLikeCount'),
+        wrapControllerWithErrorHandler(controller.getDesignComments)
     );
 
 module.exports = router;
