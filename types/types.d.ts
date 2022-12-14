@@ -69,7 +69,6 @@ export interface CommentEntity {
 }
 
 export interface PurchaseEntity {
-    id: number;
     design_id: number;
     user_id: number;
     created_at: string;

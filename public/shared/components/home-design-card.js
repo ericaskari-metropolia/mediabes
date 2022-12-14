@@ -21,12 +21,6 @@ const template = `
     <div class='design-card-panel'>
         <div class='design-card-panel-likes'>
             <div>
-                <button class='var--comment-button design-card-icon-button'>
-                    <i class='fa fa-regular fa-message'></i>
-
-                </button>
-            </div>
-            <div>
                 <button class='var--heart-button design-card-icon-button'>
                     <span><svg ><use xlink:href="/solid.svg#heart"></use></svg></span>
                     <span hidden><svg ><use xlink:href="/regular.svg#heart"></use></svg></span>
@@ -55,18 +49,16 @@ export const HomeDesignCardBuilder = ({
     price,
     likeCount,
     isLiked,
-    showBuyButton,
+    hideBuyButton,
     onImgClick,
     onBuyClick,
-    onHeartClick,
-    onCommentClick
+    onHeartClick
 }) => {
     const card = document.createElement('div');
     card.innerHTML = template;
     card.classList.add('design-card');
 
     const elements = {
-        commentButton: card.querySelector(`.var--comment-button`),
         heartButton: card.querySelector(`.var--heart-button`),
         buyButton: card.querySelector(`.var--buy-button`),
         price: card.querySelector(`.var--price`),
@@ -87,7 +79,7 @@ export const HomeDesignCardBuilder = ({
     if (imgProfileSource) {
         elements.imgProfileSource.setAttribute('src', imgProfileSource);
     }
-    elements.buyButton.hidden = !showBuyButton;
+    elements.buyButton.hidden = hideBuyButton;
 
     const updateLikeUI = (isLiked) => {
         const heartButton = card.querySelector(`.var--heart-button`);
@@ -99,9 +91,6 @@ export const HomeDesignCardBuilder = ({
     updateLikeUI(isLiked);
     elements.likeHeartCount.innerText = likeCount;
 
-    elements.commentButton.addEventListener('click', () => {
-        onCommentClick();
-    });
     elements.heartButton.addEventListener('click', async () => {
         elements.heartButton.disabled = true;
         const { isLiked, likeCount } = await onHeartClick();
@@ -111,8 +100,9 @@ export const HomeDesignCardBuilder = ({
         elements.heartButton.disabled = false;
     });
 
-    elements.buyButton.addEventListener('click', () => {
-        onBuyClick();
+    elements.buyButton.addEventListener('click', async () => {
+        const succeeded = await onBuyClick();
+        elements.buyButton.hidden = !!succeeded;
     });
     elements.imgSource.addEventListener('dblclick', () => {
         onHeartClick();
