@@ -100,11 +100,10 @@ create table comments
 
 CREATE TABLE purchase
 (
-    id        INT NOT NULL AUTO_INCREMENT,
     design_id INT,
     user_id   INT,
     created_at TIMESTAMP DEFAULT NOW(),
-    PRIMARY KEY (id),
+    PRIMARY KEY (design_id, user_id),
     FOREIGN KEY (design_id) REFERENCES designs (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );

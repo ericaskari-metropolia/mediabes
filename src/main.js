@@ -7,6 +7,7 @@ const userRouter = require('./routes/userRoute');
 const authRouter = require('./routes/authRoute');
 const designRoute = require('./routes/designRoute');
 const depositRouter = require('./routes/depositRoute');
+const purchaseRoute = require('./routes/purchaseRoute');
 const passport = require('passport');
 const passportService = require('./utils/passport');
 const { authenticateJWT } = require('./utils/passport');
@@ -32,6 +33,7 @@ async function start() {
     app.use('/api/user', authenticateJWT, userRouter);
     app.use('/api/design', authenticateJWT, designRoute);
     app.use('/api/deposit', authenticateJWT, depositRouter);
+    app.use('/api/purchase', authenticateJWT, purchaseRoute);
     app.get('/api/healthcheck', (req, res, next) => {
         res.status(200).send({ status: 'OK!' });
     });

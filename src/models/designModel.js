@@ -7,6 +7,9 @@ const promisePool = pool.promise();
 
 const getAllDesignsSql = fs.readFileSync(path.resolve(__dirname, './queries/getAllDesigns.sql')).toString();
 const getAllUserDesignsSql = fs.readFileSync(path.resolve(__dirname, './queries/getAllUserDesigns.sql')).toString();
+const getAllUserPurchasedDesignsSql = fs
+    .readFileSync(path.resolve(__dirname, './queries/getAllUserPurchasedDesigns.sql'))
+    .toString();
 const getRecommendationsSql = fs.readFileSync(path.resolve(__dirname, './queries/getRecommendations.sql')).toString();
 const getFeedPageSql = fs.readFileSync(path.resolve(__dirname, './queries/getFeedPage.sql')).toString();
 const getDesignDetailsSql = fs.readFileSync(path.resolve(__dirname, './queries/getDesignDetails.sql')).toString();
@@ -18,6 +21,11 @@ const getAllDesigns = async () => {
 
 const getAllUsersDesigns = async (userId) => {
     const [rows] = await promisePool.query(getAllUserDesignsSql, [userId]);
+    return rows;
+};
+
+const getAllUserPurchasedDesigns = async (userId) => {
+    const [rows] = await promisePool.query(getAllUserPurchasedDesignsSql, [userId]);
     return rows;
 };
 
@@ -73,6 +81,7 @@ const deleteDesignById = async (designId, res) => {
 module.exports = {
     getAllDesigns: getAllDesigns,
     getAllUsersDesigns: getAllUsersDesigns,
+    getAllUserPurchasedDesigns: getAllUserPurchasedDesigns,
     getRecommendations: getRecommendations,
     getFeedPage,
     getDesignDetails: getDesignDetails,
