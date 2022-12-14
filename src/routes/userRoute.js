@@ -2,13 +2,18 @@
 // userRoute
 const express = require('express');
 const router = express.Router();
-const { body, param } = require('express-validator');
+const { body, param, query } = require('express-validator');
 const userController = require('../controllers/userController');
 const { wrapControllerWithErrorHandler, validateExpectedFields } = require('../services/error-handler.service');
 const uploadService = require('../services/upload.service');
 
 router
-    .get('/', wrapControllerWithErrorHandler(userController.getUsers))
+    .get(
+        '/',
+        query('username').optional().isString(),
+        validateExpectedFields('getUsers'),
+        wrapControllerWithErrorHandler(userController.getUsers)
+    )
     .get('/token', wrapControllerWithErrorHandler(userController.checkToken))
     .get(
         '/:userId',

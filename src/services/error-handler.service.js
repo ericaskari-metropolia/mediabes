@@ -25,7 +25,7 @@ const wrapControllerWithErrorHandler = (handler = async (req, res) => {}) => {
 const validateExpectedFields = (routeName) => {
     return (req, res, next) => {
         const errors = validationResult(req);
-        console.log(`${routeName} validation errors:`, errors.array());
+        // console.log(`${routeName} validation errors:`, errors.array());
         if (!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array()
