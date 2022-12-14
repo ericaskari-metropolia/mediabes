@@ -49,7 +49,7 @@ export const HomeDesignCardBuilder = ({
     price,
     likeCount,
     isLiked,
-    showBuyButton,
+    hideBuyButton,
     onImgClick,
     onBuyClick,
     onHeartClick
@@ -79,7 +79,7 @@ export const HomeDesignCardBuilder = ({
     if (imgProfileSource) {
         elements.imgProfileSource.setAttribute('src', imgProfileSource);
     }
-    elements.buyButton.hidden = !showBuyButton;
+    elements.buyButton.hidden = hideBuyButton;
 
     const updateLikeUI = (isLiked) => {
         const heartButton = card.querySelector(`.var--heart-button`);
@@ -100,8 +100,9 @@ export const HomeDesignCardBuilder = ({
         elements.heartButton.disabled = false;
     });
 
-    elements.buyButton.addEventListener('click', () => {
-        onBuyClick();
+    elements.buyButton.addEventListener('click', async () => {
+        const succeeded = await onBuyClick();
+        elements.buyButton.hidden = !!succeeded;
     });
     elements.imgSource.addEventListener('dblclick', () => {
         onHeartClick();

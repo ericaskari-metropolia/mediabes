@@ -21,10 +21,13 @@ window.addEventListener('load', async () => {
     const { setBottomHeaderUserId } = AppBottomHeaderBuilder(document.getElementById('app-bottom-header'));
 
     showLoading();
-    showMessageModal('Title', 'This is a message bro');
     const { body, response, error } = await endpoints.getMyUserProfile();
     const { user, userAvatar } = body;
 
+    const { body: purchasedDesignsBody } = await endpoints.getUserPurchasedDesigns();
+    const { items: purchasedDesigns } = purchasedDesignsBody;
+
+    console.log(purchasedDesigns);
     setBottomHeaderUserId(user.id);
 
     if (userAvatar) {
@@ -40,6 +43,7 @@ window.addEventListener('load', async () => {
                 const { id, avatarUrl, description, username, name, price, url, userId } = card;
                 const { body } = await endpoints.getDesignLikeCount(id);
                 const { likeCount, isLiked } = body;
+                console.log(purchasedDesigns.find((x) => x.id === id));
                 return HomeDesignCardBuilder({
                     name,
                     description,
@@ -49,23 +53,22 @@ window.addEventListener('load', async () => {
                     imgProfileSource: avatarUrl,
                     isLiked: isLiked,
                     likeCount,
-                    showBuyButton: userId !== user.id,
+                    hideBuyButton: userId === user.id || purchasedDesigns.find((x) => x.id === id),
                     onBuyClick: async () => {
-                        console.log('onBuyClick');
                         const confirmation = await showPurchaseConfirmation(name, price);
                         if (!confirmation) {
-                            return;
+                            return false;
                         }
                         const { response, error, body } = await endpoints.buyDesign(id);
 
                         console.log({ response, error, body });
 
                         if (error) {
-                            return await showMessageModal('Error', `Something went wrong: ${error.message}`);
+                            await showMessageModal('Error', `Something went wrong: ${error.message}`);
+                            return false;
                         }
-                        return await showMessageModal('Congratulations!', `Purchase succeeded.`);
-
-                        console.log(confirmation);
+                        await showMessageModal('Congratulations!', `Purchase succeeded.`);
+                        return true;
                     },
                     onHeartClick: async () => {
                         const { body } = await endpoints.likeDesign(id);
