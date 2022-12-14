@@ -56,6 +56,7 @@ export const HomeDesignCardBuilder = ({
     likeCount,
     isLiked,
     showBuyButton,
+    onImgClick,
     onBuyClick,
     onHeartClick,
     onCommentClick
@@ -109,11 +110,16 @@ export const HomeDesignCardBuilder = ({
 
         elements.heartButton.disabled = false;
     });
+
     elements.buyButton.addEventListener('click', () => {
         onBuyClick();
     });
     elements.imgSource.addEventListener('dblclick', () => {
         onHeartClick();
+    });
+
+    elements.imgSource.addEventListener('click', () => {
+        onImgClick();
     });
 
     return card;

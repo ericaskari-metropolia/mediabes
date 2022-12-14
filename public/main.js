@@ -62,6 +62,9 @@ window.addEventListener('load', async () => {
                     },
                     onCommentClick: () => {
                         console.log('onCommentClick');
+                    },
+                    onImgClick: () => {
+                        window.location.href = `/design/?id=${id}`;
                     }
                 });
             })

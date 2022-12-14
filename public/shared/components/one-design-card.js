@@ -106,7 +106,7 @@ export const OneDesignCardBuilder = ({
     likeCount,
     isLiked,
     onBuyClick,
-    onHeartClick,
+    onHeartClick
 }) => {
     const card = document.createElement('div');
     card.innerHTML = template;
@@ -127,7 +127,7 @@ export const OneDesignCardBuilder = ({
         usernameComment: card.querySelector('.var--username-comments'),
         descriptionComment: card.querySelector('.var--comment-description')
     };
-
+    console.log(elements);
     elements.price.innerText = price;
     elements.name.innerText = name;
     elements.description.innerText = description;
@@ -140,31 +140,30 @@ export const OneDesignCardBuilder = ({
     const updateLikeUI = (isLiked) => {
         const heartButton = card.querySelector(`.var--heart-button`);
         const [solid, regular] = heartButton.children;
-        solid.hidden = !isLiked;
-        regular.hidden = isLiked;
+        // solid.hidden = !isLiked;
+        // regular.hidden = isLiked;
     };
 
-    updateLikeUI(isLiked);
-    elements.likeHeartCount.innerText = likeCount;
-
-    elements.commentButton.addEventListener('click', () => {
-        onCommentClick();
-    });
-    elements.heartButton.addEventListener('click', async () => {
-        elements.heartButton.disabled = true;
-        const { isLiked, likeCount } = await onHeartClick();
-        updateLikeUI(isLiked);
-        elements.likeHeartCount.innerText = likeCount;
-
-        elements.heartButton.disabled = false;
-    });
-    elements.buyButton.addEventListener('click', () => {
-        elements.buyButton.disabled = true;
-
-    });
-    elements.imgSource.addEventListener('dblclick', () => {
-        onHeartClick();
-    });
+    // updateLikeUI(isLiked);
+    // elements.likeHeartCount.innerText = likeCount;
+    //
+    // elements.commentButton.addEventListener('click', () => {
+    //     onCommentClick();
+    // });
+    // elements.heartButton.addEventListener('click', async () => {
+    //     elements.heartButton.disabled = true;
+    //     const { isLiked, likeCount } = await onHeartClick();
+    //     updateLikeUI(isLiked);
+    //     elements.likeHeartCount.innerText = likeCount;
+    //
+    //     elements.heartButton.disabled = false;
+    // });
+    // elements.buyButton.addEventListener('click', () => {
+    //     elements.buyButton.disabled = true;
+    // });
+    // elements.imgSource.addEventListener('dblclick', () => {
+    //     onHeartClick();
+    // });
 
     return card;
 };
