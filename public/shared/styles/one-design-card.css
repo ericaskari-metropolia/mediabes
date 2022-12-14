@@ -238,3 +238,102 @@ input.text {
 input.text::placeholder {
     color: #777;
 }
+
+@media (min-width: 1024px) {
+    .content{
+        width: 70%;
+    }
+    .design-card-panel-text{
+        font-size: 1.5em;
+    }
+    .design-card-profile-info-wrap{
+        font-size: 1.5em;
+    }
+    .design-card-profile-image{
+        width:6rem;
+        height: 6rem;
+    }
+    .design-card-panel{
+        font-size: 1em;
+    }
+    .bottom{
+        font-size: 2em;
+    }
+    input.text {
+        font-size: 1em;
+    }
+}
+@media (max-width: 1024px){
+    .content{
+        max-width: 80%;
+    }
+    .design-card-panel-text{
+        font-size: 1.2em;
+    }
+    .design-card-profile-info-wrap{
+        font-size: 1.2em;
+    }
+    .design-card-profile-image{
+        width:5rem;
+        height: 5rem;
+    }
+    .design-card-panel{
+        font-size: 0.8em;
+    }
+    .bottom{
+        font-size: 2em;
+    }
+    input.text {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px){
+    .content{
+        max-width: 90%
+    }
+    .design-card-panel-text{
+        font-size: 1em;
+    }
+    .design-card-profile-info-wrap{
+        font-size: 1em;
+    }
+    .design-card-profile-image{
+        width:4rem;
+        height: 4rem;
+    }
+    .design-card-panel{
+        font-size: 0.8em;
+    }
+    .bottom{
+        font-size: 1.5em;
+    }
+    input.text {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        max-width: 90%
+    }
+    .design-card-panel-text{
+        font-size: 0.7em;
+    }
+    .design-card-profile-info-wrap{
+        font-size: 0.7em;
+    }
+    .design-card-profile-image{
+        width:3rem;
+        height: 3rem;
+    }
+    .design-card-panel{
+        font-size: 0.6em;
+    }
+    .bottom{
+        font-size: 1em;
+    }
+    input.text {
+        font-size: 0.6em;
+    }
+}

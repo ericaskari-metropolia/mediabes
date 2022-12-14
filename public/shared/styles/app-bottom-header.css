@@ -37,3 +37,53 @@
 .app-header-icon:hover {
     scale: 1;
 }
+
+@media (min-width: 1024px) {
+    .app-bottom-header {
+        height: 5em;
+    }
+    .app-header-icon>svg {
+        width: 4rem;
+        height: 4rem;
+    }
+    .app-bottom-header-content {
+        gap: clamp(6rem,20vw,10rem);
+    }
+}
+@media (max-width: 1024px){
+    .app-bottom-header {
+        height: 4em;
+    }
+    .app-header-icon>svg {
+        width: 3rem;
+        height: 3rem;
+    }
+    .app-bottom-header-content {
+        gap: clamp(5rem,20vw,10rem);
+    }
+}
+@media (max-width: 768px){
+    .app-bottom-header {
+        height: 3em;
+    }
+    .app-header-icon>svg {
+        width: 2rem;
+        height: 2rem;
+    }
+    .app-bottom-header-content {
+        gap: clamp(4rem,20vw,10rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .app-bottom-header {
+        height: 2em;
+    }
+    .app-header-icon>svg {
+        width: 2rem;
+        height: 2rem;
+    }
+    .app-bottom-header-content {
+        gap: clamp(1rem,20vw,10rem);
+    }
+}
