@@ -21,11 +21,15 @@
         <header id="app-top-header"></header>
         <header id="app-bottom-header"></header>
 
-        <div class="top">
-            <i class="fa-solid fa-user"></i>
-            <i class="fa-solid fa-bars"></i>
-        </div>
         <div class="container">
+            <h1>What are you looking for?</h1>
+            <form id="search-form" action="http://localhost:3000/api/user">
+                <input type="text" name="username" />
+                <button type="submit">Search</button>
+            </form>
+            <div id="results"></div>
+        </div>
+        <!-- <div class="container">
             <h1>What are you looking for?</h1>
             <form
                 id="search-form"
@@ -35,7 +39,7 @@
                 <button type="submit">Search</button>
             </form>
             <div id="results"></div>
-        </div>
+        </div> -->
         <!-- <div class="container">
             <label for="search">Search Users</label>
             <input type="search" id="search" data-search />

@@ -2,8 +2,8 @@
 // import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
 
 ('use strict');
-const apiUrl = 'https://mediabes.nicerock-48a381ae.northeurope.azurecontainerapps.io/search/user/?username=';
-
+const apiUrl = 'http://localhost:3000/api/user/?username=${username}';
+console.log(apiUrl);
 // get references to DOM elements
 const form = document.querySelector('#search-form');
 const button = form.querySelector('button');
@@ -48,11 +48,6 @@ const getUserData = async (name) => {
     }
 };
 
-//generic event handling example
-document.addEventListener('click', (event) => {
-    console.log('mouse clicked somewhere on the page', event);
-});
-
 // AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
 // AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
 
@@ -69,8 +64,8 @@ document.addEventListener('click', (event) => {
 //         user.element.classList.toggle('hide', !isVisible);
 //     });
 // });
-// // fetch('https://mediabes.nicerock-48a381ae.northeurope.azurecontainerapps.io')
-// fetch('https://jsonplaceholder.typicode.com/users')
+// fetch('http://localhost:3000/api/')
+//     // fetch('https://jsonplaceholder.typicode.com/users')
 //     .then((res) => res.json())
 //     .then((data) => {
 //         users = data.map((user) => {

@@ -8,7 +8,7 @@ const template = `
             <div class='app-top-header-sub-menu'>
                 <div class='app-top-header-user-info'>
                     <img class='var-top-header-menu-profile-img' src='/profile.png' />
-                    <h3>Natasha</h3>
+                    <h3></h3>
                 </div>
                 <hr />
 
