@@ -1,10 +1,27 @@
 .profile-design-card {
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .profile-design-card > img {
-    width: 100%;
-    height: 100%;
+    flex: 1;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
 }
+
+.design-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
+/* prettier-ignore */
+@media (min-width: 480px) { .design-list { grid-template-columns: repeat(1, 1fr);}}
+/* prettier-ignore */
+@media (min-width: 768px) { .design-list { grid-template-columns: repeat(2, 1fr);}}
+/* prettier-ignore */
+@media (min-width: 1024px) { .design-list { grid-template-columns: repeat(3, 1fr);}}

@@ -8,7 +8,7 @@ const template = `
         </div>
 `;
 
-export const ProfileDesignCardBuilder = ({ imgSource, likeCount }) => {
+export const ProfileDesignCardBuilder = ({ imgSource, likeCount, designId }) => {
     const card = document.createElement('div');
     card.innerHTML = template;
     card.classList.add('design-card');
@@ -19,9 +19,12 @@ export const ProfileDesignCardBuilder = ({ imgSource, likeCount }) => {
     };
 
     elements.imgSource.setAttribute('src', imgSource);
+
     elements.likeHeartCount.innerText = likeCount;
 
-    elements.imgSource.addEventListener('dblclick', () => {});
+    elements.imgSource.addEventListener('click', () => {
+        window.location.href = `/design/?id=${designId}`;
+    });
 
     return card;
 };

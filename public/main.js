@@ -12,7 +12,7 @@ window.addEventListener('load', async () => {
     };
 
     //  Modal Component
-    const { showPurchaseConfirmation } = ModalBuilder(document.getElementById('app-modals'));
+    const { showPurchaseConfirmation, showMessageModal } = ModalBuilder(document.getElementById('app-modals'));
     //  Page Loading Indicator
     const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
     //  Top Header Component
@@ -21,7 +21,7 @@ window.addEventListener('load', async () => {
     const { setBottomHeaderUserId } = AppBottomHeaderBuilder(document.getElementById('app-bottom-header'));
 
     showLoading();
-
+    showMessageModal('Title', 'This is a message bro');
     const { body, response, error } = await endpoints.getMyUserProfile();
     const { user, userAvatar } = body;
 
@@ -57,7 +57,14 @@ window.addEventListener('load', async () => {
                             return;
                         }
                         const { response, error, body } = await endpoints.buyDesign(id);
+
                         console.log({ response, error, body });
+
+                        if (error) {
+                            return await showMessageModal('Error', `Something went wrong: ${error.message}`);
+                        }
+                        return await showMessageModal('Congratulations!', `Purchase succeeded.`);
+
                         console.log(confirmation);
                     },
                     onHeartClick: async () => {
