@@ -13,7 +13,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/03c2f4eb63.js" crossorigin="anonymous"></script>
-        <script defer src="search.js"></script>
 
         <title>Search</title>
     </head>
@@ -23,33 +22,11 @@
 
         <div class="container">
             <h1>What are you looking for?</h1>
-            <form id="search-form" action="http://localhost:3000/api/user">
+            <form id="search-form">
                 <input type="text" name="username" />
                 <button type="submit">Search</button>
             </form>
             <div id="results"></div>
         </div>
-        <!-- <div class="container">
-            <h1>What are you looking for?</h1>
-            <form
-                id="search-form"
-                action="https://mediabes.nicerock-48a381ae.northeurope.azurecontainerapps.io/search/user"
-            >
-                <input type="text" name="username" />
-                <button type="submit">Search</button>
-            </form>
-            <div id="results"></div>
-        </div> -->
-        <!-- <div class="container">
-            <label for="search">Search Users</label>
-            <input type="search" id="search" data-search />
-        </div>
-        <div class="user-cards" data-user-cards-container></div>
-        <template data-user-template>
-            <div class="card">
-                <div class="header" data-header></div>
-                <div class="body" data-body></div>
-            </div>
-        </template> -->
     </body>
 </html>

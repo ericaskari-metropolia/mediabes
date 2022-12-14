@@ -1,11 +1,7 @@
-'use strict';
-
 import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
 import { AppTopHeaderBuilder } from '../shared/components/app-top-header.js';
+import { endpoints } from '../shared/common.js';
 
-('use strict');
-const apiUrl = 'http://localhost:3000/api/user/?username=${username}';
-console.log(apiUrl);
 // get references to DOM elements
 const form = document.querySelector('#search-form');
 const button = form.querySelector('button');
@@ -21,6 +17,11 @@ button.addEventListener('click', (event) => {
         getUserData(input.value);
     }
 });
+
+const { body, response, error } = await endpoints.searchUserByUsername('ericaska');
+
+AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
+AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
 
 //getting data that is typed
 const renderResults = (data) => {
@@ -41,42 +42,13 @@ const renderResults = (data) => {
 
 const getUserData = async (name) => {
     try {
-        const response = await fetch(apiUrl + name);
-        const data = await response.json();
-        console.log('results:', data);
-        renderResults(data);
+        const { body, response, error } = await endpoints.searchUserByUsername(name);
+        console.log(body, response, error);
+        // body is list of users
+
+        console.log('results:', body);
+        renderResults(body);
     } catch (error) {
         console.log('network failure:', error);
     }
 };
-
-// AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
-// AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
-
-// const userCardTemplate = document.querySelector('[data-user-template]');
-// const userCardContainer = document.querySelector('[data-user-cards-container]');
-// const searchInput = document.querySelector('[data-search]');
-
-// let users = [];
-
-// searchInput.addEventListener('input', (e) => {
-//     const value = e.target.value.toLowerCase();
-//     users.forEach((user) => {
-//         const isVisible = user.name.toLowerCase().includes(value) || user.email.toLowerCase().includes(value);
-//         user.element.classList.toggle('hide', !isVisible);
-//     });
-// });
-// fetch('http://localhost:3000/api/')
-//     // fetch('https://jsonplaceholder.typicode.com/users')
-//     .then((res) => res.json())
-//     .then((data) => {
-//         users = data.map((user) => {
-//             const card = userCardTemplate.content.cloneNode(true).children[0];
-//             const header = card.querySelector('[data-header]');
-//             const body = card.querySelector('[data-body]');
-//             header.textContent = user.name;
-//             body.textContent = user.email;
-//             userCardContainer.append(card);
-//             return { name: user.name, email: user.email, element: card };
-//         });
-//     });
