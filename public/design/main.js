@@ -40,20 +40,24 @@ window.addEventListener('load', async () => {
     {
         const { body, response, error } = await endpoints.getDesignDetails(queryParamUserId);
         const { item } = body ?? {};
-
-        const { id, avatarUrl, description, username, name, price, url, userId } = item;
+        const { id, avatarUrl, description, username, name, price, url, userId, created_at } = item;
         const { body: getDesignLikeCountBody } = await endpoints.getDesignLikeCount(id);
         const { likeCount, isLiked } = getDesignLikeCountBody;
+
+        const { body: { comments } } = await endpoints.getDesignComments(id);
+
         const card = OneDesignCardBuilder({
             name,
             description,
             imgSource: url,
             username,
             price: price,
+            created_at,
             imgProfileSource: avatarUrl,
             isLiked: isLiked,
             likeCount,
             showBuyButton: userId !== user.id,
+            comments,
             onBuyClick: async () => {
                 console.log('onBuyClick');
                 const confirmation = await showPurchaseConfirmation(name, price);
@@ -64,8 +68,9 @@ window.addEventListener('load', async () => {
                 const { isLiked, likeCount } = body;
                 return { isLiked, likeCount };
             },
-            onCommentClick: () => {
-                console.log('onCommentClick');
+            onCommentClick: async (description) => {
+                const response = await endpoints.commentDesign(id, description);
+                return response?.body.comment;
             }
         });
 

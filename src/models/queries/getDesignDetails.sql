@@ -5,7 +5,8 @@ SELECT design.id              as id,
        upload.url             as url,
        user_avatar_upload.url as avatarUrl,
        design.description,
-       design.price
+       design.price,
+       design.created_at
 FROM designs as design
          LEFT JOIN design_file on design.id = design_file.design_id
          LEFT JOIN upload on upload.id = design_file.upload_id

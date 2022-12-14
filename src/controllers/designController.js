@@ -5,6 +5,7 @@ const designModel = require('../models/designModel');
 const designFileModel = require('../models/designFileModel');
 const uploadModel = require('../models/uploadModel');
 const likeModel = require('../models/likeModel');
+const commentModel = require('../models/commentModel');
 
 /** @type {import('express').Handler} */
 const saveDesign = async (req, res) => {
@@ -82,6 +83,26 @@ const likeDesign = async (req, res) => {
 };
 
 /** @type {import('express').Handler} */
+const commentDesign = async (req, res) => {
+    const { designId } = req.params;
+    const { id: userId } = req.user;
+    const { description } = req.body;
+
+    const comment = await commentModel.saveComment({ userId, designId, description });
+
+    return res.status(200).send({ comment });
+};
+
+/** @type {import('express').Handler} */
+const getDesignComments = async (req, res) => {
+    const { designId } = req.params;
+
+    const comments = await commentModel.getAllCommentByDesignId(designId, res);
+
+    return res.status(200).send({ comments });
+};
+
+/** @type {import('express').Handler} */
 const buyDesign = async (req, res) => {
     const { designId } = req.params;
     const { id: userId } = req.user;
@@ -116,5 +137,7 @@ module.exports = {
     getDesignLikeCount: getDesignLikeCount,
     getDesignDetails: getDesignDetails,
     likeDesign: likeDesign,
-    buyDesign: buyDesign
+    buyDesign: buyDesign,
+    commentDesign: commentDesign,
+    getDesignComments: getDesignComments,
 };

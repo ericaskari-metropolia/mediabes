@@ -1,7 +1,9 @@
+import formatDistance from 'date-fns/formatDistance';
+
 const template = `
     <div class='design-card-profile'>
-        <div>
-            <img class='var--home-design-card-img-profile-source design-card-profile-image' src='/sample-images/horse.jpg' alt='Profile picture' />
+        <div
+            <img class='var--home-design-card-img-profile-source design-card-profile-image' src='/profile.png' alt='Profile picture' />
         </div>
         <div class='design-card-profile-info-wrap'>
             <b class='var--home-design-card-name'>SomeOne</b>
@@ -19,35 +21,12 @@ const template = `
 
     <div class="bottom">
         <div class="actionBtns">
-            <div class="left">
-                <span class="var--heart-button" onclick="addlike()">
-                    <span>
-                        <svg aria-label="Like"
-                            color="#262626"
-                            fill="#262626"
-                            height="24"
-                            role="img"
-                            viewBox="0 0 48 48"
-                            width="24">
-                <!-- Coordinate path -->
-                        <path clip-rule="evenodd"
-                            d="M34.6 6.1c5.7 0 10.4 5.2 10.4
-                            11.5 0 6.8-5.9 11-11.5 16S25 41.3 24
-                            41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3
-                            11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3
-                            1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9
-                            1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9
-                            1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1
-                            0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3
-                            1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3
-                            1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2
-                            7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6
-                            48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
-                            fill-rule="evenodd">
-                        </path>
-                    </svg>
-                </span>
-            </span>
+            <div class="left" style="display: flex;">
+                <button class='var--heart-button design-card-icon-button'>
+                    <span><svg ><use xlink:href="/solid.svg#heart"></use></svg></span>
+                    <span hidden><svg ><use xlink:href="/regular.svg#heart"></use></svg></span>
+                </button>
+                <small><b class='var--like-heart-count'>1000</b></small>
             </div>
    
             <div class="right">
@@ -64,37 +43,36 @@ const template = `
                 </span>
             </div>
         </div>
-        <a>
-             <small><b class='var--like-heart-count'>1000</b></small>
-        </a>
-        <a>
-            <small><b class='var--price'>1000</b></small>
-                <i class='fa fa-solid fa-euro-sign'></i>
-        </a>
-        <div class="scroll"> 
-            <p class="var--username-comments">
-                <b>username</b>
-            </p>
-            <p class="var--comment-description">
-            comment 
-            </p>
+        <div>
+            <div class="left">
+                <small><b class='var--price'>1000</b></small>
+                    <i class='fa fa-solid fa-euro-sign'></i>
+            </div>
+            <div class="right">
+                <h5 class="var--postTime">2 hours ago</h5>
+            </div>
         </div>
-        <a>
-            <h5 class="var--postTime">2 hours ago</h5>
-        </a>
+        <div class="scroll var-home-design-card-comments"> 
+        </div>
         <div class="var--addComments">
             <div class="reaction">
                 <h3>
                     <i class="far fa-smile"></i>
                 </h3>
             </div>
-            <input type="text"
+            <input id="comment-input" type="text"
                    class="text"
                    placeholder="Add a comment...">
-            <a class="addingCommentText">Post</a>
+            <a class="var--comment-button" style="cursor: pointer;">Post</a>
         </div>
     </div>
 `;
+
+const commentTemplate = `
+    <p>
+        <b>{username}</b> {comment}
+    </p>
+`
 
 export const OneDesignCardBuilder = ({
     name,
@@ -103,10 +81,13 @@ export const OneDesignCardBuilder = ({
     imgProfileSource,
     imgSource,
     price,
+    created_at,
     likeCount,
     isLiked,
+    comments,
     onBuyClick,
-    onHeartClick
+    onHeartClick,
+    onCommentClick,
 }) => {
     const card = document.createElement('div');
     card.innerHTML = template;
@@ -124,46 +105,74 @@ export const OneDesignCardBuilder = ({
         likeHeartIconSvg: card.querySelector(`.var--like-heart-icon`),
         likeHeartCount: card.querySelector(`.var--like-heart-count`),
         description: card.querySelector(`.var-home-design-card-description`),
-        usernameComment: card.querySelector('.var--username-comments'),
-        descriptionComment: card.querySelector('.var--comment-description')
+        commentSection: card.querySelector(`.var-home-design-card-comments`),
+        time: card.querySelector(`.var--postTime`),
     };
-    console.log(elements);
+
     elements.price.innerText = price;
     elements.name.innerText = name;
     elements.description.innerText = description;
     elements.username.innerText = username;
     elements.imgSource.setAttribute('src', imgSource);
-    elements.imgProfileSource.setAttribute('src', imgProfileSource);
-    elements.usernameComment.innerHTML = username;
-    elements.descriptionComment.innerHTML = description;
+
+    if (imgProfileSource) {
+        elements.imgProfileSource.setAttribute('src', imgProfileSource);
+    }
+
+    elements.time.innerHTML = `${formatDistance(new Date(created_at), new Date())} ago`;
+
+    const renderComment = (c) => {
+        const commentHTML = commentTemplate
+            .replace('{username}', c.name)
+            .replace('{comment}', c.description);
+        
+        elements.commentSection.innerHTML += commentHTML;
+    }
+
+    comments.forEach(renderComment);
 
     const updateLikeUI = (isLiked) => {
         const heartButton = card.querySelector(`.var--heart-button`);
         const [solid, regular] = heartButton.children;
-        // solid.hidden = !isLiked;
-        // regular.hidden = isLiked;
+        solid.hidden = !isLiked;
+        regular.hidden = isLiked;
     };
 
-    // updateLikeUI(isLiked);
-    // elements.likeHeartCount.innerText = likeCount;
-    //
-    // elements.commentButton.addEventListener('click', () => {
-    //     onCommentClick();
-    // });
-    // elements.heartButton.addEventListener('click', async () => {
-    //     elements.heartButton.disabled = true;
-    //     const { isLiked, likeCount } = await onHeartClick();
-    //     updateLikeUI(isLiked);
-    //     elements.likeHeartCount.innerText = likeCount;
-    //
-    //     elements.heartButton.disabled = false;
-    // });
-    // elements.buyButton.addEventListener('click', () => {
-    //     elements.buyButton.disabled = true;
-    // });
-    // elements.imgSource.addEventListener('dblclick', () => {
-    //     onHeartClick();
-    // });
+    updateLikeUI(isLiked);
+
+    elements.commentButton.addEventListener('click', async () => {
+        elements.commentButton.disabled = true;
+        const input = document.getElementById('comment-input');
+        const description = input.value;
+        const newComment = await onCommentClick(description);
+        input.value = '';
+
+        if (newComment) {
+            renderComment(newComment);
+        }
+
+        elements.commentButton.disabled = false;
+    });
+
+    elements.likeHeartCount.innerText = likeCount;
+    
+    elements.heartButton.addEventListener('click', async () => {
+        elements.heartButton.disabled = true;
+        const { isLiked, likeCount } = await onHeartClick();
+        updateLikeUI(isLiked);
+        elements.likeHeartCount.innerText = likeCount;
+        elements.heartButton.disabled = false;
+    });
+
+    elements.buyButton.addEventListener('click', async () => {
+        elements.buyButton.disabled = true;
+        await onBuyClick();
+        elements.buyButton.disabled = false;
+    });
+
+    elements.imgSource.addEventListener('dblclick', () => {
+        onHeartClick();
+    });
 
     return card;
 };
