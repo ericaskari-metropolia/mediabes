@@ -30,7 +30,7 @@ body > div {
 .content {
     max-width: var(--sm);
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1rem 1rem 7rem 1rem;
 }
 
 .light-border {

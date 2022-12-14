@@ -1,7 +1,7 @@
 const template = `
     <div class='design-card-profile'>
         <div>
-            <img class='var--home-design-card-img-profile-source design-card-profile-image' src='/sample-images/horse.jpg' alt='Profile picture' />
+            <img class='var--home-design-card-img-profile-source design-card-profile-image' src='/profile.png' alt='Profile picture' />
         </div>
         <div class='design-card-profile-info-wrap'>
             <b class='var--home-design-card-name'>SomeOne</b>
@@ -55,6 +55,8 @@ export const HomeDesignCardBuilder = ({
     price,
     likeCount,
     isLiked,
+    showBuyButton,
+    onImgClick,
     onBuyClick,
     onHeartClick,
     onCommentClick
@@ -82,7 +84,10 @@ export const HomeDesignCardBuilder = ({
     elements.description.innerText = description;
     elements.username.innerText = username;
     elements.imgSource.setAttribute('src', imgSource);
-    elements.imgProfileSource.setAttribute('src', imgProfileSource);
+    if (imgProfileSource) {
+        elements.imgProfileSource.setAttribute('src', imgProfileSource);
+    }
+    elements.buyButton.hidden = !showBuyButton;
 
     const updateLikeUI = (isLiked) => {
         const heartButton = card.querySelector(`.var--heart-button`);
@@ -105,11 +110,16 @@ export const HomeDesignCardBuilder = ({
 
         elements.heartButton.disabled = false;
     });
+
     elements.buyButton.addEventListener('click', () => {
         onBuyClick();
     });
     elements.imgSource.addEventListener('dblclick', () => {
         onHeartClick();
+    });
+
+    elements.imgSource.addEventListener('click', () => {
+        onImgClick();
     });
 
     return card;

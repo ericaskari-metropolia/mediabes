@@ -1,12 +1,15 @@
 @import '../../shared/styles/variables.css';
 @import '../../shared/styles/form.css';
+@import '../../shared/styles/app-top-header.css';
+@import '../../shared/styles/app-bottom-header.css';
+@import '../../shared/styles/loading-indicator.css';
+
 :root {
     --white: #f2f0f0;
 }
 
 html,
-body,
-body > div {
+body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;

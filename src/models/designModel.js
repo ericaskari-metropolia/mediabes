@@ -33,7 +33,7 @@ const getFeedPage = async (user_id) => {
 
 const getDesignDetails = async (design_id) => {
     const [rows] = await promisePool.query(getDesignDetailsSql, [design_id]);
-    return rows;
+    return rows.length > 0 ? rows[0] : null;
 };
 
 const saveDesign = async ({ user_id, price, description }) => {

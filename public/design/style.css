@@ -1,9 +1,9 @@
-@import 'shared/styles/app-top-header.css';
-@import 'shared/styles/app-bottom-header.css';
-@import 'shared/styles/home-design-card.css';
-@import 'shared/styles/loading-indicator.css';
-@import 'shared/styles/app-modal.css';
-@import 'shared/styles/variables.css';
+@import '../shared/styles/app-top-header.css';
+@import '../shared/styles/app-bottom-header.css';
+@import '../shared/styles/one-design-card.css';
+@import '../shared/styles/loading-indicator.css';
+@import '../shared/styles/app-modal.css';
+@import '../shared/styles/variables.css';
 
 html,
 body {

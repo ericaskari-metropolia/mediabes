@@ -6,7 +6,6 @@ const { validationResult } = require('express-validator');
 const saveDeposit = async (req, res) => {
     const { id: userId } = req.user;
     const { amount, cardNumber, cardHolderName } = req.body;
-    console.log(amount, cardNumber, cardHolderName);
 
     // We imagine payment was successful :)
     await model.saveDeposit(userId, amount);

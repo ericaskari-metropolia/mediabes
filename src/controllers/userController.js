@@ -1,4 +1,5 @@
 'use strict';
+const designModel = require('../models/designModel');
 const userModel = require('../models/userModel');
 const balanceModel = require('../models/balanceModel');
 const userFollowModel = require('../models/userFollowModel');
@@ -8,8 +9,11 @@ const { validationResult } = require('express-validator');
 
 /** @type {import('express').Handler} */
 const getUsers = async (req, res) => {
-    console.log('getUsers');
-    console.log(req.user);
+    const usernameParam = req.query.username ?? '';
+    if (usernameParam && usernameParam !== '') {
+        const searchedUsers = await userModel.searchUserByUsername(usernameParam);
+        return res.send(searchedUsers);
+    }
     const users = await userModel.getAllUsers(res);
     res.json(users);
 };
@@ -23,7 +27,7 @@ const getUser = async (req, res) => {
         const userAvatar = await userAvatarModel.getUserAvatar(req.params.userId);
         res.json({ user, followerUsers, followedUsers, userAvatar });
     } else {
-        res.sendStatus(404);
+        res.status(404).send({ message: 'User not found!' });
     }
 };
 
@@ -83,6 +87,12 @@ const checkToken = async (req, res) => {
 };
 
 /** @type {import('express').Handler} */
+const getUserDesigns = async (req, res) => {
+    const items = await designModel.getAllUsersDesigns(req.params.userId);
+    res.status(200).send({ items });
+};
+
+/** @type {import('express').Handler} */
 const updateUserAvatar = async (req, res) => {
     const {
         url,
@@ -117,5 +127,6 @@ module.exports = {
     modifyUser,
     deleteUser,
     checkToken,
+    getUserDesigns: getUserDesigns,
     updateUserAvatar: updateUserAvatar
 };

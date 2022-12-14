@@ -10,6 +10,12 @@ const getAllUsers = async (res) => {
     return rows;
 };
 
+const searchUserByUsername = async (username) => {
+    const sql = 'SELECT id, username, name FROM user WHERE username LIKE ? ';
+    const [rows] = await promisePool.query(sql, [`%${username}%`]);
+    return rows;
+};
+
 const getUserById = async (id) => {
     const sql = 'SELECT id, username, description, password, email, name FROM user WHERE id = ?';
     const [rows] = await promisePool.query(sql, [id]);
@@ -56,6 +62,7 @@ const deleteUserById = async (userId, res) => {
 
 module.exports = {
     getAllUsers,
+    searchUserByUsername: searchUserByUsername,
     getUserById: getUserById,
     getUserByUsername,
     getUserByEmail: getUserByEmail,

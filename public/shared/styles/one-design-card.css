@@ -129,6 +129,116 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
+.svg-icon {
+    width: 3em;
+    height: 3em;
+    margin-right: 5px;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #4691f6;
+}
+
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+.postTime {
+    margin-top: 8px;
+    font-weight: lighter;
+    color: rgb(163, 163, 163);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+.actionBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actionBtns svg {
+    cursor: pointer;
+}
+
+.actionBtns .left svg {
+    margin-right: 8px;
+}
+
+.likes {
+    font-weight: 500;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #4d4d4f;
+}
+
+.message {
+    font-weight: 400;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5em;
+}
+
+.message b {
+    color: #262626;
+}
+
+.message span {
+    cursor: pointer;
+    color: #1d92ff;
+}
+
+.comments {
+    margin-top: 10px;
+    font-weight: 400;
+    color: #999;
+}
+
+.addComments {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.addComments a {
+    color: #1d92ffcb;
+    font-weight: 500;
+}
+
+.addComments .reaction {
+    position: relative;
+    font-size: 1.3rem;
+    margin-right: 10px;
+    color: rgb(88, 88, 88);
+}
+
+input.text {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #262626;
+    background: none;
+}
+
+input.text::placeholder {
+    color: #777;
+}
+
 @media (min-width: 1024px) {
     .content{
         width: 70%;
@@ -146,9 +256,13 @@
     .design-card-panel{
         font-size: 1em;
     }
-
+    .bottom{
+        font-size: 2em;
+    }
+    input.text {
+        font-size: 1em;
+    }
 }
-
 @media (max-width: 1024px){
     .content{
         max-width: 80%;
@@ -166,7 +280,12 @@
     .design-card-panel{
         font-size: 0.8em;
     }
-
+    .bottom{
+        font-size: 2em;
+    }
+    input.text {
+        font-size: 1em;
+    }
 }
 
 @media (max-width: 768px){
@@ -186,7 +305,12 @@
     .design-card-panel{
         font-size: 0.8em;
     }
-
+    .bottom{
+        font-size: 1.5em;
+    }
+    input.text {
+        font-size: 0.8em;
+    }
 }
 
 @media (max-width: 480px) {
@@ -206,5 +330,10 @@
     .design-card-panel{
         font-size: 0.6em;
     }
-
+    .bottom{
+        font-size: 1em;
+    }
+    input.text {
+        font-size: 0.6em;
+    }
 }

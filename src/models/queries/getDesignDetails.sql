@@ -1,7 +1,20 @@
-SELECT designs.*, user.*, count(likes.user_id) as likeCount, count(comments.user_id) as commentCount
-FROM designs
-         left join likes on designs.id = likes.design_id
-         left join comments on designs.id = comments.design_id
-         left join user on user.id = designs.user_id
-WHERE designs.id = ?
-group by designs.id;
+SELECT design.id              as id,
+       user.id                as userId,
+       user.username,
+       user.name              as name,
+       upload.url             as url,
+       user_avatar_upload.url as avatarUrl,
+       design.description,
+       design.price,
+       design.created_at
+FROM designs as design
+         LEFT JOIN design_file on design.id = design_file.design_id
+         LEFT JOIN upload on upload.id = design_file.upload_id
+         LEFT JOIN user on design.user_id = user.id
+         LEFT JOIN user_avatar on user.id = user_avatar.user_id
+         LEFT JOIN upload user_avatar_upload on user_avatar.upload_id = user_avatar_upload.id
+where design.id = ?
+group by design.created_at
+order by design.created_at desc;
+
+

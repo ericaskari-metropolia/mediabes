@@ -1,10 +1,15 @@
 import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
-import { endpoints, getQueryParam } from '../shared/common';
-import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
+import { endpoints, getQueryParam } from '../shared/common.js';
+import { AppTopHeaderBuilder } from '../shared/components/app-top-header.js';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
+import { ProfileDesignCardBuilder } from '../shared/components/profile-design-card.js';
 
 window.addEventListener('load', async () => {
     const elements = {
+        container: document.querySelector('.var--profile-container'),
+        cardList: document.querySelector('.design-list'),
         name: document.querySelector('.var--profile-name'),
+        avatar: document.querySelector('.var--profile-avatar'),
         description: document.querySelector('.var--profile-description'),
         followerCount: document.querySelector('.var--follower-count'),
         followingCount: document.querySelector('.var--following-count'),
@@ -14,29 +19,102 @@ window.addEventListener('load', async () => {
         showAddBalance: document.querySelector('.var--show-add-balance')
     };
 
-    const myUserProfile = await endpoints.getMyUserProfile();
+    //  Page Loading Indicator
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
 
-    const queryParamUserId = getQueryParam('id');
+    //  Top Header Component
+    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'));
 
-    const parsedUserId = Number.isNaN(parseInt(queryParamUserId)) ? null : parseInt(queryParamUserId);
+    //  Bottom Header Component
+    const { setBottomHeaderUserId } = AppBottomHeaderBuilder(document.getElementById('app-bottom-header'));
 
-    const queryParamUserProfile =
-        queryParamUserId === null || parsedUserId === myUserProfile?.body?.user?.id
-            ? myUserProfile
-            : await endpoints.getUserProfile(queryParamUserId);
+    showLoading();
 
-    const { user, balance, followerUsers, followedUsers } = myUserProfile.body;
-
-    AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
-    AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
-
+    //  Fetch User profile and rename keys for being clear
     const {
-        user: paramUser,
-        followerUsers: paramUserFollowerUsers,
-        followedUsers: paramUserFollowedUsers
-    } = queryParamUserProfile.body;
+        body: getMyUserProfileBody,
+        response: getMyUserProfileResponse,
+        error: getMyUserProfileError
+    } = await endpoints.getMyUserProfile();
 
-    const isMyProfile = parsedUserId === null || user.id === parsedUserId;
+    //  User profile and rename keys for being clear
+    const {
+        user: myUser,
+        balance: myBalance,
+        followerUsers: myFollowerUsers,
+        followedUsers: myFollowedUsers,
+        userAvatar: myUserAvatar
+    } = getMyUserProfileBody;
+
+    if (myUserAvatar) {
+        updateTopHeaderAvatar(myUserAvatar?.url || '/profile.png');
+    }
+
+    //  Decide what profile we should show. Self invoked function to group some logic
+    const userProfile = await (async () => {
+        const queryParamUserId = getQueryParam('id');
+
+        //  No ID in param means my profile
+        if (!queryParamUserId) {
+            return {
+                user: myUser,
+                followerUsers: myFollowerUsers,
+                followedUsers: myFollowedUsers,
+                userAvatar: myUserAvatar,
+                isMyProfile: true,
+                balance: myBalance,
+                showBalance: true
+            };
+        }
+
+        const parsedUserId = Number.isNaN(parseInt(queryParamUserId)) ? null : parseInt(queryParamUserId);
+
+        //  Bad Id
+        if (!parsedUserId) {
+            return null;
+        }
+
+        //  Same id as user means user's profile
+        if (parsedUserId === myUser.id) {
+            return {
+                user: myUser,
+                followerUsers: myFollowerUsers,
+                followedUsers: myFollowedUsers,
+                userAvatar: myUserAvatar,
+                isMyProfile: true,
+                balance: myBalance,
+                showBalance: true
+            };
+        }
+        const { body, response, error } = await endpoints.getUserProfile(queryParamUserId);
+
+        //  User not found
+        if (!body) {
+            return null;
+        }
+
+        const { user, followerUsers, followedUsers, userAvatar } = body;
+
+        return {
+            user: user,
+            followerUsers: followerUsers,
+            followedUsers: followedUsers,
+            userAvatar: userAvatar,
+            isMyProfile: false,
+            balance: 0,
+            showBalance: false
+        };
+    })();
+
+    if (!userProfile) {
+        elements.container.innerHTML = '<div>User not found!</div>';
+        hideLoading();
+        return;
+    }
+
+    const { user, followerUsers, followedUsers, userAvatar, balance, showBalance, isMyProfile } = userProfile;
+
+    elements.avatar.setAttribute('src', userAvatar?.url || '/profile.png');
 
     if (isMyProfile) {
         elements.showBalance.removeAttribute('hidden');
@@ -45,8 +123,29 @@ window.addEventListener('load', async () => {
         elements.accountBalance.innerText = balance;
     }
 
-    elements.name.innerText = paramUser.name;
-    elements.description.innerText = paramUser.description ?? paramUser.username;
-    elements.followerCount.innerText = paramUserFollowerUsers.length;
-    elements.followingCount.innerText = paramUserFollowedUsers.length;
+    elements.name.innerText = user.name;
+    elements.description.innerText = user.description;
+    elements.followerCount.innerText = followerUsers.length;
+    elements.followingCount.innerText = followedUsers.length;
+    const { body, response, error } = await endpoints.getUserDesigns(user.id);
+    const { items } = body;
+
+    const cards = await Promise.all(
+        items.map(async (card) => {
+            const { id, avatarUrl, description, username, name, price, url, userId } = card;
+            const { body } = await endpoints.getDesignLikeCount(id);
+            const { likeCount, isLiked } = body;
+            return ProfileDesignCardBuilder({
+                imgSource: url,
+                likeCount
+            });
+        })
+    );
+
+    for (let card of cards) {
+        elements.cardList.appendChild(card);
+    }
+
+    console.log(body);
+    hideLoading();
 });

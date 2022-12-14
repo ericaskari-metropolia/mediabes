@@ -1,15 +1,22 @@
 const template = `
     <nav  class='app-top-header-content'>
-        <div class='app-top-header-content-profile'>
+        <a class='app-top-header-content-profile' href='/profile/'>
             <img class='var-top-header-profile-img' src='/profile.png' />
-        </div>
-        <button class='var--app-top-header-toggle-menu app-top-header-toggle-button'><i class='fa-solid fa-bars'></i></button>
+        </a>
+        <button class='var--app-top-header-toggle-menu app-top-header-toggle-button'>
+            <svg><use xlink:href="/solid.svg#bars"></use></svg>
+        </button>
         <div class='app-top-header-sub-menu-wrap' id='subMenu'>
             <div class='app-top-header-sub-menu'>
-                <div class='app-top-header-user-info'>
+                <a class='app-top-header-user-info' href='/profile/'>
                     <img class='var-top-header-menu-profile-img' src='/profile.png' />
+<<<<<<< HEAD
                     <h3></h3>
                 </div>
+=======
+                    <h3>Natasha</h3>
+                </a>
+>>>>>>> main
                 <hr />
 
                 <a href='/search/' class='app-top-header-sub-menu-link'>
@@ -37,7 +44,7 @@ const template = `
     </nav>
 `;
 
-export const AppTopHeaderBuilder = (parent, userId) => {
+export const AppTopHeaderBuilder = (parent) => {
     parent.innerHTML = template;
     parent.classList.add('app-top-header');
 

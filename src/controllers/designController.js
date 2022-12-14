@@ -1,8 +1,11 @@
 'use strict';
+const depositModel = require('../models/depositModel');
+const purchaseModel = require('../models/purchaseModel');
 const designModel = require('../models/designModel');
 const designFileModel = require('../models/designFileModel');
 const uploadModel = require('../models/uploadModel');
 const likeModel = require('../models/likeModel');
+const commentModel = require('../models/commentModel');
 
 /** @type {import('express').Handler} */
 const saveDesign = async (req, res) => {
@@ -59,7 +62,7 @@ const getDesignLikeCount = async (req, res) => {
 
     const isLiked = await likeModel.getLike({ userId, designId });
 
-    return res.status(200).send({ likeCount: await likeModel.countLikesByDesignId(designId), isLiked });
+    return res.status(200).send({ likeCount: await likeModel.countLikesByDesignId(designId), isLiked: !!isLiked });
 };
 
 /** @type {import('express').Handler} */
@@ -79,10 +82,62 @@ const likeDesign = async (req, res) => {
     return res.status(200).send({ isLiked: !currentLike, likeCount });
 };
 
+/** @type {import('express').Handler} */
+const commentDesign = async (req, res) => {
+    const { designId } = req.params;
+    const { id: userId } = req.user;
+    const { description } = req.body;
+
+    const comment = await commentModel.saveComment({ userId, designId, description });
+
+    return res.status(200).send({ comment });
+};
+
+/** @type {import('express').Handler} */
+const getDesignComments = async (req, res) => {
+    const { designId } = req.params;
+
+    const comments = await commentModel.getAllCommentByDesignId(designId, res);
+
+    return res.status(200).send({ comments });
+};
+
+/** @type {import('express').Handler} */
+const buyDesign = async (req, res) => {
+    const { designId } = req.params;
+    const { id: userId } = req.user;
+    const design = await designModel.getDesignDetails(designId);
+    const { price } = design;
+
+    const parsedPrice = parseFloat(price);
+
+    const userSumDeposit = await depositModel.getUserSumDeposit(userId);
+    const userSumPurchases = await purchaseModel.getUserSumPurchases(userId);
+
+    if (Number.isNaN(parsedPrice) || Number.isNaN(userSumDeposit) || Number.isNaN(userSumPurchases)) {
+        return res.status(500).send({ message: 'Something went wrong.' });
+    }
+
+    if (parsedPrice <= 0 || userSumDeposit < 0 || userSumPurchases < 0) {
+        return res.status(500).send({ message: 'Something went wrong.' });
+    }
+
+    if (userSumPurchases + parsedPrice >= userSumDeposit) {
+        return res.status(400).send({ message: 'Not enough money.' });
+    }
+
+    await purchaseModel.savePurchase(designId, userId);
+
+    return res.status(200).send({ message: 'Design bought successfully.' });
+};
+
 module.exports = {
     saveDesign: saveDesign,
     getAllDesigns: getAllDesigns,
     getDesignLikeCount: getDesignLikeCount,
     getDesignDetails: getDesignDetails,
-    likeDesign: likeDesign
+    likeDesign: likeDesign,
+    buyDesign: buyDesign,
+    commentDesign: commentDesign,
+    getDesignComments: getDesignComments,
 };

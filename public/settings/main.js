@@ -1,16 +1,11 @@
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator.js';
 import { endpoints } from '../shared/common.js';
 import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
 import { AppTopHeaderBuilder } from '../shared/components/app-top-header.js';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
 
 window.addEventListener('load', async () => {
-    const loading = LoadingIndicator.init(true);
-
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
     const { body, response, error } = await endpoints.getMyUserProfile();
-    if (error || !body) {
-        console.log(error);
-        return;
-    }
     const { user, userAvatar } = body;
 
     const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);

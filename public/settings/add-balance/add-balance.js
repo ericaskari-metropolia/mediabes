@@ -1,10 +1,10 @@
 import { AppBottomHeaderBuilder } from '../../shared/components/app-bottom-header.js';
-import { LoadingIndicator } from '../../shared/loading-indicator/loading-indicator.js';
 import { enableFormDebug, endpoints, formDataToJson, isDevelopment, storage } from '../../shared/common.js';
 import { AppTopHeaderBuilder } from '../../shared/components/app-top-header.js';
+import { AppLoadingIndicatorBuilder } from '../../shared/components/app-loading-indicator.js';
 
 window.addEventListener('load', async () => {
-    const loading = LoadingIndicator.init(true);
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
 
     const { body, response, error } = await endpoints.getMyUserProfile();
     const { user } = body;
@@ -33,7 +33,7 @@ window.addEventListener('load', async () => {
         elements.formSuccessMessage.hidden = true;
         elements.formErrorMessage.hidden = true;
         event.preventDefault();
-        await loading.show();
+        showLoading();
         const { amount, cardNumber, cardHolderName } = formDataToJson(new FormData(elements.form));
 
         const { error, body, response } = await endpoints.deposit({ amount, cardNumber, cardHolderName });
@@ -63,5 +63,6 @@ window.addEventListener('load', async () => {
                 location.href = '/profile/';
             }, 2000);
         }
+        hideLoading();
     };
 });

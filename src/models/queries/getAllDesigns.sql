@@ -1,4 +1,5 @@
 SELECT design.id              as id,
+       user.id                as userId,
        user.username,
        user.name              as name,
        upload.url             as url,
@@ -12,5 +13,6 @@ FROM designs as design
          LEFT JOIN user_avatar on user.id = user_avatar.user_id
          LEFT JOIN upload user_avatar_upload on user_avatar.upload_id = user_avatar_upload.id
 group by design.created_at
-order by design.created_at desc
+order by design.created_at desc;
+
 

@@ -1,5 +1,7 @@
-// import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
-// import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
+'use strict';
+
+import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
+import { AppTopHeaderBuilder } from '../shared/components/app-top-header.js';
 
 ('use strict');
 const apiUrl = 'http://localhost:3000/api/user/?username=${username}';

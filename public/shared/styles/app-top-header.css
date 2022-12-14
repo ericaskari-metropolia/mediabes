@@ -21,8 +21,8 @@
 }
 
 .app-top-header-content-profile > img {
-    width: 3rem;
-    height: 3rem;
+    width: 2.4rem;
+    height: 2.4rem;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -43,8 +43,8 @@
     width: 100%;
     padding: 10px 10%;
     display: flex;
-    align-items: flex-end;
     justify-content: end;
+    align-items: center;
     position: relative;
 }
 
@@ -89,6 +89,7 @@
 .app-top-header-user-info {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .app-top-header-user-info h3 {
@@ -140,4 +141,32 @@
 }
 .app-top-header-sub-menu-link:hover p {
     font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+    .att-top-header-content{
+        height: 6em;
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 1024px){
+    .att-top-header-content{
+        height: 5em;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px){
+    .att-top-header-content{
+        height: 4em;
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px){
+    .att-top-header-content{
+        height: 3em;
+        font-size: 0.6em;
+    }
 }

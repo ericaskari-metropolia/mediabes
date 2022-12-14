@@ -16,41 +16,25 @@
         <title>Profile</title>
     </head>
     <body>
+        <div id="app-loading-indicator"></div>
         <header id="app-top-header"></header>
         <header id="app-bottom-header"></header>
 
-        <div class="container">
-            <header id="app-header"></header>
+        <div class="container var--profile-container">
             <div class="profile-box">
-                <!-- <nav class="menu-bar">
-                    <i class="fa-solid fa-bars"></i>
-                </nav> -->
-                <img src="/sample-images/profilepic.png" class="profile-pic" alt="profilepic" />
-                <div class="profile-name var--profile-name">Natasha</div>
-                <div class="profile-description var--profile-description">UX Designer at Atlanta</div>
+                <img src="/profile.png" class="var--profile-avatar profile-pic" alt="profilepic" />
+                <div class="profile-name var--profile-name">-</div>
+                <div class="profile-description var--profile-description">-</div>
                 <div class="profile-followers">
-                    <span><i class="fa-solid fa-user"></i><span class="var--follower-count">14</span> followers</span>
-                    <span><i class="fa-solid fa-user"></i><span class="var--following-count">15</span> following</span>
+                    <span><i class="fa-solid fa-user"></i><span class="var--follower-count">-</span> followers</span>
+                    <span><i class="fa-solid fa-user"></i><span class="var--following-count">-</span> following</span>
                 </div>
-                <div class="var--show-balance" hidden><span class="var--account-balance">14</span>€ balance</div>
-                <a class="var--show-edit-profile" hidden type="button" href="/edit-profile/">Edit Profile</a>
+                <div class="var--show-balance" hidden><span class="var--account-balance">-</span>€ balance</div>
+                <a class="var--show-edit-profile" hidden type="button" href="/settings/">Edit Profile</a>
                 <a class="var--show-add-balance" hidden type="button" href="/settings/add-balance/">Add Balance</a>
                 <div class="design-content">
                     <div class="my-designs">Designs</div>
-                    <div class="designs">
-                        <img src="//picsum.photos/400/200?grayscale" alt="Kitten" />
-                        <div class="likes">
-                            <i class="fa-regular fa-heart" id="like1"></i>
-                            <span class="number-likes">1</span>
-                        </div>
-                    </div>
-                    <div class="designs">
-                        <img src="https://picsum.photos/id/237/400/200" alt="Kitten" />
-                        <div class="likes">
-                            <i class="fa-regular fa-heart" id="like1"></i>
-                            <span class="number-likes">12</span>
-                        </div>
-                    </div>
+                    <div class="design-list"></div>
                 </div>
             </div>
         </div>

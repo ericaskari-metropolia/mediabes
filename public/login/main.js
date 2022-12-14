@@ -1,8 +1,7 @@
-import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from '../shared/common.js';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator.js';
+import { endpoints, formDataToJson, storage } from '../shared/common.js';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
 
-window.addEventListener('load', () => {
-    const loading = LoadingIndicator.init();
+window.addEventListener('load', async () => {
     const elements = {
         form: document.getElementById('page-form'),
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],
@@ -10,17 +9,15 @@ window.addEventListener('load', () => {
         debug: document.getElementById('debug')
     };
 
-    if (isDevelopment()) {
-        enableFormDebug(elements.form, elements.debug);
-    }
+    //  Page Loading Indicator
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
 
     elements.form.onsubmit = async (event) => {
         try {
             elements.formSuccessMessage.hidden = true;
             elements.formErrorMessage.hidden = true;
             event.preventDefault();
-            await loading.show();
-
+            showLoading();
             const { username, password } = formDataToJson(new FormData(elements.form));
 
             const { error, body, response } = await endpoints.login({
@@ -49,7 +46,7 @@ window.addEventListener('load', () => {
         } catch (e) {
             console.log(e);
         } finally {
-            loading.hide();
+            hideLoading();
         }
     };
 });

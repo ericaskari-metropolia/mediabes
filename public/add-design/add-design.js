@@ -1,9 +1,10 @@
 import { AppBottomHeaderBuilder } from '../shared/components/app-bottom-header.js';
 import { AppTopHeaderBuilder } from '../shared/components/app-top-header';
-import { LoadingIndicator } from '../shared/loading-indicator/loading-indicator';
-import { endpoints, storage } from '../shared/common';
+import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
+import { endpoints } from '../shared/common.js';
 
 window.addEventListener('load', async () => {
+    //  Element references
     const elements = {
         form: document.querySelector('form'),
         clickArea: document.querySelector('.upload-click-area'),
@@ -11,21 +12,28 @@ window.addEventListener('load', async () => {
         formErrorMessage: document.querySelector('.form-error-message'),
         formSuccessMessage: document.querySelector('.form-success-message')
     };
-    const loading = LoadingIndicator.init(false);
 
+    //  Page Loading Indicator
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
+
+    //  Top Header Component
+    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'));
+
+    //  Bottom Header Component
+    const { setBottomHeaderUserId } = AppBottomHeaderBuilder(document.getElementById('app-bottom-header'));
+
+    showLoading();
+
+    //  Fetch User profile
     const { body, response, error } = await endpoints.getMyUserProfile();
-    if (error || !body) {
-        console.log(error);
-        return;
-    }
     const { user, userAvatar } = body;
 
-    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);
-    AppBottomHeaderBuilder(document.getElementById('app-bottom-header'), user.id);
+    setBottomHeaderUserId(user.id);
 
     if (userAvatar) {
         updateTopHeaderAvatar(userAvatar.url);
     }
+
     let uploadButton = document.getElementById('upload-button');
 
     let chosenFile = document.getElementById('chosen-file');
@@ -65,4 +73,6 @@ window.addEventListener('load', async () => {
     elements.clickArea.onclick = () => {
         elements.fileInput.click();
     };
+
+    hideLoading();
 });
