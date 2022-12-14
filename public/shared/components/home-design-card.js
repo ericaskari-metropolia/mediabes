@@ -21,12 +21,6 @@ const template = `
     <div class='design-card-panel'>
         <div class='design-card-panel-likes'>
             <div>
-                <button class='var--comment-button design-card-icon-button'>
-                    <i class='fa fa-regular fa-message'></i>
-
-                </button>
-            </div>
-            <div>
                 <button class='var--heart-button design-card-icon-button'>
                     <span><svg ><use xlink:href="/solid.svg#heart"></use></svg></span>
                     <span hidden><svg ><use xlink:href="/regular.svg#heart"></use></svg></span>
@@ -58,15 +52,13 @@ export const HomeDesignCardBuilder = ({
     showBuyButton,
     onImgClick,
     onBuyClick,
-    onHeartClick,
-    onCommentClick
+    onHeartClick
 }) => {
     const card = document.createElement('div');
     card.innerHTML = template;
     card.classList.add('design-card');
 
     const elements = {
-        commentButton: card.querySelector(`.var--comment-button`),
         heartButton: card.querySelector(`.var--heart-button`),
         buyButton: card.querySelector(`.var--buy-button`),
         price: card.querySelector(`.var--price`),
@@ -99,9 +91,6 @@ export const HomeDesignCardBuilder = ({
     updateLikeUI(isLiked);
     elements.likeHeartCount.innerText = likeCount;
 
-    elements.commentButton.addEventListener('click', () => {
-        onCommentClick();
-    });
     elements.heartButton.addEventListener('click', async () => {
         elements.heartButton.disabled = true;
         const { isLiked, likeCount } = await onHeartClick();
