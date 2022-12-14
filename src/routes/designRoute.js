@@ -22,6 +22,12 @@ router
         validateExpectedFields('likeDesign'),
         wrapControllerWithErrorHandler(controller.likeDesign)
     )
+    .post(
+        '/:designId/buy',
+        param('designId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('likeDesign'),
+        wrapControllerWithErrorHandler(controller.buyDesign)
+    )
     .get('/', wrapControllerWithErrorHandler(controller.getAllDesigns))
     .get(
         '/:designId',

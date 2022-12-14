@@ -1,4 +1,6 @@
 'use strict';
+const depositModel = require('../models/depositModel');
+const purchaseModel = require('../models/purchaseModel');
 const designModel = require('../models/designModel');
 const designFileModel = require('../models/designFileModel');
 const uploadModel = require('../models/uploadModel');
@@ -79,10 +81,40 @@ const likeDesign = async (req, res) => {
     return res.status(200).send({ isLiked: !currentLike, likeCount });
 };
 
+/** @type {import('express').Handler} */
+const buyDesign = async (req, res) => {
+    const { designId } = req.params;
+    const { id: userId } = req.user;
+    const design = await designModel.getDesignDetails(designId);
+    const { price } = design;
+
+    const parsedPrice = parseFloat(price);
+
+    const userSumDeposit = await depositModel.getUserSumDeposit(userId);
+    const userSumPurchases = await purchaseModel.getUserSumPurchases(userId);
+
+    if (Number.isNaN(parsedPrice) || Number.isNaN(userSumDeposit) || Number.isNaN(userSumPurchases)) {
+        return res.status(500).send({ message: 'Something went wrong.' });
+    }
+
+    if (parsedPrice <= 0 || userSumDeposit < 0 || userSumPurchases < 0) {
+        return res.status(500).send({ message: 'Something went wrong.' });
+    }
+
+    if (userSumPurchases + parsedPrice >= userSumDeposit) {
+        return res.status(400).send({ message: 'Not enough money.' });
+    }
+
+    await purchaseModel.savePurchase(designId, userId);
+
+    return res.status(200).send({ message: 'Design bought successfully.' });
+};
+
 module.exports = {
     saveDesign: saveDesign,
     getAllDesigns: getAllDesigns,
     getDesignLikeCount: getDesignLikeCount,
     getDesignDetails: getDesignDetails,
-    likeDesign: likeDesign
+    likeDesign: likeDesign,
+    buyDesign: buyDesign
 };

@@ -53,6 +53,11 @@ window.addEventListener('load', async () => {
                     onBuyClick: async () => {
                         console.log('onBuyClick');
                         const confirmation = await showPurchaseConfirmation(name, price);
+                        if (!confirmation) {
+                            return;
+                        }
+                        const { response, error, body } = await endpoints.buyDesign(id);
+                        console.log({ response, error, body });
                         console.log(confirmation);
                     },
                     onHeartClick: async () => {

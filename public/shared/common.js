@@ -167,6 +167,39 @@ export const endpoints = {
             return { error, body: null, response };
         }
     },
+    buyDesign: async (designId, token = storage.getToken()) => {
+        const headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `Bearer ${token}`);
+
+        const response = await fetch(`${url}/api/design/${designId}/buy`, {
+            method: 'POST',
+            headers
+        });
+
+        if (response.status === 401) {
+            const data = {
+                body: null,
+                error: null,
+                response
+            };
+
+            location.href = `/login/?message=${encodeURIComponent('Your session has expired. Please login again.')}`;
+            return data;
+        }
+
+        if (response.status === 200) {
+            return {
+                body: await response.json(),
+                error: null,
+                response
+            };
+        } else {
+            const error = await response.json();
+            return { error, body: null, response };
+        }
+    },
     getUserProfile: async (userId, token = storage.getToken()) => {
         const headers = new Headers();
         headers.append('Accept', 'application/json');
