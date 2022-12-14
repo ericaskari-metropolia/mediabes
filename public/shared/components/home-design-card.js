@@ -63,7 +63,7 @@ export const HomeDesignCardBuilder = ({
     const card = document.createElement('div');
     card.innerHTML = template;
     card.classList.add('design-card');
-    console.log(imgProfileSource);
+
     const elements = {
         commentButton: card.querySelector(`.var--comment-button`),
         heartButton: card.querySelector(`.var--heart-button`),

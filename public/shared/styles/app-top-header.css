@@ -21,8 +21,8 @@
 }
 
 .app-top-header-content-profile > img {
-    width: 3rem;
-    height: 3rem;
+    width: 2.4rem;
+    height: 2.4rem;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -43,8 +43,8 @@
     width: 100%;
     padding: 10px 10%;
     display: flex;
-    align-items: flex-end;
     justify-content: end;
+    align-items: center;
     position: relative;
 }
 
@@ -89,6 +89,7 @@
 .app-top-header-user-info {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .app-top-header-user-info h3 {

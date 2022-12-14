@@ -16,6 +16,12 @@ router
         validateExpectedFields('getUser'),
         wrapControllerWithErrorHandler(userController.getUser)
     )
+    .get(
+        '/:userId/designs',
+        param('userId').isNumeric({ no_symbols: true }),
+        validateExpectedFields('getUser'),
+        wrapControllerWithErrorHandler(userController.getUserDesigns)
+    )
     .post(
         '/',
         body('name').isLength({ min: 3 }).trim().escape(),

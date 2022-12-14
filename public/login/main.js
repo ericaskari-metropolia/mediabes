@@ -1,8 +1,7 @@
-import { enableFormDebug, isDevelopment, endpoints, formDataToJson, storage } from '../shared/common.js';
+import { endpoints, formDataToJson, storage } from '../shared/common.js';
 import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-indicator.js';
 
-window.addEventListener('load', () => {
-    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
+window.addEventListener('load', async () => {
     const elements = {
         form: document.getElementById('page-form'),
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],
@@ -10,9 +9,8 @@ window.addEventListener('load', () => {
         debug: document.getElementById('debug')
     };
 
-    if (isDevelopment()) {
-        enableFormDebug(elements.form, elements.debug);
-    }
+    //  Page Loading Indicator
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
 
     elements.form.onsubmit = async (event) => {
         try {

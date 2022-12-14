@@ -8,33 +8,24 @@ import { ModalBuilder } from './shared/components/app-modal.js';
 window.addEventListener('load', async () => {
     //  Page Html element references
     const elements = {
-        topHeaderPlaceHolder: document.getElementById('app-top-header'),
-        bottomHeaderPlaceHolder: document.getElementById('app-bottom-header'),
-        loadingIndicatorPlaceHolder: document.getElementById('app-loading-indicator'),
-        debug: document.getElementById('debug'),
-        modalList: document.getElementById('app-modals'),
         cardList: document.getElementById('card-list')
     };
 
-    const { body, response, error } = await endpoints.getMyUserProfile();
-    if (error || !body) {
-        console.log(error);
-        return;
-    }
-    const { user, userAvatar } = body;
-
     //  Modal Component
     const { showPurchaseConfirmation } = ModalBuilder(document.getElementById('app-modals'));
-
     //  Page Loading Indicator
-    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(elements.loadingIndicatorPlaceHolder);
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
+    //  Top Header Component
+    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'));
+    //  Bottom Header Component
+    const { setBottomHeaderUserId } = AppBottomHeaderBuilder(document.getElementById('app-bottom-header'));
+
     showLoading();
 
-    //  Top Header Component
-    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(elements.topHeaderPlaceHolder, user.id);
+    const { body, response, error } = await endpoints.getMyUserProfile();
+    const { user, userAvatar } = body;
 
-    //  Bottom Header Component
-    AppBottomHeaderBuilder(elements.bottomHeaderPlaceHolder, user.id);
+    setBottomHeaderUserId(user.id);
 
     if (userAvatar) {
         updateTopHeaderAvatar(userAvatar.url);
@@ -77,7 +68,7 @@ window.addEventListener('load', async () => {
         );
 
         for (let card of cards) {
-            document.getElementById('card-list').appendChild(card);
+            elements.cardList.appendChild(card);
         }
     }
 

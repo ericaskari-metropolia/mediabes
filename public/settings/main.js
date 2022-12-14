@@ -6,10 +6,6 @@ import { AppLoadingIndicatorBuilder } from '../shared/components/app-loading-ind
 window.addEventListener('load', async () => {
     const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
     const { body, response, error } = await endpoints.getMyUserProfile();
-    if (error || !body) {
-        console.log(error);
-        return;
-    }
     const { user, userAvatar } = body;
 
     const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'), user.id);

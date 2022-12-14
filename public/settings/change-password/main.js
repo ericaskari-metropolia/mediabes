@@ -1,9 +1,9 @@
-import { enableFormDebug, isDevelopment, endpoints, formDataToJson } from '../../shared/common.js';
+import { endpoints, formDataToJson } from '../../shared/common.js';
 import { AppLoadingIndicatorBuilder } from '../../shared/components/app-loading-indicator.js';
+import { AppTopHeaderBuilder } from '../../shared/components/app-top-header.js';
+import { AppBottomHeaderBuilder } from '../../shared/components/app-bottom-header.js';
 
-window.addEventListener('load', () => {
-    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
-
+window.addEventListener('load', async () => {
     const elements = {
         form: document.getElementById('page-form'),
         formErrorMessage: document.getElementsByClassName('form-error-message')[0],
@@ -11,8 +11,22 @@ window.addEventListener('load', () => {
         debug: document.getElementById('debug')
     };
 
-    if (isDevelopment()) {
-        enableFormDebug(elements.form, elements.debug);
+    //  Page Loading Indicator
+    const { hideLoading, showLoading } = AppLoadingIndicatorBuilder(document.getElementById('app-loading-indicator'));
+    //  Top Header Component
+    const { updateTopHeaderAvatar } = AppTopHeaderBuilder(document.getElementById('app-top-header'));
+    //  Bottom Header Component
+    const { setBottomHeaderUserId } = AppBottomHeaderBuilder(document.getElementById('app-bottom-header'));
+
+    showLoading();
+
+    const { body, response, error } = await endpoints.getMyUserProfile();
+    const { user, userAvatar } = body;
+
+    setBottomHeaderUserId(user.id);
+
+    if (userAvatar) {
+        updateTopHeaderAvatar(userAvatar.url);
     }
 
     elements.form.onsubmit = async (event) => {
@@ -53,8 +67,9 @@ window.addEventListener('load', () => {
         } catch (e) {
             console.log(e);
         } finally {
-            loading.hide();
             hideLoading();
         }
     };
+
+    hideLoading();
 });

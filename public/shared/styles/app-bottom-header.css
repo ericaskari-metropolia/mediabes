@@ -1,7 +1,7 @@
 @import 'variables.css';
 
-.app-header {
-    height: 80px;
+.app-bottom-header {
+    height: 60px;
     display: flex;
     position: fixed;
     bottom: 0;
@@ -20,12 +20,18 @@
     gap: clamp(1rem, 20vw, 10rem);
     background-color: white;
 }
+
 .app-header-icon {
     font-size: 1.5rem;
     scale: 0.8;
     transition: all 0.1s;
-    color: var(--blue);
+    fill: var(--blue);
     cursor: pointer;
+}
+
+.app-header-icon > svg {
+    width: 1rem;
+    height: 1rem;
 }
 
 .app-header-icon:hover {
