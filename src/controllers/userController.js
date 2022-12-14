@@ -9,8 +9,11 @@ const { validationResult } = require('express-validator');
 
 /** @type {import('express').Handler} */
 const getUsers = async (req, res) => {
-    console.log('getUsers');
-    console.log(req.user);
+    const usernameParam = req.query.username ?? '';
+    if (usernameParam && usernameParam !== '') {
+        const searchedUsers = await userModel.searchUserByUsername(usernameParam);
+        return res.send(searchedUsers);
+    }
     const users = await userModel.getAllUsers(res);
     res.json(users);
 };
