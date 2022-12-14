@@ -20,23 +20,57 @@
         <header id="app-top-header"></header>
         <header id="app-bottom-header"></header>
 
-        <div class="container var--profile-container">
-            <div class="profile-box">
-                <img src="/profile.png" class="var--profile-avatar profile-pic" alt="profilepic" />
-                <div class="profile-name var--profile-name">-</div>
-                <div class="profile-description var--profile-description">-</div>
-                <div class="profile-followers">
-                    <span><i class="fa-solid fa-user"></i><span class="var--follower-count">-</span> followers</span>
-                    <span><i class="fa-solid fa-user"></i><span class="var--following-count">-</span> following</span>
+        <div class="content var--profile-container">
+            <div class="content-header">
+                <div class="content-header-image-wrapper">
+                    <img src="/profile.png" class="var--profile-avatar content-header-image" alt="profilepic" />
                 </div>
-                <div class="var--show-balance" hidden><span class="var--account-balance">-</span>€ balance</div>
-                <a class="var--show-edit-profile" hidden type="button" href="/settings/">Edit Profile</a>
-                <a class="var--show-add-balance" hidden type="button" href="/settings/add-balance/">Add Balance</a>
-                <div class="design-content">
-                    <div class="my-designs">Designs</div>
-                    <div class="design-list"></div>
+                <div class="content-header-data">
+                    <div class="profile-name var--profile-name content-header-data-name">-</div>
+                    <div class="profile-followers">
+                        <div>
+                            <span>
+                                <i class="fa-solid fa-user"></i><span class="var--follower-count">-</span>
+                                <span>Followers</span>
+                            </span>
+                            <span>
+                                <i class="fa-solid fa-user"></i><span class="var--following-count">-</span>
+                                <span>Following</span>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="var--show-balance" hidden>
+                                <span class="var--account-balance">-</span><i class="fa-solid fa-euro-sign"></i>
+                                <span>Balance</span>
+                            </span>
+                        </div>
+                        <div class="profile-actions">
+                            <a
+                                class="var--show-edit-profile app-form-action-button"
+                                hidden
+                                type="button"
+                                href="/settings/"
+                            >
+                                Edit Profile
+                            </a>
+                            <a
+                                class="var--show-add-balance app-form-action-button"
+                                hidden
+                                type="button"
+                                href="/settings/add-balance/"
+                            >
+                                Add Balance
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="profile-description var--profile-description">-</div>
+            <div class="my-designs-tabs var--profile-actions">
+                <button class="var--show-my-designs">My Designs</button>
+                <button class="var--show-purchased-designs">Purchases</button>
+            </div>
+            <div class="design-list var--user-designs"></div>
         </div>
     </body>
 </html>
