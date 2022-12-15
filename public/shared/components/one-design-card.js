@@ -2,7 +2,7 @@ import formatDistance from 'date-fns/formatDistance';
 
 const template = `
     <div class='design-card-profile'>
-        <div
+        <div>
             <img class='var--home-design-card-img-profile-source design-card-profile-image' src='/profile.png' alt='Profile picture' />
         </div>
         <div class='design-card-profile-info-wrap'>
@@ -21,7 +21,7 @@ const template = `
 
     <div class="bottom">
         <div class="actionBtns">
-            <div class="left" style="display: flex;">
+            <div style="display: flex; align-items: center">
                 <button class='var--heart-button design-card-icon-button'>
                     <span><svg ><use xlink:href="/solid.svg#heart"></use></svg></span>
                     <span hidden><svg ><use xlink:href="/regular.svg#heart"></use></svg></span>
@@ -60,10 +60,12 @@ const template = `
                     <i class="far fa-smile"></i>
                 </h3>
             </div>
-            <input id="comment-input" type="text"
-                   class="text"
-                   placeholder="Add a comment...">
-            <a class="var--comment-button" style="cursor: pointer;">Post</a>
+            <div style='display: flex;'>
+                <input id="comment-input" type="text" style='padding: 1rem'
+                    class="text"
+                    placeholder="Add a comment...">
+                <button class="app-form-action-button  var--comment-button" style="cursor: pointer;">Post</button>
+            </div>
         </div>
     </div>
 `;
@@ -72,7 +74,7 @@ const commentTemplate = `
     <p>
         <b>{username}</b> {comment}
     </p>
-`
+`;
 
 export const OneDesignCardBuilder = ({
     name,
@@ -87,7 +89,7 @@ export const OneDesignCardBuilder = ({
     comments,
     onBuyClick,
     onHeartClick,
-    onCommentClick,
+    onCommentClick
 }) => {
     const card = document.createElement('div');
     card.innerHTML = template;
@@ -106,7 +108,7 @@ export const OneDesignCardBuilder = ({
         likeHeartCount: card.querySelector(`.var--like-heart-count`),
         description: card.querySelector(`.var-home-design-card-description`),
         commentSection: card.querySelector(`.var-home-design-card-comments`),
-        time: card.querySelector(`.var--postTime`),
+        time: card.querySelector(`.var--postTime`)
     };
 
     elements.price.innerText = price;
@@ -122,12 +124,10 @@ export const OneDesignCardBuilder = ({
     elements.time.innerHTML = `${formatDistance(new Date(created_at), new Date())} ago`;
 
     const renderComment = (c) => {
-        const commentHTML = commentTemplate
-            .replace('{username}', c.name)
-            .replace('{comment}', c.description);
-        
+        const commentHTML = commentTemplate.replace('{username}', c.name).replace('{comment}', c.description);
+
         elements.commentSection.innerHTML += commentHTML;
-    }
+    };
 
     comments.forEach(renderComment);
 
@@ -155,7 +155,7 @@ export const OneDesignCardBuilder = ({
     });
 
     elements.likeHeartCount.innerText = likeCount;
-    
+
     elements.heartButton.addEventListener('click', async () => {
         elements.heartButton.disabled = true;
         const { isLiked, likeCount } = await onHeartClick();

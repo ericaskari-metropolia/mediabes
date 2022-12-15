@@ -78,7 +78,7 @@
     border-radius: 10px;
 }
 .app-top-header-sub-menu-wrap.open-menu {
-    max-height: 400px;
+    max-height: 500px;
 }
 
 .app-top-header-sub-menu {
@@ -119,6 +119,7 @@
     gap: 1rem;
     color: #525252;
     margin: 12px 0;
+    cursor: pointer;
 }
 
 .app-top-header-sub-menu-link p {
@@ -141,32 +142,4 @@
 }
 .app-top-header-sub-menu-link:hover p {
     font-weight: 600;
-}
-
-@media (min-width: 1024px) {
-    .att-top-header-content{
-        height: 6em;
-        font-size: 1.5em;
-    }
-}
-
-@media (max-width: 1024px){
-    .att-top-header-content{
-        height: 5em;
-        font-size: 1em;
-    }
-}
-
-@media (max-width: 768px){
-    .att-top-header-content{
-        height: 4em;
-        font-size: 0.8em;
-    }
-}
-
-@media (max-width: 480px){
-    .att-top-header-content{
-        height: 3em;
-        font-size: 0.6em;
-    }
 }
