@@ -1,40 +1,24 @@
 # mediabes
+
 Node version: v16.16.0
 
 
+Create a .env file
+```
+DB_HOST=localhost
+DB_USER=metropolia
+DB_PASSWORD=metropolia
+DB_NAME=metropolia
+JWT_SECRET=metropolia
+AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=mediabes;AccountKey=RDYhoOWoW6GpUmsy2lwdrZY6Xj90dhP+h89Zq+xwhhfO59kL+j/8B0Ghcv9jsCshLcVVsacB6PS/+AStM/Gnyw==;EndpointSuffix=core.windows.net
+
+```
+
+Run these scripts
+
+
     npm install
-    npm run start
+    npm run start:ui
+    npm run start:api
 
 
-# HOW DEPLOYMENT PROCESS CODED:
-```
-1. Login
-
-   az login -u USERNAME -p PASSWORD
-
-2. Login 
-
-   az acr login --name mediabes
-
-2. Create Plan
-
-   az appservice plan create \
-   --name mediabes \
-   --resource-group mediabes \
-   --sku S1 \
-   --is-linux
-
-   az appservice plan create \
-   --resource-group mediabes \
-   --name mediabes \
-   --is-linux
-
-3. Create Web App
-
-  az webapp create \
-   --name mediabes \
-   --plan mediabes \
-   --resource-group mediabes \
-   --multicontainer-config-type compose \
-   --multicontainer-config-file docker-compose-test.yml
-```
