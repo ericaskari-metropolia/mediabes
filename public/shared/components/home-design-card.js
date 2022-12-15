@@ -1,8 +1,8 @@
 const template = `
     <div class='design-card-profile'>
-        <div>
+        <a class='var--profile-link' href='/profile'>
             <img class='var--home-design-card-img-profile-source design-card-profile-image' src='/profile.png' alt='Profile picture' />
-        </div>
+        </a>
         <div class='design-card-profile-info-wrap'>
             <b class='var--home-design-card-name'>SomeOne</b>
             <small><b class='var--home-design-card-username'>@username</b></small>
@@ -41,6 +41,7 @@ const template = `
 `;
 
 export const HomeDesignCardBuilder = ({
+    userId,
     name,
     description,
     username,
@@ -68,6 +69,7 @@ export const HomeDesignCardBuilder = ({
         imgProfileSource: card.querySelector(`.var--home-design-card-img-profile-source`),
         likeHeartIconSvg: card.querySelector(`.var--like-heart-icon`),
         likeHeartCount: card.querySelector(`.var--like-heart-count`),
+        profileLink: card.querySelector(`.var--profile-link`),
         description: card.querySelector(`.var-home-design-card-description`)
     };
 
@@ -75,6 +77,7 @@ export const HomeDesignCardBuilder = ({
     elements.name.innerText = name;
     elements.description.innerText = description;
     elements.username.innerText = username;
+    elements.profileLink.setAttribute('href', `/profile/?id=${userId}`);
     elements.imgSource.setAttribute('src', imgSource);
     if (imgProfileSource) {
         elements.imgProfileSource.setAttribute('src', imgProfileSource);

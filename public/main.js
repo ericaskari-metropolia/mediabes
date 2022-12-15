@@ -45,6 +45,7 @@ window.addEventListener('load', async () => {
                 const { likeCount, isLiked } = body;
                 console.log(purchasedDesigns.find((x) => x.id === id));
                 return HomeDesignCardBuilder({
+                    userId,
                     name,
                     description,
                     imgSource: url,
