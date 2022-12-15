@@ -1,3 +1,5 @@
+import { storage } from '../common';
+
 const template = `
     <nav  class='app-top-header-content'>
         <a class='app-top-header-content-profile' href='/profile/'>
@@ -34,6 +36,11 @@ const template = `
                     <p>Main Page</p>
                     <span>></span>
                 </a>
+                <a class='app-top-header-sub-menu-link var--logout-link'>
+                    <i class='fa-solid fa-house'></i>
+                    <p>Logout</p>
+                    <span>></span>
+                </a>
             </div>
         </div>
     </nav>
@@ -52,7 +59,8 @@ export const AppTopHeaderBuilder = (parent) => {
         profileImage: parent.querySelector('.var-top-header-profile-img'),
         menuProfileImage: parent.querySelector('.var-top-header-menu-profile-img'),
         subMenu: parent.querySelector('#subMenu'),
-        toggleMenu: parent.querySelector('.var--app-top-header-toggle-menu')
+        toggleMenu: parent.querySelector('.var--app-top-header-toggle-menu'),
+        logoutLink: parent.querySelector('.var--logout-link')
     };
 
     elements.toggleMenu.onclick = () => {
@@ -60,6 +68,11 @@ export const AppTopHeaderBuilder = (parent) => {
         elements.subMenu.classList.toggle('open-menu');
     };
 
+    elements.logoutLink.addEventListener('click', () => {
+        storage.setToken(null);
+        storage.setExpiresAt(null);
+        window.location.href = `/login/`;
+    });
     return {
         updateTopHeaderAvatar
     };
