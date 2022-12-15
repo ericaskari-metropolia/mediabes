@@ -12,13 +12,8 @@ const template = `
             <div class='app-top-header-sub-menu'>
                 <a class='app-top-header-user-info' href='/profile/'>
                     <img class='var-top-header-menu-profile-img' src='/profile.png' />
-<<<<<<< HEAD
-                    <h3></h3>
-                </div>
-=======
                     <h3>Natasha</h3>
                 </a>
->>>>>>> main
                 <hr />
 
                 <a href='/search/' class='app-top-header-sub-menu-link'>
