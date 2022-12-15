@@ -20,11 +20,11 @@ window.addEventListener('load', async () => {
     const randomEmail = faker.internet.email();
     const randomUsername = faker.internet.userName();
 
-    elements.nameFormControl.value = faker.name.fullName();
-    elements.emailFormControl.value = randomEmail;
-    elements.usernameFormControl.value = randomUsername;
-    elements.passwordFormControl.value = randomUsername;
-    elements.repeatPasswordFormControl.value = randomUsername;
+    // elements.nameFormControl.value = faker.name.fullName();
+    // elements.emailFormControl.value = randomEmail;
+    // elements.usernameFormControl.value = randomUsername;
+    // elements.passwordFormControl.value = randomUsername;
+    // elements.repeatPasswordFormControl.value = randomUsername;
 
     if (isDevelopment()) {
         enableFormDebug(elements.form, elements.debug);
